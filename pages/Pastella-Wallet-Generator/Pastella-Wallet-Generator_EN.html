@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pastella Wallet Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha3/0.9.3/sha3.min.js"></script>
+<style>
+  /* ============================================================
+     bg:         #1E1D1F
+     card:       #282729
+     card-hdr:   #222123
+     navbar:     #1A191B
+     accent:     #FF8AFB  (link / highlight)
+     text:       rgba(255,255,255,0.8)
+     muted:      rgba(255,255,255,0.5)
+     mono font:  Roboto Mono
+     head font:  Montserrat
+  ============================================================ */
+  :root {
+    --pas-bg:       #1E1D1F;
+    --pas-navbar:   #1A191B;
+    --pas-card:     #282729;
+    --pas-card-hdr: #222123;
+    --pas-border:   rgba(255,255,255,0.08);
+    --pas-accent:   #FF8AFB;
+    --pas-pink:     #FF8AFB;
+    --pas-text:     rgba(255,255,255,0.85);
+    --pas-muted:    rgba(255,255,255,0.5);
+    --pas-mono:     'Roboto Mono', monospace;
+    --pas-head:     'Montserrat', sans-serif;
+  }
+
+  /* ---- Reset & Base ---- */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    background-color: var(--pas-bg);
+    color: var(--pas-text);
+    font-family: var(--pas-mono);
+    min-height: 100vh;
+    padding-bottom: 4rem;
+    margin: 0;
+  }
+
+  a { color: var(--pas-pink); }
+  a:hover { color: #ffb3fd; }
+
+  /* ---- Navbar —--- */
+  .pas-navbar {
+    background-color: var(--pas-navbar);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0.75rem 0;
+  }
+
+  .pas-navbar .brand {
+    font-family: var(--pas-head);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .pas-navbar .brand .badge-pill {
+    background: linear-gradient(130deg, #a65ff2, #f25fd0, #FF8AFB);
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 99px;
+    color: #fff;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: var(--pas-mono);
+  }
+
+  .pas-navbar .nav-link {
+    color: var(--pas-muted);
+    font-family: var(--pas-head);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    transition: color 0.15s;
+  }
+
+  .pas-navbar .nav-link:hover,
+  .pas-navbar .nav-link.active { color: var(--pas-pink); }
+
+  /* ---- Container ---- */
+  .main-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem;
+  }
+
+  /* ---- Page Header ---- */
+  .page-header {
+    text-align: center;
+    padding: 2.5rem 0 2rem;
+  }
+
+  .page-header h1 {
+    font-family: var(--pas-head);
+    font-weight: 800;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: #fff;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin-bottom: 0.6rem;
+  }
+
+  .page-header h1 .hl { color: var(--pas-pink); }
+
+  .page-header p {
+    color: var(--pas-muted);
+    font-size: 0.875rem;
+    margin: 0;
+  }
+
+  /* ---- Rainbow gradient border — dari block-border-light ---- */
+  @keyframes pas-gradient {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .rainbow-line {
+    height: 2px;
+    background: linear-gradient(130deg,
+      rgba(95,134,242,1), rgba(166,95,242,1), rgba(242,95,208,1),
+      rgba(255,138,251,1), rgba(242,203,95,1), rgba(171,242,95,1),
+      rgba(95,242,129,1), rgba(95,242,240,1));
+    background-size: 400% 400%;
+    animation: pas-gradient 8s ease infinite;
+    border-radius: 99px;
+    margin: 1.5rem 0;
+    opacity: 0.7;
+  }
+
+  /* ---- Tabs ---- */
+  .pas-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.5rem;
+    background: var(--pas-card-hdr);
+    border-radius: 8px;
+    padding: 4px;
+    border: 1px solid var(--pas-border);
+  }
+
+  .pas-tab {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    background: transparent;
+    border: none;
+    color: var(--pas-muted);
+    font-family: var(--pas-head);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.18s;
+    letter-spacing: 0.02em;
+  }
+
+  .pas-tab:hover { color: rgba(255,255,255,0.8); }
+
+  .pas-tab.active {
+    background: var(--pas-card);
+    color: var(--pas-pink);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ---- Cards ---- */
+  .pas-card {
+    background-color: var(--pas-card);
+    border: 1px solid var(--pas-border);
+    border-radius: 10px;
+    margin-bottom: 1.1rem;
+    overflow: hidden;
+  }
+
+  .pas-card-header {
+    background-color: var(--pas-card-hdr);
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--pas-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .pas-card-header .title {
+    font-family: var(--pas-head);
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: #fff;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .pas-card-header .title i { color: var(--pas-pink); font-size: 0.9rem; }
+
+  .pas-card-body { padding: 1.25rem; }
+
+  /* ---- Warning ---- */
+  .pas-warning {
+    background: rgba(255,138,251,0.06);
+    border: 1px solid rgba(255,138,251,0.25);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.82rem;
+    color: rgba(255,138,251,0.9);
+    line-height: 1.65;
+  }
+
+  .pas-warning strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--pas-pink);
+    font-family: var(--pas-head);
+  }
+
+  /* ---- Buttons ---- */
+  .btn-pas {
+    background: linear-gradient(130deg, rgba(166,95,242,0.85), rgba(255,138,251,0.85));
+    border: none;
+    border-radius: 7px;
+    color: #fff;
+    font-family: var(--pas-head);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+
+  .btn-pas:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(255,138,251,0.3); }
+  .btn-pas:active { transform: translateY(0); }
+  .btn-pas:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .btn-pas-sm {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--pas-border);
+    border-radius: 5px;
+    color: var(--pas-muted);
+    font-family: var(--pas-mono);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-pas-sm:hover { color: var(--pas-pink); border-color: rgba(255,138,251,0.4); }
+
+  .btn-pas-danger {
+    background: rgba(255,80,80,0.1);
+    border: 1px solid rgba(255,80,80,0.35);
+    border-radius: 7px;
+    color: #ff7070;
+    font-family: var(--pas-head);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.75rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: none;
+  }
+
+  .btn-pas-danger:hover { background: rgba(255,80,80,0.2); }
+
+  .btn-row {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-row .btn-pas { flex: 1; width: auto; }
+
+  /* ---- Mnemonic Grid ---- */
+  #generated-wallet, #recovered-wallet, #vanity-result { display: none; }
+
+  .mnemonic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+    gap: 0.45rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .mnemonic-word {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--pas-border);
+    border-radius: 6px;
+    padding: 0.45rem 0.65rem;
+    font-family: var(--pas-mono);
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: border-color 0.15s;
+  }
+
+  .mnemonic-word:hover { border-color: rgba(255,138,251,0.3); }
+
+  .mnemonic-word .wnum {
+    font-size: 0.6rem;
+    color: var(--pas-muted);
+    min-width: 1.6rem;
+    font-weight: 600;
+  }
+
+  /* Checksum word — rainbow glow */
+  .mnemonic-word.checksum-word {
+    background: linear-gradient(130deg,
+      rgba(95,134,242,0.12), rgba(255,138,251,0.12), rgba(95,242,240,0.12));
+    border-color: rgba(255,138,251,0.45);
+    color: var(--pas-pink);
+  }
+
+  .mnemonic-word.checksum-word .wnum { color: rgba(255,138,251,0.6); }
+
+  /* ---- Field rows ---- */
+  .field-row { margin-bottom: 0.9rem; }
+  .field-row:last-child { margin-bottom: 0; }
+
+  .field-label {
+    font-family: var(--pas-head);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pas-muted);
+    margin-bottom: 0.35rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .field-value {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--pas-border);
+    border-radius: 6px;
+    padding: 0.7rem 0.9rem;
+    font-family: var(--pas-mono);
+    font-size: 0.77rem;
+    word-break: break-all;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .field-value.v-address { color: #5ff2f0; }
+  .field-value.v-private  { color: var(--pas-pink); }
+  .field-value.v-mnemonic { color: rgba(171,242,95,0.9); }
+  .field-value.v-pubkey   { color: rgba(255,255,255,0.6); }
+
+  /* ---- Checksum status ---- */
+  .checksum-status {
+    border-radius: 7px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.8rem;
+    font-family: var(--pas-head);
+    font-weight: 600;
+    margin-top: 0.75rem;
+    display: none;
+  }
+
+  .cs-ok   { background: rgba(95,242,129,0.1);  border: 1px solid rgba(95,242,129,0.3);  color: #5ff281; }
+  .cs-fail { background: rgba(255,80,80,0.1);    border: 1px solid rgba(255,80,80,0.3);   color: #ff7070; }
+
+  /* ---- Textarea ---- */
+  textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--pas-border);
+    border-radius: 7px;
+    padding: 0.85rem 1rem;
+    color: rgba(255,255,255,0.85);
+    font-family: var(--pas-mono);
+    font-size: 0.83rem;
+    line-height: 1.7;
+    resize: vertical;
+    min-height: 108px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  textarea:focus { border-color: rgba(255,138,251,0.5); }
+
+  /* ---- Error ---- */
+  .error-msg {
+    background: rgba(255,80,80,0.08);
+    border: 1px solid rgba(255,80,80,0.3);
+    border-radius: 7px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.82rem;
+    color: #ff7070;
+    margin-top: 0.75rem;
+    display: none;
+  }
+
+  .error-msg.show { display: block; }
+
+  /* ---- Form inputs ---- */
+  .form-group { margin-bottom: 0; }
+
+  .form-group label {
+    display: block;
+    font-family: var(--pas-head);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pas-muted);
+    margin-bottom: 0.35rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--pas-border);
+    border-radius: 6px;
+    padding: 0.6rem 0.85rem;
+    color: rgba(255,255,255,0.85);
+    font-family: var(--pas-mono);
+    font-size: 0.83rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus { border-color: rgba(255,138,251,0.5); }
+
+  .form-group select option { background: var(--pas-card); }
+
+  /* ---- Vanity stats ---- */
+  .vanity-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--pas-border);
+    border-radius: 7px;
+    padding: 0.75rem;
+    text-align: center;
+  }
+
+  .stat-box .val {
+    font-family: var(--pas-mono);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--pas-pink);
+  }
+
+  .stat-box .lbl {
+    font-family: var(--pas-head);
+    font-size: 0.62rem;
+    color: var(--pas-muted);
+    margin-top: 0.2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .progress-bar-bg {
+    background: rgba(255,255,255,0.06);
+    border-radius: 99px;
+    height: 5px;
+    margin-top: 0.75rem;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #a65ff2, #FF8AFB, #5ff2f0);
+    background-size: 200%;
+    animation: pas-gradient 3s ease infinite;
+    border-radius: 99px;
+    transition: width 0.3s;
+    width: 0%;
+  }
+
+  .vanity-current {
+    margin-top: 0.55rem;
+    font-family: var(--pas-mono);
+    font-size: 0.68rem;
+    color: var(--pas-muted);
+    word-break: break-all;
+  }
+
+  /* ---- Footer ---- */
+  .pas-footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--pas-border);
+    font-size: 0.75rem;
+    color: var(--pas-muted);
+    line-height: 1.9;
+    font-family: var(--pas-mono);
+  }
+
+  .pas-footer a { color: var(--pas-pink); text-decoration: none; }
+  .pas-footer a:hover { text-decoration: underline; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 576px) {
+    .vanity-controls { grid-template-columns: 1fr !important; }
+    .vanity-stats { grid-template-columns: repeat(3,1fr); }
+    .mnemonic-grid { grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="pas-navbar">
+  <div class="main-container d-flex align-items-center justify-content-between flex-wrap gap-2" style="padding-top:0;padding-bottom:0">
+    <a href="#" class="brand">
+      <i class="fa-solid fa-wallet" style="color:var(--pas-pink);font-size:1.1rem"></i>
+      Pastella
+      <span class="badge-pill">Wallet</span>
+    </a>
+    <div class="d-flex gap-1 flex-wrap">
+      <a href="https://pastella.org" target="_blank" class="nav-link"><i class="fa-solid fa-house fa-sm me-1"></i>Home</a>
+      <a href="https://explorer.pastella.org" target="_blank" class="nav-link"><i class="fa-solid fa-cubes fa-sm me-1"></i>Explorer</a>
+      <a href="https://pool.pastella.org" target="_blank" class="nav-link"><i class="fa-solid fa-server fa-sm me-1"></i>Pool</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1><i class="fa-solid fa-key" style="color:var(--pas-pink);font-size:0.75em;margin-right:0.3em"></i>Wallet <span class="hl">Generator</span></h1>
+    <p>The code runs entirely in the browser — no data is sent to any server.</p>
+  </div>
+
+  <div class="rainbow-line"></div>
+
+  <!-- Tabs -->
+  <div class="pas-tabs">
+    <button class="pas-tab active" onclick="switchTab('generate', this)">
+      <i class="fa-solid fa-bolt fa-sm me-1"></i>Generate
+    </button>
+    <button class="pas-tab" onclick="switchTab('recover', this)">
+      <i class="fa-solid fa-rotate fa-sm me-1"></i>Recover
+    </button>
+    <button class="pas-tab" onclick="switchTab('vanity', this)">
+      <i class="fa-solid fa-sparkles fa-sm me-1"></i>Vanity
+    </button>
+  </div>
+
+  <!-- ===== GENERATE TAB ===== -->
+  <div id="generate-tab" class="tab-content active">
+
+    <div class="pas-warning">
+      <strong><i class="fa-solid fa-triangle-exclamation me-1"></i>Security Warning</strong>
+      Never share your private key or mnemonic. Anyone with the mnemonic seed can access your funds completely. Make sure no one is watching your screen when creating a new wallet.
+    </div>
+
+    <button class="btn-pas" id="gen-btn" onclick="generateWallet()">
+      <i class="fa-solid fa-bolt me-2"></i>Generate New Wallet
+    </button>
+
+    <div id="generated-wallet">
+
+      <!-- Mnemonic Grid -->
+      <div class="pas-card" style="margin-top:1.1rem">
+        <div class="pas-card-header">
+          <span class="title"><i class="fa-solid fa-list-ol"></i>Mnemonic Seed — 25 Words</span>
+        </div>
+        <div class="pas-card-body">
+          <div class="mnemonic-grid" id="mnemonic-words"></div>
+          <div id="checksum-verify" class="checksum-status"></div>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="pas-card">
+        <div class="pas-card-header">
+          <span class="title"><i class="fa-solid fa-at"></i>Address</span>
+          <button class="btn-pas-sm" onclick="copyEl('address-display')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+        </div>
+        <div class="pas-card-body">
+          <div class="field-value v-address" id="address-display"></div>
+        </div>
+      </div>
+
+      <!-- Private Key -->
+      <div class="pas-card">
+        <div class="pas-card-header">
+          <span class="title"><i class="fa-solid fa-key"></i>Private Key (Seed Hex)</span>
+          <button class="btn-pas-sm" onclick="copyEl('seed-display')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+        </div>
+        <div class="pas-card-body">
+          <div class="field-value v-private" id="seed-display"></div>
+        </div>
+      </div>
+
+      <!-- Public Key -->
+      <div class="pas-card">
+        <div class="pas-card-header">
+          <span class="title"><i class="fa-solid fa-lock-open"></i>Public Key</span>
+          <button class="btn-pas-sm" onclick="copyEl('public-key-display')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+        </div>
+        <div class="pas-card-body">
+          <div class="field-value v-pubkey" id="public-key-display"></div>
+        </div>
+      </div>
+
+      <!-- Mnemonic full text -->
+      <div class="pas-card">
+        <div class="pas-card-header">
+          <span class="title"><i class="fa-solid fa-align-left"></i>Mnemonic (Full Text)</span>
+          <button class="btn-pas-sm" onclick="copyEl('mnemonic-phrase-display')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+        </div>
+        <div class="pas-card-body">
+          <div class="field-value v-mnemonic" id="mnemonic-phrase-display"></div>
+        </div>
+      </div>
+
+    </div><!-- /generated-wallet -->
+  </div><!-- /generate-tab -->
+
+  <!-- ===== RECOVER TAB ===== -->
+  <div id="recover-tab" class="tab-content">
+    <div class="pas-card">
+      <div class="pas-card-header">
+        <span class="title"><i class="fa-solid fa-rotate"></i>Recover Wallet from Mnemonic</span>
+      </div>
+      <div class="pas-card-body">
+        <div class="form-group">
+          <label>Enter 25 mnemonic words (separated by spaces)</label>
+          <textarea id="recovery-mnemonic" placeholder="word1 word2 word3 ... word25" oninput="hideErr('recovery-error')"></textarea>
+        </div>
+        <div class="error-msg" id="recovery-error"></div>
+        <button class="btn-pas" style="margin-top:1rem" onclick="recoverWallet()">
+          <i class="fa-solid fa-rotate me-2"></i>Recover Wallet
+        </button>
+      </div>
+    </div>
+
+    <div id="recovered-wallet">
+      <div class="pas-card">
+        <div class="pas-card-header">
+          <span class="title"><i class="fa-solid fa-circle-check"></i>Wallet Successfully Recovered</span>
+        </div>
+        <div class="pas-card-body">
+          <div id="recovery-checksum-status" class="checksum-status cs-ok" style="display:block;margin-bottom:1rem"></div>
+
+          <div class="field-row">
+            <div class="field-label">
+              <span><i class="fa-solid fa-at me-1"></i>Address</span>
+              <button class="btn-pas-sm" onclick="copyEl('recovered-address')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+            </div>
+            <div class="field-value v-address" id="recovered-address"></div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-label">
+              <span><i class="fa-solid fa-key me-1"></i>Private Key</span>
+              <button class="btn-pas-sm" onclick="copyEl('recovered-seed')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+            </div>
+            <div class="field-value v-private" id="recovered-seed"></div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-label">
+              <span><i class="fa-solid fa-lock-open me-1"></i>Public Key</span>
+              <button class="btn-pas-sm" onclick="copyEl('recovered-public-key')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+            </div>
+            <div class="field-value v-pubkey" id="recovered-public-key"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /recover-tab -->
+
+  <!-- ===== VANITY TAB ===== -->
+  <div id="vanity-tab" class="tab-content">
+    <div class="pas-card">
+      <div class="pas-card-header">
+        <span class="title"><i class="fa-solid fa-magnifying-glass"></i>Vanity Address Search</span>
+      </div>
+      <div class="pas-card-body">
+        <p style="font-size:0.82rem;color:var(--pas-muted);margin-bottom:1.1rem;line-height:1.65">
+          Search for addresses containing a specific text after the prefix <code style="color:var(--pas-pink);background:rgba(255,138,251,0.1);padding:1px 5px;border-radius:3px">PAS1</code>.
+          The longer the pattern, the longer the search time.
+        </p>
+
+        <div class="row g-3 mb-3 vanity-controls" style="display:grid;grid-template-columns:1fr 1fr;gap:0.85rem">
+          <div class="form-group">
+            <label><i class="fa-solid fa-fingerprint me-1"></i>Pattern (Base58)</label>
+            <input type="text" id="vanity-pattern" placeholder="eg: 1Abc, 1Boad, 1Satoshi etc.">
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-hashtag me-1"></i>Max Trials</label>
+            <input type="number" id="max-attempts" value="100000" min="1000" step="1000">
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-location-dot me-1"></i>Pattern Position</label>
+            <select id="vanity-position">
+              <option value="start">Beginning (after PAS1)</option>
+              <option value="anywhere">Anywhere</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-font me-1"></i>Case Sensitive</label>
+            <select id="case-sensitive">
+              <option value="false">No (ignore case)</option>
+              <option value="true">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-pas" id="start-vanity-btn" onclick="startVanitySearch()">
+            <i class="fa-solid fa-magnifying-glass me-2"></i>Start Search
+          </button>
+          <button class="btn-pas-danger" id="stop-vanity-btn" onclick="stopVanitySearch()">
+            <i class="fa-solid fa-stop me-2"></i>Stop it
+          </button>
+        </div>
+
+        <div id="vanity-progress" style="display:none">
+          <div class="vanity-stats">
+            <div class="stat-box">
+              <div class="val" id="attempts-count">0</div>
+              <div class="lbl">Trial</div>
+            </div>
+            <div class="stat-box">
+              <div class="val" id="speed-count">0</div>
+              <div class="lbl">Wallet/second</div>
+            </div>
+            <div class="stat-box">
+              <div class="val" id="elapsed-time">0s</div>
+              <div class="lbl">Time</div>
+            </div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="vanity-progress-bar"></div>
+          </div>
+          <div class="vanity-current" id="vanity-current"><i class="fa-solid fa-circle-notch fa-spin me-1"></i>Look for...</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="vanity-result">
+      <div class="pas-card">
+        <div class="pas-card-header">
+          <span class="title"><i class="fa-solid fa-circle-check"></i>Vanity Address Found!</span>
+        </div>
+        <div class="pas-card-body">
+          <div class="field-row">
+            <div class="field-label">
+              <span><i class="fa-solid fa-at me-1"></i>Address</span>
+              <button class="btn-pas-sm" onclick="copyEl('vanity-address')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+            </div>
+            <div class="field-value v-address" id="vanity-address"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">
+              <span><i class="fa-solid fa-list-ol me-1"></i>Mnemonic (25 words)</span>
+              <button class="btn-pas-sm" onclick="copyEl('vanity-mnemonic')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+            </div>
+            <div class="field-value v-mnemonic" id="vanity-mnemonic"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">
+              <span><i class="fa-solid fa-key me-1"></i>Private Key</span>
+              <button class="btn-pas-sm" onclick="copyEl('vanity-seed')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+            </div>
+            <div class="field-value v-private" id="vanity-seed"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">
+              <span><i class="fa-solid fa-lock-open me-1"></i>Public Key</span>
+              <button class="btn-pas-sm" onclick="copyEl('vanity-public-key')"><i class="fa-solid fa-copy me-1"></i>Copy</button>
+            </div>
+            <div class="field-value v-pubkey" id="vanity-public-key"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /vanity-tab -->
+
+  <!-- Footer -->
+  <footer class="pas-footer">
+    <div class="rainbow-line" style="margin:1.5rem 0 1rem"></div>
+    Pastella Wallet Generator &nbsp;·&nbsp; Create by Syabiz<br>
+    If this is helpful to you, perhaps there's a reward of a cup of coffee and a pack of cigarettes for me?<br>
+	Pastella (PAS) : <b>PAS1Dj6xgtVS56REDFbheSJe76ac44fq1dY4obnUgzSj2JGkVPGUDB</b><br>
+	Bitcoin (BTC) : <b>bc1qn6t8hy8memjfzp4y3sh6fvadjdtqj64vfvlx58</b><br>
+	Ethereum (ETH) : <b>0x512936ca43829C8f71017aE47460820Fe703CAea</b><br>
+	Solana (SOL) : <b>6ZZrRmeGWMZSmBnQFWXG2UJauqbEgZnwb4Ly9vLYr7mi</b>
+  </footer>
+
+</div><!-- /main-container -->
+
+<!-- ================================================================
+     WALLET CORE LOGIC
+	 All of the following cryptographic functions are executed locally in the browser.
+================================================================ -->
+<script>
+/* ============================================================
+   WORDLIST — 1626 kata khusus Pastella
+   ============================================================ */
+var WL=['abbey','abducts','ability','ablaze','abnormal','abort','abrasive','absorb','abyss','academy','aces','aching','acidic','acoustic','acquire','across','actress','acumen','adapt','addicted','adept','adhesive','adjust','adopt','adrenalin','adult','adventure','aerial','afar','affair','afield','afloat','afoot','afraid','after','against','agenda','aggravate','agile','aglow','agnostic','agony','agreed','ahead','aided','ailments','aimless','airport','aisle','ajar','akin','alarms','album','alchemy','alerts','algebra','alkaline','alley','almost','aloof','alpine','already','also','altitude','alumni','always','amaze','ambush','amended','amidst','ammo','amnesty','among','amply','amused','anchor','android','anecdote','angled','ankle','annoyed','answers','antics','anvil','anxiety','anybody','apart','apex','aphid','aplomb','apology','apply','apricot','aptitude','aquarium','arbitrary','archer','ardent','arena','argue','arises','army','around','arrow','arsenic','artistic','ascend','ashtray','aside','asked','asleep','aspire','assorted','asylum','athlete','atlas','atom','atrium','attire','auburn','auctions','audio','august','aunt','austere','autumn','avatar','avidly','avoid','awakened','awesome','awful','awkward','awning','awoken','axes','axis','axle','aztec','azure','baby','bacon','badge','baffles','bagpipe','bailed','bakery','balding','bamboo','banjo','baptism','basin','batch','bawled','bays','because','beer','befit','begun','behind','being','below','bemused','benches','berries','bested','betting','bevel','beware','beyond','bias','bicycle','bids','bifocals','biggest','bikini','bimonthly','binocular','biology','biplane','birth','biscuit','bite','biweekly','blender','blip','bluntly','boat','bobsled','bodies','bogeys','boil','boldly','bomb','border','boss','both','bounced','bovine','bowling','boxes','boyfriend','broken','brunt','bubble','buckets','budget','buffet','bugs','building','bulb','bumper','bunch','business','butter','buying','buzzer','bygones','byline','bypass','cabin','cactus','cadets','cafe','cage','cajun','cake','calamity','camp','candy','casket','catch','cause','cavernous','cease','cedar','ceiling','cell','cement','cent','certain','chlorine','chrome','cider','cigar','cinema','circle','cistern','citadel','civilian','claim','click','clue','coal','cobra','cocoa','code','coexist','coffee','cogs','cohesive','coils','colony','comb','cool','copy','corrode','costume','cottage','cousin','cowl','criminal','cube','cucumber','cuddled','cuffs','cuisine','cunning','cupcake','custom','cycling','cylinder','cynical','dabbing','dads','daft','dagger','daily','damp','dangerous','dapper','darted','dash','dating','dauntless','dawn','daytime','dazed','debut','decay','dedicated','deepest','deftly','degrees','dehydrate','deity','dejected','delayed','demonstrate','dented','deodorant','depth','desk','devoid','dewdrop','dexterity','dialect','dice','diet','different','digit','dilute','dime','dinner','diode','diplomat','directed','distance','ditch','divers','dizzy','doctor','dodge','does','dogs','doing','dolphin','domestic','donuts','doorway','dormant','dosage','dotted','double','dove','down','dozen','dreams','drinks','drowning','drunk','drying','dual','dubbed','duckling','dude','duets','duke','dullness','dummy','dunes','duplex','duration','dusted','duties','dwarf','dwelt','dwindling','dying','dynamite','dyslexic','each','eagle','earth','easy','eating','eavesdrop','eccentric','echo','eclipse','economics','ecstatic','eden','edgy','edited','educated','eels','efficient','eggs','egotistic','eight','either','eject','elapse','elbow','eldest','eleven','elite','elope','else','eluded','emails','ember','emerge','emit','emotion','empty','emulate','energy','enforce','enhanced','enigma','enjoy','enlist','enmity','enough','enraged','ensign','entrance','envy','epoxy','equip','erase','erected','erosion','error','eskimos','espionage','essential','estate','etched','eternal','ethics','etiquette','evaluate','evenings','evicted','evolved','examine','excess','exhale','exit','exotic','exquisite','extra','exult','fabrics','factual','fading','fainted','faked','fall','family','fancy','farming','fatal','faulty','fawns','faxed','fazed','feast','february','federal','feel','feline','females','fences','ferry','festival','fetches','fever','fewest','fiat','fibula','fictional','fidget','fierce','fifteen','fight','films','firm','fishing','fitting','five','fixate','fizzle','fleet','flippant','flying','foamy','focus','foes','foggy','foiled','folding','fonts','foolish','fossil','fountain','fowls','foxes','foyer','framed','friendly','frown','fruit','frying','fudge','fuel','fugitive','fully','fuming','fungal','furnished','fuselage','future','fuzzy','gables','gadget','gags','gained','galaxy','gambit','gang','gasp','gather','gauze','gave','gawk','gaze','gearbox','gecko','geek','gels','gemstone','general','geometry','germs','gesture','getting','geyser','ghetto','ghost','giant','giddy','gifts','gigantic','gills','gimmick','ginger','girth','giving','glass','gleeful','glide','gnaw','gnome','goat','goblet','godfather','goes','goggles','going','goldfish','gone','goodbye','gopher','gorilla','gossip','gotten','gourmet','governing','gown','greater','grunt','guarded','guest','guide','gulp','gumball','guru','gusts','gutter','guys','gymnast','gypsy','gyrate','habitat','hacksaw','haggled','hairy','hamburger','happens','hashing','hatchet','haunted','having','hawk','haystack','hazard','hectare','hedgehog','heels','hefty','height','hemlock','hence','heron','hesitate','hexagon','hickory','hiding','highway','hijack','hiker','hills','himself','hinder','hippo','hire','history','hitched','hive','hoax','hobby','hockey','hoisting','hold','honked','hookup','hope','hornet','hospital','hotel','hounded','hover','howls','hubcaps','huddle','huge','hull','humid','hunter','hurried','husband','huts','hybrid','hydrogen','hyper','iceberg','icing','icon','identity','idiom','idled','idols','igloo','ignore','iguana','illness','imagine','imbalance','imitate','impel','inactive','inbound','incur','industrial','inexact','inflamed','ingested','initiate','injury','inkling','inline','inmate','innocent','inorganic','input','inquest','inroads','insult','intended','inundate','invoke','inwardly','ionic','irate','iris','irony','irritate','island','isolated','issued','italics','itches','items','itinerary','itself','ivory','jabbed','jackets','jaded','jagged','jailed','jamming','january','jargon','jaunt','javelin','jaws','jazz','jeans','jeers','jellyfish','jeopardy','jerseys','jester','jetting','jewels','jigsaw','jingle','jittery','jive','jobs','jockey','jogger','joining','joking','jolted','jostle','journal','joyous','jubilee','judge','juggled','juicy','jukebox','july','jump','junk','jury','justice','juvenile','kangaroo','karate','keep','kennel','kept','kernels','kettle','keyboard','kickoff','kidneys','king','kiosk','kisses','kitchens','kiwi','knapsack','knee','knife','knowledge','knuckle','koala','laboratory','ladder','lagoon','lair','lakes','lamb','language','laptop','large','last','later','launching','lava','lawsuit','layout','lazy','lectures','ledge','leech','left','legion','leisure','lemon','lending','leopard','lesson','lettuce','lexicon','liar','library','licks','lids','lied','lifestyle','light','likewise','lilac','limits','linen','lion','lipstick','liquid','listen','lively','loaded','lobster','locker','lodge','lofty','logic','loincloth','long','looking','lopped','lordship','losing','lottery','loudly','love','lower','loyal','lucky','luggage','lukewarm','lullaby','lumber','lunar','lurk','lush','luxury','lymph','lynx','lyrics','macro','madness','magically','mailed','major','makeup','malady','mammal','maps','masterful','match','maul','maverick','maximum','mayor','maze','meant','mechanic','medicate','meeting','megabyte','melting','memoir','menu','merger','mesh','metro','mews','mice','midst','mighty','mime','mirror','misery','mittens','mixture','moat','mobile','mocked','mohawk','moisture','molten','moment','money','moon','mops','morsel','mostly','motherly','mouth','movement','mowing','much','muddy','muffin','mugged','mullet','mumble','mundane','muppet','mural','musical','muzzle','myriad','mystery','myth','nabbing','nagged','nail','names','nanny','napkin','narrate','nasty','natural','nautical','navy','nearby','necklace','needed','negative','neither','neon','nephew','nerves','nestle','network','neutral','never','newt','nexus','nibs','niche','niece','nifty','nightly','nimbly','nineteen','nirvana','nitrogen','nobody','nocturnal','nodes','noises','nomad','noodles','northern','nostril','noted','nouns','novelty','nowhere','nozzle','nuance','nucleus','nudged','nugget','nuisance','null','number','nuns','nurse','nutshell','nylon','oaks','oars','oasis','oatmeal','obedient','object','obliged','obnoxious','observant','obtains','obvious','occur','ocean','october','odds','odometer','offend','often','oilfield','ointment','okay','older','olive','olympics','omega','omission','omnibus','onboard','oncoming','oneself','ongoing','onion','online','onslaught','onto','onward','oozed','opacity','opened','opposite','optical','opus','orange','orbit','orchid','orders','organs','origin','ornament','orphans','oscar','ostrich','otherwise','otter','ouch','ought','ounce','ourselves','oust','outbreak','oval','oven','owed','owls','owner','oxidant','oxygen','oyster','ozone','pact','paddles','pager','pairing','palace','pamphlet','pancakes','paper','paradise','pastry','patio','pause','pavements','pawnshop','payment','peaches','pebbles','peculiar','pedantic','peeled','pegs','pelican','pencil','people','pepper','perfect','pests','petals','phase','pheasants','phone','phrases','physics','piano','picked','pierce','pigment','piloted','pimple','pinched','pioneer','pipeline','pirate','pistons','pitched','pivot','pixels','pizza','playful','pledge','pliers','plotting','plus','plywood','poaching','pockets','podcast','poetry','point','poker','polar','ponies','pool','popular','portents','possible','potato','pouch','poverty','powder','pram','present','pride','problems','pruned','prying','psychic','public','puck','puddle','puffin','pulp','pumpkins','punch','puppy','purged','push','putty','puzzled','pylons','pyramid','python','queen','quick','quote','rabbits','racetrack','radar','rafts','rage','railway','raking','rally','ramped','randomly','rapid','rarest','rash','rated','ravine','rays','razor','react','rebel','recipe','reduce','reef','refer','regular','reheat','reinvest','rejoices','rekindle','relic','remedy','renting','reorder','repent','request','reruns','rest','return','reunion','revamp','rewind','rhino','rhythm','ribbon','richly','ridges','rift','rigid','rims','ringing','riots','ripped','rising','ritual','river','roared','robot','rockets','rodent','rogue','roles','romance','roomy','roped','roster','rotate','rounded','rover','rowboat','royal','ruby','rudely','ruffled','rugged','ruined','ruling','rumble','runway','rural','rustled','ruthless','sabotage','sack','sadness','safety','saga','sailor','sake','salads','sample','sanity','sapling','sarcasm','sash','satin','saucepan','saved','sawmill','saxophone','sayings','scamper','scenic','school','science','scoop','scrub','scuba','seasons','second','sedan','seeded','segments','seismic','selfish','semifinal','sensible','september','sequence','serving','session','setup','seventh','sewage','shackles','shelter','shipped','shocking','shrugged','shuffled','shyness','siblings','sickness','sidekick','sieve','sifting','sighting','silk','simplest','sincerely','sipped','siren','situated','sixteen','sizes','skater','skew','skirting','skulls','skydive','slackens','sleepless','slid','slower','slug','smash','smelting','smidgen','smog','smuggled','snake','sneeze','sniff','snout','snug','soapy','sober','soccer','soda','software','soggy','soil','solved','somewhere','sonic','soothe','soprano','sorry','southern','sovereign','sowed','soya','space','speedy','sphere','spiders','splendid','spout','sprig','spud','spying','square','stacking','stellar','stick','stockpile','strained','stunning','stylishly','subtly','succeed','suddenly','suede','suffice','sugar','suitcase','sulking','summon','sunken','superior','surfer','sushi','suture','swagger','swept','swiftly','sword','swung','syllabus','symptoms','syndrome','syringe','system','taboo','tacit','tadpoles','tagged','tail','taken','talent','tamper','tanks','tapestry','tarnished','tasked','tattoo','taunts','tavern','tawny','taxi','teardrop','technical','tedious','teeming','tell','template','tender','tepid','tequila','terminal','testing','tether','textbook','thaw','theatrics','thirsty','thorn','threaten','thumbs','thwart','ticket','tidy','tiers','tiger','tilt','timber','tinted','tipsy','tirade','tissue','titans','toaster','tobacco','today','toenail','toffee','together','toilet','token','tolerant','tomorrow','tonic','toolbox','topic','torch','tossed','total','touchy','towel','toxic','toyed','trash','trendy','tribal','trolling','truth','trying','tsunami','tubes','tucks','tudor','tuesday','tufts','tugs','tuition','tulips','tumbling','tunnel','turnip','tusks','tutor','tuxedo','twang','tweezers','twice','twofold','tycoon','typist','tyrant','ugly','ulcers','ultimate','umbrella','umpire','unafraid','unbending','uncle','under','uneven','unfit','ungainly','unhappy','union','unjustly','unknown','unlikely','unmask','unnoticed','unopened','unplugs','unquoted','unrest','unsafe','until','unusual','unveil','unwind','unzip','upbeat','upcoming','update','upgrade','uphill','upkeep','upload','upon','upper','upright','upstairs','uptight','upwards','urban','urchins','urgent','usage','useful','usher','using','usual','utensils','utility','utmost','utopia','uttered','vacation','vague','vain','value','vampire','vane','vapidly','vary','vastness','vats','vaults','vector','veered','vegan','vehicle','vein','velvet','venomous','verification','vessel','veteran','vexed','vials','vibrate','victim','video','viewpoint','vigilant','viking','village','vinegar','violin','vipers','virtual','visited','vitals','vivid','vixen','vocal','vogue','voice','volcano','vortex','voted','voucher','vowels','voyage','vulture','wade','waffle','wagtail','waist','waking','wallets','wanted','warped','washing','water','waveform','waxing','wayside','weavers','website','wedge','weekday','weird','welders','went','wept','were','western','wetsuit','whale','when','whipped','whole','wickets','width','wield','wife','wiggle','wildly','winter','wipeout','wiring','wise','withdrawn','wives','wizard','wobbly','woes','woken','wolf','womanly','wonders','woozy','worry','wounded','woven','wrap','wrist','wrong','yacht','yahoo','yanks','yard','yawning','yearbook','yellow','yesterday','yeti','yields','yodel','yoga','younger','yoyo','zapped','zeal','zebra','zero','zesty','zigzags','zinger','zippers','zodiac','zombie','zones','zoom'];
+var N = WL.length; // 1626
+
+/* ============================================================
+   UTILS
+   ============================================================ */
+function randBytes(n) {
+  var a = new Uint8Array(n);
+  crypto.getRandomValues(a);
+  return a;
+}
+
+function toHex(b) {
+  return Array.from(b, function(x) { return x.toString(16).padStart(2, '0'); }).join('');
+}
+
+function fromHex(h) {
+  var a = new Uint8Array(h.length / 2);
+  for (var i = 0; i < h.length; i += 2) a[i / 2] = parseInt(h.slice(i, i + 2), 16);
+  return a;
+}
+
+/* ============================================================
+   CRC32 — for the checksum of the 25th word of the mnemonic
+   ============================================================ */
+var CRC_TBL = (function() {
+  var t = new Uint32Array(256);
+  for (var i = 0; i < 256; i++) {
+    var c = i;
+    for (var j = 0; j < 8; j++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    t[i] = c;
+  }
+  return t;
+})();
+
+function crc32(s) {
+  var c = 0xFFFFFFFF;
+  for (var i = 0; i < s.length; i++) c = CRC_TBL[(c ^ s.charCodeAt(i)) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+
+/* ============================================================
+   MNEMONIC — Monero style: LE uint32 → 3 words per chunk
+   ============================================================ */
+
+// Read 4 bytes as little-endian uint32
+function leU32(b, o) {
+  return ((b[o]) | (b[o+1] << 8) | (b[o+2] << 16) | (b[o+3] << 24)) >>> 0;
+}
+
+// Write 4 bytes as little-endian uint32
+function putLeU32(v, b, o) {
+  b[o]   =  v         & 0xFF;
+  b[o+1] = (v >>> 8)  & 0xFF;
+  b[o+2] = (v >>> 16) & 0xFF;
+  b[o+3] = (v >>> 24) & 0xFF;
+}
+
+// seed (32 bytes) → array of 24 words
+function seedToWords24(seed) {
+  var w = [];
+  for (var i = 0; i < 8; i++) {
+    var x  = leU32(seed, i * 4);
+    var w1 = x % N;
+    var w2 = (Math.floor(x / N) + w1) % N;
+    var w3 = (Math.floor(x / N / N) + w2) % N;
+    w.push(WL[w1], WL[w2], WL[w3]);
+  }
+  return w;
+}
+
+// Calculate the checksum word of 24 words
+function checksumWord(w24) {
+  var prefix3 = w24.map(function(w) { return w.slice(0, 3); }).join('');
+  return w24[crc32(prefix3) % 24];
+}
+
+// seed → 25-word mnemonic
+function seedToMnemonic(seed) {
+  var w24 = seedToWords24(seed);
+  return w24.concat([checksumWord(w24)]).join(' ');
+}
+
+// 24 words → seed (opposite of seedToWords24)
+function words24ToSeed(w24) {
+  var s = new Uint8Array(32);
+  for (var i = 0; i < 8; i++) {
+    var i1 = WL.indexOf(w24[i*3]);
+    var i2 = WL.indexOf(w24[i*3+1]);
+    var i3 = WL.indexOf(w24[i*3+2]);
+    if (i1 < 0 || i2 < 0 || i3 < 0)
+      throw new Error('Unknown word: ' + w24[i*3] + ' ' + w24[i*3+1] + ' ' + w24[i*3+2]);
+    var val = (i1 + N * ((i2 - i1 + N) % N) + N * N * ((i3 - i2 + N) % N)) >>> 0;
+    putLeU32(val, s, i * 4);
+  }
+  return s;
+}
+
+// 25-word mnemonic validation
+function validateMnemonic(raw) {
+  var words = raw.trim().toLowerCase().split(/\s+/);
+  if (words.length !== 25)
+    return { ok: false, msg: 'Must be 25 words (detected ' + words.length + ')' };
+  var bad = words.filter(function(w) { return WL.indexOf(w) < 0; });
+  if (bad.length > 0)
+    return { ok: false, msg: 'Word not in wordlist: ' + bad.slice(0, 5).join(', ') };
+  var w24      = words.slice(0, 24);
+  var given    = words[24];
+  var expected = checksumWord(w24);
+  if (given !== expected)
+    return { ok: false, msg: 'Incorrect checksum! The 25th word should be "' + expected + '"' };
+  return { ok: true, w24: w24 };
+}
+
+/* ============================================================
+   KECCAK-256 — wrapper to sha3.js library (cdnjs)
+   ============================================================ */
+function keccak256Bytes(bytes) {
+  // sha3.js: keccak_256 (bukan SHA3 standar)
+  var hex = keccak_256(Array.from(bytes));
+  return fromHex(hex);
+}
+
+/* ============================================================
+   ED25519 SCALAR MULT — seed langsung sebagai scalar (gaya Monero)
+   Tidak ada SHA512 hashing. seed → scalar → scalar×G → public key
+   ============================================================ */
+(function() {
+  var p = BigInt('57896044618658097711785492504343953926634992332820282019728792003956564819949'); // 2^255-19
+  var L = BigInt('7237005577332262213973186563042994240857116359379907606001950938285454250989'); // order Ed25519
+
+  function modpow(b, e, m) {
+    var r = 1n; b = b % m;
+    while (e > 0n) { if (e & 1n) r = r * b % m; e >>= 1n; b = b * b % m; }
+    return r;
+  }
+
+  function modinv(a, m) { return modpow(((a % m) + m) % m, m - 2n, m); }
+
+  // d = -121665/121666 mod p
+  var d = (-121665n) * modinv(121666n, p) % p;
+  if (d < 0n) d += p;
+
+  // Base point G
+  var Gy = 4n * modinv(5n, p) % p;
+
+  function recoverX(y, sign) {
+    var x2 = (y * y - 1n) * modinv(d * y * y + 1n, p) % p;
+    if (x2 < 0n) x2 += p;
+    if (x2 === 0n) return sign === 0 ? 0n : null;
+    var x = modpow(x2, (p + 3n) / 8n, p);
+    if ((x * x - x2) % p !== 0n) { x = x * modpow(2n, (p - 1n) / 4n, p) % p; }
+    if ((x * x - x2) % p !== 0n) return null;
+    if ((x & 1n) !== BigInt(sign)) x = p - x;
+    return x;
+  }
+
+  var Gx = recoverX(Gy, 0);
+  var G  = [Gx, Gy, 1n, Gx * Gy % p]; // Extended homogeneous coords
+
+  // Sum of points in extended coordinates
+  function pointAdd(P, Q) {
+    var A = (P[1] - P[0]) * (Q[1] - Q[0]) % p; if (A < 0n) A += p;
+    var B = (P[1] + P[0]) * (Q[1] + Q[0]) % p;
+    var C = 2n * P[3] * Q[3] * d % p;           if (C < 0n) C += p;
+    var D = 2n * P[2] * Q[2] % p;
+    var E = (B - A) % p; if (E < 0n) E += p;
+    var F = (D - C) % p; if (F < 0n) F += p;
+    var Gv = (D + C) % p;
+    var H  = (B + A) % p;
+    return [E * F % p, H * Gv % p, F * Gv % p, E * H % p];
+  }
+
+  // Scalar multiplication with double-and-add
+  function pointMul(s, P) {
+    var Q = [0n, 1n, 1n, 0n]; // identity point
+    s = ((s % L) + L) % L;    // mod L reduction
+    while (s > 0n) {
+      if (s & 1n) Q = pointAdd(Q, P);
+      P = pointAdd(P, P);
+      s >>= 1n;
+    }
+    return Q;
+  }
+
+  // Point compression → 32 bytes (standard Ed25519 format)
+  function pointCompress(P) {
+    var zinv = modinv(P[2], p);
+    var x    = P[0] * zinv % p;
+    var y    = P[1] * zinv % p;
+    var out  = new Uint8Array(32);
+    var tmp  = y | ((x & 1n) << 255n); // set bit tanda di MSB
+    for (var i = 0; i < 32; i++) { out[i] = Number(tmp & 0xFFn); tmp >>= 8n; }
+    return out;
+  }
+
+  // Export: seed32 (Uint8Array) → compressed public key (Uint8Array 32)
+  window.ed25519ScalarToPublic = function(seed32) {
+    // Read seed as little-endian bigint
+    var s = 0n;
+    for (var i = 31; i >= 0; i--) s = (s << 8n) | BigInt(seed32[i]);
+    var P = pointMul(s, G);
+    return pointCompress(P);
+  };
+})();
+
+/* ============================================================
+   CRYPTONOTE BASE58 — 8-byte → 11-char block encoding scheme
+   ============================================================ */
+var B58_CHARS = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+var CN_BLOCK_SIZES = [0, 2, 3, 5, 6, 7, 9, 10, 11]; // output chars per N input bytes
+
+function cnBase58Encode(data) {
+  function encodeBlock(src, len) {
+    var n = 0n;
+    for (var i = 0; i < len; i++) n = (n << 8n) | BigInt(src[i]);
+    var outLen = CN_BLOCK_SIZES[len];
+    var result = '';
+    for (var i = 0; i < outLen; i++) {
+      result = B58_CHARS[Number(n % 58n)] + result;
+      n = n / 58n;
+    }
+    return result;
+  }
+
+  var res = '';
+  var fullBlocks = Math.floor(data.length / 8);
+  var lastBytes  = data.length % 8;
+
+  for (var i = 0; i < fullBlocks; i++)
+    res += encodeBlock(data.subarray(i * 8, (i + 1) * 8), 8);
+  if (lastBytes > 0)
+    res += encodeBlock(data.subarray(fullBlocks * 8), lastBytes);
+
+  return res;
+}
+
+/* ============================================================
+   PREFIX PASTELLA — varint(1671172) = [0x84, 0x80, 0x66]
+   Generates addresses prefixed with "PAS"
+   ============================================================ */
+var PAS_PREFIX_BYTES = (function() {
+  var v = 1671172, r = [];
+  while (v > 0x7F) { r.push((v & 0x7F) | 0x80); v = Math.floor(v / 128); }
+  r.push(v & 0x7F);
+  return new Uint8Array(r); // [0x84, 0x80, 0x66]
+})();
+
+/* ============================================================
+   ADDRESS DERIVATION
+   address = cnBase58( prefix[3] + pubkey[32] + keccak256(prefix+pubkey)[0:4] )
+   Length: 54 characters, always preceded by "PAS"
+   ============================================================ */
+function deriveAddress(pubKey32) {
+  // Combine prefix + public key
+  var payload = new Uint8Array(PAS_PREFIX_BYTES.length + 32);
+  payload.set(PAS_PREFIX_BYTES, 0);
+  payload.set(pubKey32, PAS_PREFIX_BYTES.length);
+
+  // Checksum = first 4 bytes of keccak256(payload)
+  var cs = keccak256Bytes(payload).slice(0, 4);
+
+  // Final data = payload + checksum
+  var fd = new Uint8Array(payload.length + 4);
+  fd.set(payload, 0);
+  fd.set(cs, payload.length);
+
+  return cnBase58Encode(fd);
+}
+
+/* ============================================================
+   MAIN FUNCTION OF WALLET
+   ============================================================ */
+function walletFromSeed(seed32) {
+  var pub  = ed25519ScalarToPublic(seed32);
+  var addr = deriveAddress(pub);
+  var mnem = seedToMnemonic(seed32);
+  return {
+    seed32:    seed32,
+    seedHex:   toHex(seed32),
+    pubKeyHex: toHex(pub),
+    address:   addr,
+    mnemonic:  mnem
+  };
+}
+
+/* ============================================================
+   UI — GENERATE TAB
+   ============================================================ */
+function generateWallet() {
+  try {
+    var seed32 = randBytes(32);
+    var w      = walletFromSeed(seed32);
+    var grid   = document.getElementById('mnemonic-words');
+    grid.innerHTML = '';
+
+    w.mnemonic.split(' ').forEach(function(word, i) {
+      var d = document.createElement('div');
+      d.className = 'mnemonic-word' + (i === 24 ? ' checksum-word' : '');
+      d.innerHTML = '<span>' + (i + 1) + (i === 24 ? ' ✓' : '') + '</span>' + word;
+      grid.appendChild(d);
+    });
+
+    document.getElementById('mnemonic-phrase-display').textContent = w.mnemonic;
+    document.getElementById('seed-display').textContent            = w.seedHex;
+    document.getElementById('public-key-display').textContent      = w.pubKeyHex;
+    document.getElementById('address-display').textContent         = w.address;
+
+    // Checksum verification
+    var v  = validateMnemonic(w.mnemonic);
+    var vd = document.getElementById('checksum-verify');
+    vd.className    = 'checksum-status ' + (v.ok ? 'cs-ok' : 'cs-fail');
+    vd.textContent  = v.ok
+      ? '✅ Checksum valid — 25th word: "' + w.mnemonic.split(' ')[24] + '"'
+      : '❌ ' + v.msg;
+    vd.style.display = 'block';
+
+    document.getElementById('generated-wallet').style.display = 'block';
+  } catch(e) {
+    alert('Error: ' + e.message);
+    console.error(e);
+  }
+}
+
+/* ============================================================
+   UI — RECOVER TAB
+   ============================================================ */
+function recoverWallet() {
+  hideErr('recovery-error');
+  document.getElementById('recovered-wallet').style.display = 'none';
+
+  var raw = document.getElementById('recovery-mnemonic').value;
+  var v   = validateMnemonic(raw);
+
+  if (!v.ok) { showErr('recovery-error', v.msg); return; }
+
+  try {
+    var seed32 = words24ToSeed(v.w24);
+    var w      = walletFromSeed(seed32);
+
+    document.getElementById('recovery-checksum-status').textContent =
+      '✅ Checksum valid — mnemonic 25 kata OK';
+    document.getElementById('recovered-seed').textContent       = w.seedHex;
+    document.getElementById('recovered-public-key').textContent = w.pubKeyHex;
+    document.getElementById('recovered-address').textContent    = w.address;
+    document.getElementById('recovered-wallet').style.display   = 'block';
+  } catch(e) {
+    showErr('recovery-error', e.message);
+    console.error(e);
+  }
+}
+
+/* ============================================================
+   UI — VANITY TAB
+   ============================================================ */
+var vanityRunning = false, vanityStart = 0, vanityCount = 0;
+
+async function startVanitySearch() {
+  var rawPat   = document.getElementById('vanity-pattern').value.trim();
+  var maxAtt   = parseInt(document.getElementById('max-attempts').value) || 100000;
+  var caseSens = document.getElementById('case-sensitive').value === 'true';
+  var position = document.getElementById('vanity-position').value;
+
+  if (!rawPat) { alert('Enter pattern!'); return; }
+
+  // Base58 character validation
+  var invalidChars = [...rawPat].filter(function(c) { return B58_CHARS.indexOf(c) < 0; });
+  if (invalidChars.length > 0) {
+    alert('Invalid Base58 character: ' + [...new Set(invalidChars)].join(', '));
+    return;
+  }
+
+  var searchPat = caseSens ? rawPat : rawPat.toLowerCase();
+  vanityRunning = true;
+  vanityStart   = Date.now();
+  vanityCount   = 0;
+
+  document.getElementById('start-vanity-btn').style.display = 'none';
+  document.getElementById('stop-vanity-btn').style.display  = 'inline-block';
+  document.getElementById('vanity-progress').style.display  = 'block';
+  document.getElementById('vanity-result').style.display    = 'none';
+
+  var BATCH = 20; // Ed25519 heavy, small batch to keep UI from freezing
+
+  while (vanityRunning && vanityCount < maxAtt) {
+    for (var b = 0; b < BATCH && vanityRunning && vanityCount < maxAtt; b++) {
+      vanityCount++;
+      try {
+        var s32    = randBytes(32);
+        var pub    = ed25519ScalarToPublic(s32);
+        var addr   = deriveAddress(pub);
+        var afterP = addr.slice(3); // delete "PAS"
+        var hay    = caseSens ? afterP : afterP.toLowerCase();
+        var match  = position === 'start' ? hay.startsWith(searchPat) : hay.includes(searchPat);
+
+        if (match) {
+          vanityRunning = false;
+          document.getElementById('vanity-address').textContent    = addr;
+          document.getElementById('vanity-mnemonic').textContent   = seedToMnemonic(s32);
+          document.getElementById('vanity-seed').textContent       = toHex(s32);
+          document.getElementById('vanity-public-key').textContent = toHex(pub);
+          document.getElementById('vanity-result').style.display   = 'block';
+          stopVanitySearch();
+          updateVanityStats(maxAtt);
+          return;
+        }
+      } catch(e) { console.error(e); }
+    }
+
+    updateVanityStats(maxAtt);
+
+    // Show current address every 100 attempts
+    if (vanityCount % 100 === 0) {
+      var ts = randBytes(32);
+      document.getElementById('vanity-current').textContent =
+        'Terakhir: ' + deriveAddress(ed25519ScalarToPublic(ts));
+    }
+
+    // Yield to event loop to keep UI responsive
+    await new Promise(function(r) { setTimeout(r, 0); });
+  }
+
+  if (vanityCount >= maxAtt) {
+    alert('Done: pattern not found in ' + maxAtt.toLocaleString() + ' attempts.');
+    stopVanitySearch();
+  }
+}
+
+function stopVanitySearch() {
+  vanityRunning = false;
+  document.getElementById('start-vanity-btn').style.display = 'inline-block';
+  document.getElementById('stop-vanity-btn').style.display  = 'none';
+}
+
+function updateVanityStats(maxAtt) {
+  var sec = (Date.now() - vanityStart) / 1000;
+  var spd = sec > 0 ? Math.round(vanityCount / sec) : 0;
+  document.getElementById('attempts-count').textContent     = vanityCount.toLocaleString();
+  document.getElementById('speed-count').textContent        = spd.toLocaleString();
+  document.getElementById('elapsed-time').textContent       = sec.toFixed(1) + 's';
+  document.getElementById('vanity-progress-bar').style.width =
+    Math.min(vanityCount / maxAtt * 100, 100) + '%';
+}
+
+/* ============================================================
+   UI — HELPERS
+   ============================================================ */
+function switchTab(name, btn) {
+  document.querySelectorAll('.pas-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById(name + '-tab').classList.add('active');
+}
+
+function copyEl(id) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(function() {
+    var btns = document.querySelectorAll('[onclick="copyEl(\'' + id + '\')"]');
+    btns.forEach(function(b) {
+      var orig = b.textContent;
+      b.textContent = 'Copy!';
+      setTimeout(function() { b.textContent = orig; }, 2000);
+    });
+  });
+}
+
+function showErr(id, msg) {
+  var el = document.getElementById(id);
+  el.textContent = '⚠️ ' + msg;
+  el.classList.add('show');
+}
+
+function hideErr(id) {
+  var el = document.getElementById(id);
+  el.textContent = '';
+  el.classList.remove('show');
+}
+
+/* ============================================================
+   STARTUP SELF-TEST
+   ============================================================ */
+window.addEventListener('load', function() {
+  // Check the available keccak library
+  if (typeof keccak_256 === 'undefined') {
+    document.body.insertAdjacentHTML('afterbegin',
+      '<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#f76a8c;color:#fff;padding:1rem 2rem;font-weight:bold;text-align:center;">' +
+      '⚠️ The keccak256 library failed to load. Check your internet connection and refresh the page.</div>');
+    return;
+  }
+
+  // Self-test: seed all-zeros → deterministic result
+  var ts = new Uint8Array(32);
+  var tp = ed25519ScalarToPublic(ts);
+  var ta = deriveAddress(tp);
+  console.log('[PAS v4] self-test addr:', ta, '| starts PAS:', ta.startsWith('PAS'), '| len:', ta.length);
+
+  // Test roundtrip mnemonic
+  var testSeed  = randBytes(32);
+  var mnem      = seedToMnemonic(testSeed);
+  var v         = validateMnemonic(mnem);
+  var recovered = v.ok ? words24ToSeed(v.w24) : null;
+  var rtOK      = recovered && Array.from(testSeed).every(function(b, i) { return b === recovered[i]; });
+  console.log('[PAS v4] mnemonic roundtrip:', rtOK ? 'OK ✅' : 'FAIL ❌');
+  console.log('[PAS v4] prefix bytes:', Array.from(PAS_PREFIX_BYTES).map(function(b) { return '0x' + b.toString(16); }));
+});
+</script>
+</body>
+</html>
