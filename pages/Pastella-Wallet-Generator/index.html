@@ -820,13 +820,9 @@
 
 </div><!-- /main-container -->
 
-<!-- ================================================================
-     WALLET CORE LOGIC
-	 All of the following cryptographic functions are executed locally in the browser.
-================================================================ -->
 <script>
 /* ============================================================
-   WORDLIST — 1626 kata dari Pastella (index.ts)
+   WORDLIST
    ============================================================ */
 var WL = [
     "abbey", "abducts", "ability", "ablaze", "abnormal", "abort", "abrasive", "absorb", 
@@ -1222,25 +1218,25 @@ function keccak256Bytes(bytes) {
     var x    = P[0] * zinv % p;
     var y    = P[1] * zinv % p;
     var out  = new Uint8Array(32);
-    var tmp  = y | ((x & 1n) << 255n); // set bit tanda di MSB
+    var tmp  = y | ((x & 1n) << 255n); // set the sign bit at MSB
     for (var i = 0; i < 32; i++) { out[i] = Number(tmp & 0xFFn); tmp >>= 8n; }
     return out;
   }
 
   // Export: seed32 (Uint8Array) → compressed public key (Uint8Array 32)
   window.ed25519ScalarToPublic = function(seed32) {
-    // Interpretasi seed32 sebagai little-endian integer
+    // Interpretation of seed32 as a little-endian integer
     let s = 0n;
     for (let i = 0; i < 32; i++) {
         s |= BigInt(seed32[i]) << (8n * BigInt(i));
     }
-    // Reduksi modulo L
+    // Modulo L reduction
     s = s % L;
     var P = pointMul(s, G);
     return pointCompress(P);
   };
 
-  // Fungsi untuk menghasilkan private key yang valid (64 byte acak → reduksi L)
+  // Function to generate valid private key (64 random bytes → L reduction)
   window.randomScalar = function() {
     var bytes64 = randBytes(64);
     let s = 0n;
@@ -1337,11 +1333,11 @@ function walletFromSeed(seed32) {
 }
 
 /* ============================================================
-   UI — GENERATE TAB (menggunakan randomScalar yang benar)
+   UI — GENERATE TAB (using the correct randomScalar)
    ============================================================ */
 function generateWallet() {
   try {
-    var seed32 = randomScalar();  // <-- Gunakan randomScalar, bukan randBytes(32)
+    var seed32 = randomScalar();
     var w      = walletFromSeed(seed32);
     var grid   = document.getElementById('mnemonic-words');
     grid.innerHTML = '';
@@ -1438,10 +1434,10 @@ async function startVanitySearch() {
     for (var b = 0; b < BATCH && vanityRunning && vanityCount < maxAtt; b++) {
       vanityCount++;
       try {
-        var s32    = randomScalar();  // <-- Gunakan randomScalar juga di vanity
+        var s32    = randomScalar(); 
         var pub    = ed25519ScalarToPublic(s32);
         var addr   = deriveAddress(pub);
-        var afterP = addr.slice(3); // delete "PAS"
+        var afterP = addr.slice(3); 
         var hay    = caseSens ? afterP : afterP.toLowerCase();
         var match  = position === 'start' ? hay.startsWith(searchPat) : hay.includes(searchPat);
 
@@ -1463,7 +1459,7 @@ async function startVanitySearch() {
 
     // Show current address every 100 attempts
     if (vanityCount % 100 === 0) {
-      var ts = randomScalar();  // <-- Gunakan randomScalar
+      var ts = randomScalar();  //
       document.getElementById('vanity-current').textContent =
         'Terakhir: ' + deriveAddress(ed25519ScalarToPublic(ts));
     }
@@ -1546,7 +1542,7 @@ window.addEventListener('load', function() {
   console.log('[PAS v4] self-test addr:', ta, '| starts PAS:', ta.startsWith('PAS'), '| len:', ta.length);
 
   // Test roundtrip mnemonic
-  var testSeed  = randomScalar();  // <-- Gunakan randomScalar untuk test
+  var testSeed  = randomScalar();
   var mnem      = seedToMnemonic(testSeed);
   var v         = validateMnemonic(mnem);
   var recovered = v.ok ? words24ToSeed(v.w24) : null;
