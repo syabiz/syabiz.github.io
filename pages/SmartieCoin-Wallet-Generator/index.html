@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartieCoin Wallet Generator — SMT</title>
+<link rel="icon" type="image/png" href="https://smartiecoin.com/assets/logo-horizontal.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ================================================================
+   SMARTIECOIN.COM DESIGN SYSTEM — CSS variables mirrored from site
+   ================================================================ */
+:root {
+  /* === from styles.css === */
+  --bg:           #070a16;
+  --bg-soft:      #0f1426;
+  --bg-alt:       #131a31;
+  --ink:          #f7f9ff;
+  --ink-soft:     #aab2d4;
+  --line:         #273153;
+  --orange:       #ff9328;
+  --orange-deep:  #ff6e32;
+  --mint:         #39d6c3;
+  --berry:        #ff4f8f;
+  --sky:          #51a8ff;
+  --violet:       #7f7bff;
+  --radius-lg:    22px;
+  --radius-md:    14px;
+  --shadow:       0 16px 42px rgba(2,5,14,0.45);
+  --container:    960px;
+
+  /* === wallet-specific additions === */
+  --accent:       #39d6c3;   /* mint as primary accent (CPU mining feel) */
+  --accent-dim:   rgba(57,214,195,0.15);
+  --card:         rgba(19,26,49,0.95);
+  --card-hdr:     rgba(13,19,38,0.97);
+  --border:       rgba(39,49,83,0.9);
+  --mono:         'Roboto Mono', monospace;
+  --head:         'Outfit', sans-serif;
+  --body-font:    'Manrope', sans-serif;
+
+  /* candy dot colours — the 7 Smartie colours */
+  --c1: #ff4f8f;   /* berry/pink  */
+  --c2: #ff9328;   /* orange      */
+  --c3: #ffd166;   /* yellow      */
+  --c4: #39d6c3;   /* mint/teal   */
+  --c5: #51a8ff;   /* sky/blue    */
+  --c6: #7f7bff;   /* violet      */
+  --c7: #a3e635;   /* lime        */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--body-font);
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% -12%, rgba(255,112,51,0.28) 0%, transparent 40%),
+    radial-gradient(circle at 100% 10%, rgba(81,168,255,0.22) 0%, transparent 36%),
+    radial-gradient(circle at 70% 90%, rgba(255,79,143,0.16) 0%, transparent 48%),
+    radial-gradient(circle at 50% 50%, rgba(57,214,195,0.06) 0%, transparent 60%),
+    var(--bg);
+  line-height: 1.55;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+}
+
+/* ── Decorative bg elements ── */
+.bg-noise {
+  position: fixed; inset: 0; z-index: -3; opacity: 0.05;
+  background-image: radial-gradient(#d7ddff 0.65px, transparent 0.65px);
+  background-size: 8px 8px; pointer-events: none;
+}
+.bg-shape {
+  position: fixed; z-index: -2; filter: blur(72px);
+  opacity: 0.22; pointer-events: none;
+  animation: drift 16s ease-in-out infinite alternate;
+  border-radius: 999px;
+}
+.bg-shape-a { width:300px; height:300px; top:10%; left:-80px; background:var(--orange); }
+.bg-shape-b { width:380px; height:380px; right:-110px; top:38%; background:var(--sky); animation-delay:2s; }
+.bg-shape-c { width:220px; height:220px; bottom:15%; left:30%; background:var(--mint); animation-delay:4s; }
+@keyframes drift {
+  from { transform: translateY(-8px) translateX(-9px); }
+  to   { transform: translateY(20px)  translateX(14px); }
+}
+
+/* ── Container ── */
+.container {
+  width: min(var(--container), calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+/* ================================================================
+   HEADER — mirrors smartiecoin.com site-header
+   ================================================================ */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  border-bottom: 1px solid rgba(39,49,83,0.7);
+  backdrop-filter: blur(12px);
+  background: rgba(7,10,22,0.82);
+}
+.header-row {
+  min-height: 68px;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 1rem;
+}
+
+.brand {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  font-family: var(--head); font-weight: 900;
+  letter-spacing: -0.01em; text-decoration: none;
+}
+.brand-name { color: var(--ink); font-size: 1.1rem; }
+.brand-name strong { color: var(--mint); }
+.brand-badge {
+  background: linear-gradient(120deg, var(--mint) 0%, var(--sky) 100%);
+  border-radius: 999px; padding: 0.15rem 0.55rem;
+  font-size: 0.7rem; font-weight: 800; color: #050e18;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  font-family: var(--head);
+}
+
+.nav-links { display: inline-flex; gap: 0.5rem; align-items: center; }
+.nav-links a {
+  font-size: 0.88rem; color: var(--ink-soft); font-family: var(--head);
+  font-weight: 600; padding: 0.36rem 0.6rem; border-radius: 8px;
+  transition: color 0.2s, background 0.2s; text-decoration: none;
+}
+.nav-links a:hover { color: var(--ink); background: rgba(81,168,255,0.12); }
+
+/* ================================================================
+   PAGE HERO / HEADER
+   ================================================================ */
+.page-hero {
+  padding: 3rem 0 2rem;
+  text-align: center;
+}
+.eyebrow {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(57,214,195,0.22), rgba(81,168,255,0.22));
+  border: 1px solid rgba(57,214,195,0.4);
+  border-radius: 999px; padding: 0.3rem 0.85rem;
+  font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--mint); font-family: var(--head);
+  margin-bottom: 0.9rem;
+}
+.page-hero h1 {
+  font-family: var(--head); font-weight: 900;
+  font-size: clamp(1.9rem, 4.5vw, 3rem);
+  color: var(--ink); letter-spacing: -0.02em;
+  line-height: 1.1; margin: 0 0 0.7rem;
+}
+.page-hero h1 .hl {
+  background: linear-gradient(120deg, var(--mint), var(--sky));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.page-hero p {
+  color: var(--ink-soft); font-size: 0.95rem; margin: 0;
+}
+
+/* ================================================================
+   ANIMATED RAINBOW LINE — from smartiecoin.com / Pastella
+   ================================================================ */
+@keyframes smt-gradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.rainbow-line {
+  height: 2px;
+  background: linear-gradient(130deg,
+    var(--berry), var(--orange), var(--c3), var(--mint),
+    var(--sky), var(--violet), var(--berry));
+  background-size: 400% 400%;
+  animation: smt-gradient 8s ease infinite;
+  border-radius: 99px;
+  margin: 1.6rem 0;
+  opacity: 0.75;
+}
+
+/* 7-segment rainbow stripe (like site header accent) */
+.rainbow-stripe {
+  display: flex; height: 3px;
+}
+.rainbow-stripe span { flex: 1; }
+
+/* ================================================================
+   TABS
+   ================================================================ */
+.smt-tabs {
+  display: flex; gap: 0; margin-bottom: 1.5rem;
+  background: var(--card-hdr);
+  border-radius: 10px; padding: 4px;
+  border: 1px solid var(--border);
+}
+.smt-tab {
+  flex: 1; padding: 0.65rem 1rem;
+  background: transparent; border: none;
+  color: var(--ink-soft);
+  font-family: var(--head); font-size: 0.84rem; font-weight: 700;
+  cursor: pointer; border-radius: 7px;
+  transition: all 0.18s; letter-spacing: 0.01em;
+}
+.smt-tab:hover { color: var(--ink); background: rgba(255,255,255,0.04); }
+.smt-tab.active {
+  background: var(--bg-alt);
+  color: var(--mint);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ================================================================
+   CARDS — mirrors smartiecoin.com card style
+   ================================================================ */
+.smt-card {
+  background: linear-gradient(180deg, rgba(19,26,49,0.96) 0%, rgba(13,19,37,0.96) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.smt-card-header {
+  background: var(--card-hdr);
+  padding: 0.72rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 0.5rem;
+}
+.smt-card-header .title {
+  font-family: var(--head);
+  font-weight: 800; font-size: 0.8rem;
+  color: var(--ink); letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.55rem;
+}
+.smt-card-header .title i { color: var(--mint); font-size: 0.85rem; }
+.smt-card-header .title .dot-icon {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.smt-card-body { padding: 1.2rem; }
+
+/* ================================================================
+   WARNING BOX
+   ================================================================ */
+.smt-warning {
+  background: rgba(255,147,40,0.07);
+  border: 1px solid rgba(255,147,40,0.3);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.83rem;
+  color: rgba(255,187,100,0.95);
+  line-height: 1.65;
+}
+.smt-warning strong {
+  display: block; margin-bottom: 0.25rem;
+  color: var(--orange); font-family: var(--head); font-weight: 800;
+}
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+.btn-smt {
+  background: linear-gradient(132deg, var(--mint) 0%, var(--sky) 100%);
+  border: none; border-radius: 10px;
+  color: #050e18; font-family: var(--head);
+  font-weight: 800; font-size: 0.92rem;
+  padding: 0.78rem 1.5rem; width: 100%;
+  cursor: pointer; transition: all 0.2s;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 24px rgba(57,214,195,0.25);
+}
+.btn-smt:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 12px 30px rgba(57,214,195,0.35); }
+.btn-smt:active { transform: translateY(0); }
+.btn-smt:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+
+.btn-smt-sm {
+  background: rgba(57,214,195,0.08);
+  border: 1px solid rgba(57,214,195,0.25);
+  border-radius: 6px; color: var(--mint);
+  font-family: var(--head); font-size: 0.7rem; font-weight: 700;
+  padding: 0.28rem 0.7rem; cursor: pointer; transition: all 0.15s;
+  white-space: nowrap; letter-spacing: 0.04em;
+}
+.btn-smt-sm:hover { background: rgba(57,214,195,0.18); border-color: rgba(57,214,195,0.5); }
+
+.btn-smt-danger {
+  background: rgba(255,79,143,0.08);
+  border: 1px solid rgba(255,79,143,0.3);
+  border-radius: 10px; color: var(--berry);
+  font-family: var(--head); font-weight: 700;
+  font-size: 0.88rem; padding: 0.78rem 1.2rem;
+  cursor: pointer; transition: all 0.15s; display: none;
+}
+.btn-smt-danger:hover { background: rgba(255,79,143,0.16); }
+
+.btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn-row .btn-smt { flex: 1; width: auto; }
+
+/* ================================================================
+   MNEMONIC GRID
+   ================================================================ */
+#generated-wallet, #recovered-wallet, #vanity-result { display: none; }
+
+.mnemonic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 0.42rem;
+  margin-bottom: 0.75rem;
+}
+.mnemonic-word {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 0.44rem 0.65rem;
+  font-family: var(--mono); font-size: 0.76rem;
+  color: rgba(247,249,255,0.75);
+  display: flex; align-items: center; gap: 0.45rem;
+  transition: border-color 0.15s;
+}
+.mnemonic-word:hover { border-color: rgba(57,214,195,0.35); }
+.mnemonic-word .wdot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+.mnemonic-word .wnum {
+  font-size: 0.58rem; color: var(--ink-soft);
+  min-width: 1.4rem; font-weight: 600;
+}
+
+/* ================================================================
+   FIELD ROWS
+   ================================================================ */
+.field-row { margin-bottom: 0.9rem; }
+.field-row:last-child { margin-bottom: 0; }
+
+.field-label {
+  font-family: var(--head); font-size: 0.68rem;
+  font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-soft);
+  margin-bottom: 0.34rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.field-label .lbl-left { display: flex; align-items: center; gap: 0.45rem; }
+.field-label .lbl-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+.field-value {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.72rem 0.9rem;
+  font-family: var(--mono); font-size: 0.76rem;
+  word-break: break-all; line-height: 1.65;
+  color: rgba(247,249,255,0.8);
+}
+.field-value.v-address { color: var(--mint); }
+.field-value.v-wif     { color: var(--orange); }
+.field-value.v-privhex { color: var(--berry); }
+.field-value.v-mnemonic{ color: var(--c7); }
+.field-value.v-pubkey  { color: rgba(247,249,255,0.55); }
+
+/* ================================================================
+   CHECKSUM / STATUS
+   ================================================================ */
+.checksum-status {
+  border-radius: 8px; padding: 0.58rem 0.9rem;
+  font-size: 0.8rem; font-family: var(--head); font-weight: 700;
+  margin-top: 0.7rem; display: none;
+}
+.cs-ok   { background: rgba(57,214,195,0.08); border: 1px solid rgba(57,214,195,0.3); color: var(--mint); }
+.cs-fail { background: rgba(255,79,143,0.08);  border: 1px solid rgba(255,79,143,0.3); color: var(--berry); }
+
+/* ================================================================
+   FORM INPUTS — mirrors smartiecoin.com style
+   ================================================================ */
+textarea, .form-group input, .form-group select {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  color: var(--ink);
+  font-family: var(--mono); font-size: 0.83rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+textarea { resize: vertical; min-height: 100px; line-height: 1.7; }
+textarea:focus,
+.form-group input:focus,
+.form-group select:focus {
+  border-color: rgba(57,214,195,0.5);
+  background: rgba(57,214,195,0.04);
+}
+.form-group select option { background: var(--bg-alt); }
+.form-group { margin-bottom: 0; }
+.form-group label {
+  display: block; font-family: var(--head); font-size: 0.68rem;
+  font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-soft); margin-bottom: 0.34rem;
+}
+
+.error-msg {
+  background: rgba(255,79,143,0.07);
+  border: 1px solid rgba(255,79,143,0.3);
+  border-radius: 8px; padding: 0.58rem 0.9rem;
+  font-size: 0.82rem; color: var(--berry);
+  margin-top: 0.75rem; display: none;
+}
+.error-msg.show { display: block; }
+
+/* ================================================================
+   VANITY
+   ================================================================ */
+.vanity-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+.vanity-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-top: 1rem; }
+.stat-box {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--line);
+  border-radius: 10px; padding: 0.8rem;
+  text-align: center;
+}
+.stat-box .val {
+  font-family: var(--mono); font-size: 1.08rem; font-weight: 600;
+  color: var(--mint);
+}
+.stat-box .lbl {
+  font-family: var(--head); font-size: 0.6rem; color: var(--ink-soft);
+  margin-top: 0.22rem; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.progress-bar-bg {
+  background: rgba(255,255,255,0.06); border-radius: 99px;
+  height: 4px; margin-top: 0.75rem; overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--mint), var(--sky), var(--berry));
+  background-size: 200%;
+  animation: smt-gradient 3s ease infinite;
+  border-radius: 99px; transition: width 0.3s; width: 0%;
+}
+.vanity-current {
+  margin-top: 0.5rem; font-family: var(--mono);
+  font-size: 0.66rem; color: var(--ink-soft); word-break: break-all;
+}
+
+/* ================================================================
+   INFO BADGE (derivation path etc.)
+   ================================================================ */
+.info-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(81,168,255,0.08);
+  border: 1px solid rgba(81,168,255,0.2);
+  border-radius: 8px; padding: 0.45rem 0.85rem;
+  font-family: var(--head); font-size: 0.72rem; font-weight: 700;
+  color: var(--sky); letter-spacing: 0.04em; margin-top: 0.8rem;
+}
+.info-badge i { font-size: 0.78rem; }
+
+/* ================================================================
+   FOOTER — mirrors smartiecoin.com
+   ================================================================ */
+.site-footer {
+  padding: 1.2rem 0 1.6rem;
+  border-top: 1px solid #27335a;
+  background: rgba(7,10,22,0.85);
+  margin-top: 3rem;
+}
+.footer-row {
+  display: flex; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap; align-items: flex-start;
+}
+.footer-brand { font-family: var(--head); font-weight: 900; color: var(--ink); font-size: 0.95rem; }
+.footer-brand strong { color: var(--mint); }
+.footer-meta { color: var(--ink-soft); font-size: 0.82rem; line-height: 1.85; }
+.footer-meta a { color: var(--sky); text-decoration: none; }
+.footer-meta a:hover { text-decoration: underline; }
+.footer-donate { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-soft); line-height: 1.9; }
+.footer-donate b { color: var(--mint); }
+
+/* ================================================================
+   RESPONSIVE
+   ================================================================ */
+@media (max-width: 640px) {
+  .vanity-controls { grid-template-columns: 1fr; }
+  .mnemonic-grid { grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); }
+  .nav-links { gap: 0.25rem; }
+  .nav-links a { font-size: 0.8rem; padding: 0.3rem 0.45rem; }
+  .brand-badge { display: none; }
+}
+
+/* ================================================================
+   DATA-REVEAL ANIMATION (from styles.css)
+   ================================================================ */
+[data-reveal] {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- bg decoration -->
+<div class="bg-noise"></div>
+<div class="bg-shape bg-shape-a"></div>
+<div class="bg-shape bg-shape-b"></div>
+<div class="bg-shape bg-shape-c"></div>
+
+<!-- ================================================================
+     HEADER
+     ================================================================ -->
+<header class="site-header">
+  <div class="container">
+    <div class="header-row">
+
+      <!-- Brand -->
+      <a href="https://smartiecoin.com" target="_blank" class="brand">
+        <img class="brand-logo" src="https://smartiecoin.com/assets/logo-horizontal.png" alt="Smarties logo" width="34" height="34">
+        <span class="brand-name">SMARTIE<strong>COIN</strong></span>
+        <span class="brand-badge">SMT</span>
+      </a>
+
+      <!-- Nav -->
+      <nav class="nav-links">
+        <a href="https://smartiecoin.com" target="_blank">
+          <i class="fa-solid fa-house fa-sm" style="margin-right:4px"></i>Home
+        </a>
+        <a href="https://explorer.smartiecoin.com" target="_blank">
+          <i class="fa-solid fa-cubes fa-sm" style="margin-right:4px"></i>Explorer
+        </a>
+        <a href="https://github.com/SmartiesCoin/Smartiecoin" target="_blank">
+          <i class="fa-brands fa-github fa-sm" style="margin-right:4px"></i>GitHub
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 7-colour stripe -->
+  <div class="rainbow-stripe">
+    <span style="background:var(--c1)"></span>
+    <span style="background:var(--c2)"></span>
+    <span style="background:var(--c3)"></span>
+    <span style="background:var(--c4)"></span>
+    <span style="background:var(--c5)"></span>
+    <span style="background:var(--c6)"></span>
+    <span style="background:var(--c7)"></span>
+  </div>
+</header>
+
+<!-- ================================================================
+     MAIN
+     ================================================================ -->
+<main>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="page-hero" data-reveal>
+    <div class="eyebrow"><i class="fa-solid fa-microchip" style="margin-right:6px"></i>CPU Mining · Privacy · Masternodes</div>
+    <h1><i class="fa-solid fa-key" style="font-size:0.7em;margin-right:0.3em;color:var(--mint)"></i>Wallet <span class="hl">Generator</span></h1>
+    <p>All code runs in the browser — no data is sent to any server.</p>
+  </div>
+
+  <div class="rainbow-line"></div>
+
+  <!-- Tabs -->
+  <div class="smt-tabs" data-reveal>
+    <button class="smt-tab active" onclick="switchTab('generate', this)">
+      <i class="fa-solid fa-bolt fa-sm" style="margin-right:5px"></i>Generate
+    </button>
+    <button class="smt-tab" onclick="switchTab('recover', this)">
+      <i class="fa-solid fa-rotate fa-sm" style="margin-right:5px"></i>Recover
+    </button>
+    <button class="smt-tab" onclick="switchTab('vanity', this)">
+      <i class="fa-solid fa-sparkles fa-sm" style="margin-right:5px"></i>Vanity
+    </button>
+  </div>
+
+  <!-- ==============================================================
+       GENERATE TAB
+       ============================================================== -->
+  <div id="generate-tab" class="tab-content active">
+
+    <div class="smt-warning" data-reveal>
+      <strong><i class="fa-solid fa-triangle-exclamation" style="margin-right:6px"></i>Security Warning</strong>
+      Never share your private key or mnemonic with anyone. Anyone with the mnemonic can access your funds completely. Make sure no one is watching your screen when creating a new wallet.
+    </div>
+
+    <button class="btn-smt" id="gen-btn" onclick="generateWallet()" data-reveal>
+      <i class="fa-solid fa-bolt" style="margin-right:8px"></i>Generate New Wallet
+    </button>
+
+    <div id="generated-wallet">
+
+      <!-- Mnemonic Grid -->
+      <div class="smt-card" style="margin-top:1.1rem">
+        <div class="smt-card-header">
+          <span class="title">
+            <i class="fa-solid fa-list-ol"></i>
+            BIP-39 Mnemonic Seed — 12 Words
+          </span>
+          <button class="btn-smt-sm" onclick="copyEl('mnemonic-phrase-display')">
+            <i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy All
+          </button>
+        </div>
+        <div class="smt-card-body">
+          <div class="mnemonic-grid" id="mnemonic-words"></div>
+          <div id="checksum-verify" class="checksum-status"></div>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="smt-card">
+        <div class="smt-card-header">
+          <span class="title">
+            <span class="dot-icon" style="background:var(--mint)"></span>
+            Address (starts with S)
+          </span>
+          <button class="btn-smt-sm" onclick="copyEl('address-display')">
+            <i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy
+          </button>
+        </div>
+        <div class="smt-card-body">
+          <div class="field-value v-address" id="address-display"></div>
+        </div>
+      </div>
+
+      <!-- Private Key WIF -->
+      <div class="smt-card">
+        <div class="smt-card-header">
+          <span class="title">
+            <span class="dot-icon" style="background:var(--orange)"></span>
+            Private Key WIF (K / L)
+          </span>
+          <button class="btn-smt-sm" onclick="copyEl('wif-display')">
+            <i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy
+          </button>
+        </div>
+        <div class="smt-card-body">
+          <div class="field-value v-wif" id="wif-display"></div>
+        </div>
+      </div>
+
+      <!-- Private Key Hex -->
+      <div class="smt-card">
+        <div class="smt-card-header">
+          <span class="title">
+            <span class="dot-icon" style="background:var(--berry)"></span>
+            Private Key Hex
+          </span>
+          <button class="btn-smt-sm" onclick="copyEl('seed-display')">
+            <i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy
+          </button>
+        </div>
+        <div class="smt-card-body">
+          <div class="field-value v-privhex" id="seed-display"></div>
+        </div>
+      </div>
+
+      <!-- Public Key -->
+      <div class="smt-card">
+        <div class="smt-card-header">
+          <span class="title">
+            <span class="dot-icon" style="background:var(--sky)"></span>
+            Public Key (compressed 33 bytes)
+          </span>
+          <button class="btn-smt-sm" onclick="copyEl('public-key-display')">
+            <i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy
+          </button>
+        </div>
+        <div class="smt-card-body">
+          <div class="field-value v-pubkey" id="public-key-display"></div>
+        </div>
+      </div>
+
+      <!-- Mnemonic full text -->
+      <div class="smt-card">
+        <div class="smt-card-header">
+          <span class="title">
+            <span class="dot-icon" style="background:var(--c7)"></span>
+            Mnemonic (Full Text)
+          </span>
+          <button class="btn-smt-sm" onclick="copyEl('mnemonic-phrase-display')">
+            <i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy
+          </button>
+        </div>
+        <div class="smt-card-body">
+          <div class="field-value v-mnemonic" id="mnemonic-phrase-display"></div>
+          <div class="info-badge">
+            <i class="fa-solid fa-route"></i>
+            Derivation: m/44'/5'/0'/0/0 &nbsp;·&nbsp; coin_type=5 &nbsp;·&nbsp; secp256k1 &nbsp;·&nbsp; BIP-32/44/39
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /generated-wallet -->
+  </div><!-- /generate-tab -->
+
+  <!-- ==============================================================
+       RECOVER TAB
+       ============================================================== -->
+  <div id="recover-tab" class="tab-content">
+    <div class="smt-card">
+      <div class="smt-card-header">
+        <span class="title"><i class="fa-solid fa-rotate"></i>Recover Wallet from Mnemonic</span>
+      </div>
+      <div class="smt-card-body">
+        <div class="form-group">
+          <label><i class="fa-solid fa-list-ol" style="margin-right:5px"></i>Enter 12 BIP-39 mnemonic words (separate with spaces)</label>
+          <textarea id="recovery-mnemonic"
+                    placeholder="word1 word2 word3 ... word12"
+                    oninput="hideErr('recovery-error')"></textarea>
+        </div>
+        <div class="error-msg" id="recovery-error"></div>
+        <button class="btn-smt" style="margin-top:1rem" onclick="recoverWallet()">
+          <i class="fa-solid fa-rotate" style="margin-right:8px"></i>Recover Wallet
+        </button>
+      </div>
+    </div>
+
+    <div id="recovered-wallet">
+      <div class="smt-card">
+        <div class="smt-card-header">
+          <span class="title"><i class="fa-solid fa-circle-check"></i>Wallet Successfully Recovered</span>
+        </div>
+        <div class="smt-card-body">
+          <div id="recovery-checksum-status" class="checksum-status cs-ok" style="display:block;margin-bottom:1rem"></div>
+
+          <div class="field-row">
+            <div class="field-label">
+              <span class="lbl-left"><span class="lbl-dot" style="background:var(--mint)"></span>Address</span>
+              <button class="btn-smt-sm" onclick="copyEl('recovered-address')"><i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy</button>
+            </div>
+            <div class="field-value v-address" id="recovered-address"></div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-label">
+              <span class="lbl-left"><span class="lbl-dot" style="background:var(--orange)"></span>Private Key WIF (K/L)</span>
+              <button class="btn-smt-sm" onclick="copyEl('recovered-wif')"><i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy</button>
+            </div>
+            <div class="field-value v-wif" id="recovered-wif"></div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-label">
+              <span class="lbl-left"><span class="lbl-dot" style="background:var(--berry)"></span>Private Key Hex</span>
+              <button class="btn-smt-sm" onclick="copyEl('recovered-seed')"><i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy</button>
+            </div>
+            <div class="field-value v-privhex" id="recovered-seed"></div>
+          </div>
+
+          <div class="field-row">
+            <div class="field-label">
+              <span class="lbl-left"><span class="lbl-dot" style="background:var(--sky)"></span>Public Key (compressed)</span>
+              <button class="btn-smt-sm" onclick="copyEl('recovered-public-key')"><i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy</button>
+            </div>
+            <div class="field-value v-pubkey" id="recovered-public-key"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /recover-tab -->
+
+  <!-- ==============================================================
+       VANITY TAB
+       ============================================================== -->
+  <div id="vanity-tab" class="tab-content">
+    <div class="smt-card">
+      <div class="smt-card-header">
+        <span class="title"><i class="fa-solid fa-magnifying-glass"></i>Vanity Address Search</span>
+      </div>
+      <div class="smt-card-body">
+        <p style="font-size:0.83rem;color:var(--ink-soft);margin:0 0 1.1rem;line-height:1.65">
+          Search for addresses that contain certain text after the prefix
+          <code style="color:var(--mint);background:rgba(57,214,195,0.1);padding:1px 6px;border-radius:4px;font-family:var(--mono)">S</code>.
+          The longer the pattern, the longer the search time.
+        </p>
+
+        <div class="vanity-controls" style="margin-bottom:1rem">
+          <div class="form-group">
+            <label><i class="fa-solid fa-fingerprint" style="margin-right:5px"></i>Pattern (Base58)</label>
+            <input type="text" id="vanity-pattern" placeholder="cth: MTC, ABC, Sat...">
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-hashtag" style="margin-right:5px"></i>Max Trials</label>
+            <input type="number" id="max-attempts" value="100000" min="1000" step="1000">
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-location-dot" style="margin-right:5px"></i>Pattern Position</label>
+            <select id="vanity-position">
+              <option value="start">Beginning (after S)</option>
+              <option value="anywhere">Anywhere</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><i class="fa-solid fa-font" style="margin-right:5px"></i>Case Sensitive</label>
+            <select id="case-sensitive">
+              <option value="false">No (ignore case)</option>
+              <option value="true">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-smt" id="start-vanity-btn" onclick="startVanitySearch()">
+            <i class="fa-solid fa-magnifying-glass" style="margin-right:8px"></i>Start Search
+          </button>
+          <button class="btn-smt-danger" id="stop-vanity-btn" onclick="stopVanitySearch()">
+            <i class="fa-solid fa-stop" style="margin-right:6px"></i>Stop
+          </button>
+        </div>
+
+        <div id="vanity-progress" style="display:none">
+          <div class="vanity-stats">
+            <div class="stat-box">
+              <div class="val" id="attempts-count">0</div>
+              <div class="lbl">Trial</div>
+            </div>
+            <div class="stat-box">
+              <div class="val" id="speed-count">0</div>
+              <div class="lbl">Wallet/second</div>
+            </div>
+            <div class="stat-box">
+              <div class="val" id="elapsed-time">0s</div>
+              <div class="lbl">Time</div>
+            </div>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="vanity-progress-bar"></div>
+          </div>
+          <div class="vanity-current" id="vanity-current">
+            <i class="fa-solid fa-circle-notch fa-spin" style="margin-right:5px"></i>Searching...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="vanity-result">
+      <div class="smt-card">
+        <div class="smt-card-header">
+          <span class="title"><i class="fa-solid fa-circle-check"></i>Vanity Address Found!</span>
+        </div>
+        <div class="smt-card-body">
+          <div class="field-row">
+            <div class="field-label">
+              <span class="lbl-left"><span class="lbl-dot" style="background:var(--mint)"></span>Address</span>
+              <button class="btn-smt-sm" onclick="copyEl('vanity-address')"><i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy</button>
+            </div>
+            <div class="field-value v-address" id="vanity-address"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">
+              <span class="lbl-left"><span class="lbl-dot" style="background:var(--c7)"></span>Mnemonic</span>
+              <button class="btn-smt-sm" onclick="copyEl('vanity-mnemonic')"><i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy</button>
+            </div>
+            <div class="field-value v-mnemonic" id="vanity-mnemonic"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">
+              <span class="lbl-left"><span class="lbl-dot" style="background:var(--orange)"></span>Private Key WIF</span>
+              <button class="btn-smt-sm" onclick="copyEl('vanity-wif')"><i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy</button>
+            </div>
+            <div class="field-value v-wif" id="vanity-wif"></div>
+          </div>
+          <div class="field-row">
+            <div class="field-label">
+              <span class="lbl-left"><span class="lbl-dot" style="background:var(--sky)"></span>Public Key</span>
+              <button class="btn-smt-sm" onclick="copyEl('vanity-public-key')"><i class="fa-solid fa-copy" style="margin-right:4px"></i>Copy</button>
+            </div>
+            <div class="field-value v-pubkey" id="vanity-public-key"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /vanity-tab -->
+
+</div><!-- /container -->
+</main>
+
+<!-- ================================================================
+     FOOTER — mirrors smartiecoin.com footer
+     ================================================================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="rainbow-line" style="margin:0 0 1rem"></div>
+    <div class="footer-row">
+      <div>
+        <div class="footer-brand">SMARTIE<strong>COIN</strong> <span style="color:var(--ink-soft);font-size:0.75rem;font-weight:400">Wallet Generator</span></div>
+        <div class="footer-meta" style="margin-top:0.5rem">
+          Create by syabiz &nbsp;·&nbsp;
+          <a href="https://smartiecoin.com" target="_blank">smartiecoin.com</a> &nbsp;·&nbsp;
+          <a href="https://github.com/SmartiesCoin/Smartiecoin" target="_blank">GitHub</a>
+        </div>
+      </div>
+      <div class="footer-donate">
+        If this helps, maybe there's a reward of a cup of coffee? ☕<br>
+        SMT&nbsp;: <b id="smt-addr">SSdwnEwNVNm2f3zrfC383sBwwq7CJ7Lkvj</b><br>
+        BTC&nbsp;: <b>bc1qn6t8hy8memjfzp4y3sh6fvadjdtqj64vfvlx58</b>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ================================================================
+     JAVASCRIPT — secp256k1 + BIP-39 + BIP-32
+     ================================================================ -->
+<script>
+'use strict';
+
+/* ============================================================
+   BIP-39 WORDLIST (2048 words — standard English)
+   ============================================================ */
+var BIP39 = "abandon ability able about above absent absorb abstract absurd abuse access accident account accuse achieve acid acoustic acquire across act action actor actress actual adapt add addict address adjust admit adult advance advice aerobic affair afford afraid again age agent agree ahead aim air airport aisle alarm album alcohol alert alien all alley allow almost alone alpha already also alter always amateur amazing among amount amused analyst anchor ancient anger angle angry animal ankle announce annual another answer antenna antique anxiety any apart apology appear apple approve april arch arctic area arena argue arm armed armor army around arrange arrest arrive arrow art artefact artist artwork ask aspect assault asset assist assume asthma athlete atom attack attend attitude attract auction audit august aunt author auto autumn average avocado avoid awake aware away awesome awful awkward axis baby bachelor bacon badge bag balance balcony ball bamboo banana banner bar barely bargain barrel base basic basket battle beach bean beauty because become beef before begin behave behind believe below belt bench benefit best betray better between beyond bicycle bid bike bind biology bird birth bitter black blade blame blanket blast bleak bless blind blood blossom blouse blue blur blush board boat body boil bomb bone book boost border boring borrow boss bottom bounce box boy bracket brain brand brave breeze brick bridge brief bright bring brisk broccoli broken bronze broom brother brown brush bubble buddy budget buffalo build bulb bulk bullet bundle bunker burden burger burst bus business busy butter buyer buzz cabbage cabin cable cactus cage cake call calm camera camp can canal cancel candy cannon canvas canyon capable capital captain car carbon card cargo carpet carry cart case cash casino castle casual cat catalog catch category cattle caught cause caution cave ceiling celery cement census chair chaos chapter charge chase chat cheap check cheese chef cherry chest chicken chief child chimney choice choose chronic chuckle chunk cinnamon circle citizen city civil claim clap clarify claw clay clean clerk clever click client cliff climb clinic clip clock clog close cloth cloud clown club clump cluster cobalt coffee coil color column combine come comfort comic common company concert conduct confirm congress connect consider control convince cook cool copper copy coral core corn correct cost cotton couch country couple course cousin cover coyote crack cradle craft cram crane crash crater crawl crazy cream credit creek crew cricket crime crisp critic cross crouch crowd crucial cruel cruise crumble crunch crush cry crystal cube culture cup cupboard curious current curtain curve cushion custom cute cycle dad damage damp dance danger daring dash daughter dawn day deal debate debris decade december decline decorate decrease deer defense define defy degree delay deliver demand demise denial dentist deny depart depend deposit depth deputy derive describe desert design desk despair destroy detail detect develop device devote diagram dial diamond diary dice diesel diet differ digital dignity dilemma dinner dinosaur direct dirt disagree discover disease dish dismiss disorder display distance divert divide divorce dizzy doctor document dog doll dolphin domain donate donkey donor door dose double dove draft dragon drastic draw dream dress drift drill drink drip drive drop drum dry duck dumb dune during dust dutch duty dwarf dynamic eager eagle early earn earth easily east easy echo ecology edge edit educate effort egg eight either elbow elder electric elegant element elephant elevator elite else embark embody embrace emerge emotion employ empower empty enable enact endless endorse enemy engage engine enhance enjoy enlist enough enrich enroll ensure enter entire entry envelope episode equal equip erase erode erosion error erupt escape essay essence estate eternal ethics evidence evil evoke evolve exact example excess exchange excite exclude exercise exhaust exhibit exile exist exit exotic expand expire explain expose express extend extra eye fable face faculty fade faint faith fall false fame family famous fan fancy fantasy far fashion fat fatal father fatigue fault favorite feature february federal fee feed feel feet fellow felt fence festival fetch fever few fiber fiction field figure file film filter final find fine finger finish fire firm first fiscal fish fit fitness fix flag flame flash flat flavor flee flight flip float flock floor flower fluid flush fly foam focus fog foil follow food force forest forget fork fortune forum forward fossil foster found fox fragile frame frequent fresh friend fringe frog front frost frown frozen fruit fuel fun funny furnace fury future gadget gain galaxy gallery game gap garbage garden garlic garment gasp gate gather gauge gaze general genius genre gentle genuine gesture ghost giant gift giggle ginger giraffe girl give glad glance glare glass glide glimpse globe gloom glory glove glow glue goat goddess gold good goose gorilla gospel gossip govern gown grab grace grain grant grape grasp grass gravity great green grid grief grit grocery group grow grunt guard guide guilt guitar gun gym habit hair half hammer hamster hand happy harsh harvest hat have hawk hazard head health heart heavy hedgehog height hello helmet help hen hero hidden high hill hint hip hire history hobby hockey hold hole holiday hollow home honey hood hope horn hospital host hour hover hub huge human humble humor hundred hungry hunt hurdle hurry hurt husband hybrid ice icon ignore ill illegal image imitate immense immune impact impose improve impulse inbox income increase index indicate indoor industry infant inflict inform inhale inject inner innocent input inquiry insane insect inside inspire install intact interest into invest invite involve iron island isolate issue item ivory jacket jaguar jar jazz jealous jeans jelly jewel job join joke journey joy judge juice jump jungle junior junk just kangaroo keen keep ketchup key kick kid kingdom kiss kit kitchen kite kitten kiwi knee knife knock know lab ladder lady lake lamp language laptop large later laugh laundry lava law lawn lawsuit layer lazy leader learn leave lecture left leg legal legend leisure lemon lend length lens leopard lesson letter level liar liberty library license life lift light like limb limit link lion liquid list little live lizard load loan lobster local lock logic lonely long loop lottery loud loyal lucky luggage lunar lunch luxury mad magic magnet maid main major make mammal mango mansion manual maple marble march margin marine market marriage mask master match material math matrix matter maximum maze meadow mean medal media melody melt member memory mention menu mercy merge merit merry mesh message metal method middle midnight milk million mimic mind minimum minor minute miracle miss mixed mixture mobile model modify mom monitor monkey monster month moon moral more morning mosquito mother motion motor mountain mouse move movie much muffin mule multiply muscle museum mushroom music must mutual myself mystery naive name napkin narrow nasty nature near neck need negative neglect neither nephew nerve nest net network neutral never news next nice night noble noise nominee noodle normal north notable note nothing notice novel now nuclear number nurse nut oak obey object oblige obscure obtain ocean october odor off offer office often oil okay old olive olympic omit once onion open opera oppose option orange orbit orchard order ordinary organ orient original orphan ostrich other outdoor outside oval over own oyster package paddle page pair palace palm panda panel panic panther paper parade parent park parrot party pass patch path patrol pause pave payment peace peanut peasant pelican pen penalty pencil people pepper perfect permit person pet phone photo phrase physical piano picnic picture piece pig pigeon pill pilot pink pioneer pipe pistol pitch pizza place planet plastic plate play please pledge pluck plug plunge poem poet point polar pole police pond pony popular portion position possible post potato poverty powder power practice praise predict prefer prepare present pretty prevent price pride primary print priority prison private prize problem process produce profit program project promote proof property prosper protect proud provide public pudding pull pulp pulse pumpkin punch pupil puppy purchase purity push put puzzle pyramid quality quantum quarter question quick quit quiz quote rabbit raccoon race rack radar radio rage rail rain raise rally ramp ranch random range rapid rare rate rather raven reach ready real reason rebel rebuild recall receive recipe record recycle reduce reflect reform refuse region regret regular reject relax release relief rely remain remember remind remove render renew rent reopen repair repeat replace report require rescue resemble resist resource response result retire retreat return reunion reveal review reward rhythm ribbon rice rich ride ridge rifle right rigid ring riot ripple risk ritual rival river road roast robot robust rocket romance roof rookie rotate rough round route royal rubber rude rug rule run runway rural sad saddle sadness safe sail salad salmon salon salt salute same sample sand satisfy satoshi sauce sausage save say scale scan scare scatter scene scheme school science scissors scorpion scout scrap screen script scrub sea search season seat second secret section security seek segment select sell seminar senior sense sentence series service session settle setup seven shadow shaft shallow share shed shell sheriff shield shift shine ship shiver shock shoe shoot shop short shoulder shove shrimp shrug shudder shy sibling siege sight sign silent silk silly silver similar simple since sing siren sister situate six size ski skill skin skirt skull slab slam sleep slender slice slide slight slim slogan slot slow slush small smart smile smoke smooth snack snake snap sniff snow soap soccer social sock solar soldier solid solution solve someone song soon sorry soul sound soup source south space spare spatial spawn speak special speed sphere spice spider spike spin spirit split spoil sponsor spoon spray spread spring spy square squeeze squirrel stable stadium staff stage stairs stamp stand start state stay steak steel stem step stereo stick still sting stock stomach stone stop store storm strategy street strike strong struggle student stuff stumble style subject submit subway success such sudden suffer sugar suggest suit summer sun sunny sunset super supply supreme sure surface surge surprise sustain swallow swamp swap swear sweet swift swim swing switch sword symbol symptom syrup table tackle tag tail talent tamper tank tape target task tattoo taxi teach team tell ten tenant tennis tent term test text thank that theme then theory there they thing this thought three thrive throw thumb thunder ticket tilt timber time tiny tired title toast tobacco today together toilet token tomato tomorrow tone tongue tonight tool tooth top topic topple torch tornado tortoise toss total tourist toward tower town toy trade traffic tragic train transfer trap trash travel tray treat tree trend trial tribe trick trigger trim trip trophy trouble truck truly trumpet trust truth tube tuition tumble tuna tunnel turkey turn turtle twelve twenty twice twin twist two type ugly umbrella unable unaware uncle uncover under undo unfair unfold unhappy uniform unique universe unknown unlock until unusual unveil update upgrade uphold upon upper upset urban usage use used useful useless usual utility vacant vacuum vague valid valley valve van vanish vapor various vast vault vehicle velvet vendor venture venue verb verify version very veteran viable vibrant vicious victory video view village vintage violin virtual virus visa visit visual vital vivid vocal void volcano volume vote voyage wage wagon wait walk wall walnut want warfare warm warrior wash wasp waste water wave way wealth weapon wear weasel web wedding weekend weird welcome well west wet whale wheat wheel when where whip whisper wide width wife wild will win window wine wing wink winner winter wire wisdom wise wish witness wolf woman wonder wood wool word world worry worth wrap wreck wrestle wrist write wrong yard year yellow you young youth zebra zero zone zoo".split(' ');
+
+var BIP39_IDX = {};
+BIP39.forEach(function(w,i){ BIP39_IDX[w]=i; });
+
+/* ============================================================
+   secp256k1 (pure-JS, big integers as BigInt)
+   ============================================================ */
+var P  = BigInt("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F");
+var N  = BigInt("0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141");
+var Gx = BigInt("0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798");
+var Gy = BigInt("0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8");
+var BI0 = BigInt(0), BI1 = BigInt(1), BI2 = BigInt(2), BI3 = BigInt(3);
+
+function modInv(a, m) {
+  var [old_r,r,old_s,s] = [a,m,BI1,BI0];
+  while (r !== BI0) {
+    var q = old_r / r;
+    [old_r,r] = [r, old_r - q*r];
+    [old_s,s] = [s, old_s - q*s];
+  }
+  return ((old_s % m) + m) % m;
+}
+function ecAdd(P1, P2) {
+  if (!P1) return P2; if (!P2) return P1;
+  var [x1,y1]=P1, [x2,y2]=P2;
+  var lam;
+  if (x1===x2) {
+    if ((y1+y2)%P===BI0) return null;
+    lam = BI3*x1*x1 * modInv(BI2*y1,P) % P;
+  } else {
+    lam = (y2-y1) * modInv(x2-x1,P) % P;
+  }
+  lam = ((lam%P)+P)%P;
+  var x3 = ((lam*lam - x1 - x2)%P+P)%P;
+  var y3 = ((lam*(x1-x3)-y1)%P+P)%P;
+  return [x3,y3];
+}
+function ecMul(k, pt) {
+  var result=null, addend=pt;
+  k = ((k%N)+N)%N;
+  while (k>BI0) {
+    if (k&BI1) result=ecAdd(result,addend);
+    addend=ecAdd(addend,addend);
+    k>>=BI1;
+  }
+  return result;
+}
+function pubkeyCompressed(privHex) {
+  var k = BigInt('0x'+privHex);
+  var pt = ecMul(k, [Gx,Gy]);
+  var prefix = (pt[1]%BI2===BI0) ? '02' : '03';
+  return prefix + pt[0].toString(16).padStart(64,'0');
+}
+
+/* ============================================================
+   SHA-256 (Web Crypto API — async wrapper)
+   ============================================================ */
+async function sha256(dataHex) {
+  var bytes = hexToBytes(dataHex);
+  var buf   = await crypto.subtle.digest('SHA-256', bytes);
+  return bytesToHex(new Uint8Array(buf));
+}
+async function dblSha256(dataHex) {
+  return sha256(await sha256(dataHex));
+}
+
+/* ============================================================
+   Base58Check
+   ============================================================ */
+var B58C = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+function b58encode(bytes) {
+  var n = BigInt('0x' + bytesToHex(bytes));
+  var res = '';
+  while (n > BI0) { var r = n % BigInt(58); n /= BigInt(58); res = B58C[Number(r)] + res; }
+  for (var i=0; i<bytes.length && bytes[i]===0; i++) res = '1' + res;
+  return res;
+}
+async function b58checkEncode(payloadHex) {
+  var chk = (await dblSha256(payloadHex)).slice(0,8);
+  return b58encode(hexToBytes(payloadHex + chk));
+}
+async function privToWIF(privHex) {
+  return b58checkEncode('80' + privHex + '01'); // compressed
+}
+async function pubkeyToAddress(pubHex) {
+  var sha = await sha256(pubHex);
+  // RIPEMD-160 — use pure-JS fallback (built in below)
+  var ripe = ripemd160(hexToBytes(sha));
+  var ripeHex = bytesToHex(ripe);
+  return b58checkEncode('3f' + ripeHex); // prefix byte 63 = 0x3f → S...
+}
+
+/* ============================================================
+   RIPEMD-160 (pure JS — no external lib needed)
+   ============================================================ */
+function ripemd160(msg) {
+  // Based on public domain implementation
+  function f(j,x,y,z){return j<16?x^y^z:j<32?(x&y)|(~x&z):j<48?(x|~y)^z:j<64?(x&z)|(y&~z):x^(y|~z);}
+  function K(j){return j<16?0x00000000:j<32?0x5a827999:j<48?0x6ed9eba1:j<64?0x8f1bbcdc:0xa953fd4e;}
+  function KK(j){return j<16?0x50a28be6:j<32?0x5c4dd124:j<48?0x6d703ef3:j<64?0x7a6d76e9:0x00000000;}
+  var RL=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,7,4,13,1,10,6,15,3,12,0,9,5,2,14,11,8,3,10,14,4,9,15,8,1,2,7,0,6,13,11,5,12,1,9,11,10,0,8,12,4,13,3,7,15,14,5,6,2,4,0,5,9,7,12,2,10,14,1,3,8,11,6,15,13];
+  var RR=[5,14,7,0,9,2,11,4,13,6,15,8,1,10,3,12,6,11,3,7,0,13,5,10,14,15,8,12,4,9,1,2,15,5,1,3,7,14,6,9,11,8,12,2,10,0,4,13,8,6,4,1,3,11,15,0,5,12,2,13,9,7,10,14,12,15,10,4,1,5,8,7,6,2,13,14,0,3,9,11];
+  var SL=[11,14,15,12,5,8,7,9,11,13,14,15,6,7,9,8,7,6,8,13,11,9,7,15,7,12,15,9,11,7,13,12,11,13,6,7,14,9,13,15,14,8,13,6,5,12,7,5,11,12,14,15,14,15,9,8,9,14,5,6,8,6,5,12,9,15,5,11,6,8,13,12,5,12,13,14,11,8,5,6];
+  var SR=[8,9,9,11,13,15,15,5,7,7,8,11,14,14,12,6,9,13,15,7,12,8,9,11,7,7,12,7,6,15,13,11,9,7,15,11,8,6,6,14,12,13,5,14,13,13,7,5,15,5,8,11,14,14,6,14,6,9,12,9,12,5,15,8,8,5,12,9,12,5,14,6,8,13,6,5,15,13,11,11];
+
+  var l = msg.length*8;
+  msg = Array.from(msg);
+  msg.push(0x80);
+  while (msg.length%64!==56) msg.push(0);
+  for (var i=0;i<8;i++) msg.push((l>>>(i*8))&0xff);
+
+  var h = [0x67452301,0xefcdab89,0x98badcfe,0x10325476,0xc3d2e1f0];
+  function rol(x,n){return (x<<n)|(x>>>(32-n));}
+  function add(){var s=0;for(var i=0;i<arguments.length;i++){s=(s+arguments[i])>>>0;}return s;}
+
+  for (var blk=0;blk<msg.length;blk+=64){
+    var M=[];for(var i=0;i<16;i++){M.push((msg[blk+i*4])|(msg[blk+i*4+1]<<8)|(msg[blk+i*4+2]<<16)|(msg[blk+i*4+3]<<24));}
+    var al=h[0],bl=h[1],cl=h[2],dl=h[3],el=h[4];
+    var ar=h[0],br=h[1],cr=h[2],dr=h[3],er=h[4];
+    for(var j=0;j<80;j++){
+      var t=add(al,f(j,bl,cl,dl),M[RL[j]],K(j));
+      t=add(rol(t,SL[j]),el); al=el;el=dl;dl=rol(cl,10);cl=bl;bl=t;
+      t=add(ar,f(79-j,br,cr,dr),M[RR[j]],KK(j));
+      t=add(rol(t,SR[j]),er); ar=er;er=dr;dr=rol(cr,10);cr=br;br=t;
+    }
+    var t=add(h[1],cl,dr); h[1]=add(h[2],dl,er);h[2]=add(h[3],el,ar);h[3]=add(h[4],al,br);h[4]=add(h[0],bl,cr);h[0]=t;
+  }
+  var out=[];
+  for(var i=0;i<5;i++){for(var j=0;j<4;j++)out.push((h[i]>>>(j*8))&0xff);}
+  return new Uint8Array(out);
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function hexToBytes(hex) {
+  var b=new Uint8Array(hex.length/2);
+  for(var i=0;i<hex.length;i+=2) b[i/2]=parseInt(hex.slice(i,i+2),16);
+  return b;
+}
+function bytesToHex(b) {
+  return Array.from(b).map(function(x){return x.toString(16).padStart(2,'0');}).join('');
+}
+
+/* ============================================================
+   PBKDF2-HMAC-SHA512 (Web Crypto)
+   ============================================================ */
+async function pbkdf2Sha512(password, salt, iterations, keyLen) {
+  var enc = new TextEncoder();
+  var keyMat = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveBits']);
+  var bits = await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-512',salt:enc.encode(salt),iterations:iterations}, keyMat, keyLen*8);
+  return new Uint8Array(bits);
+}
+
+/* ============================================================
+   HMAC-SHA512 (Web Crypto)
+   ============================================================ */
+async function hmacSha512(keyBytes, dataBytes) {
+  var k = await crypto.subtle.importKey('raw', keyBytes, {name:'HMAC',hash:'SHA-512'}, false, ['sign']);
+  var sig = await crypto.subtle.sign('HMAC', k, dataBytes);
+  return new Uint8Array(sig);
+}
+
+/* ============================================================
+   BIP-39 — entropy → mnemonic
+   ============================================================ */
+async function bytesToMnemonic(entropy16) {
+  var hashBuf = await crypto.subtle.digest('SHA-256', entropy16);
+  var h = new Uint8Array(hashBuf)[0];
+  var bits = 0n;
+  for (var b of entropy16) bits = (bits << 8n) | BigInt(b);
+  var checksum = BigInt((h >> 4) & 0x0F);
+  var full = (bits << 4n) | checksum;
+  var words = [];
+  for (var i=0;i<12;i++) { words.push(BIP39[Number(full & 0x7FFn)]); full >>= 11n; }
+  words.reverse();
+  return words.join(' ');
+}
+
+async function validateBip39(mnemonic) {
+  var words = mnemonic.trim().toLowerCase().split(/\s+/);
+  if (words.length !== 12) return {ok:false, msg:'Must be exactly 12 words (found) '+words.length+')'};
+  var bad = words.filter(function(w){return !(w in BIP39_IDX);});
+  if (bad.length) return {ok:false, msg:'Unknown word: '+bad.slice(0,4).join(', ')};
+  // checksum
+  var indices = words.map(function(w){return BIP39_IDX[w];});
+  var bits = 0n;
+  for (var idx of indices) bits = (bits << 11n) | BigInt(idx);
+  var entropyInt = bits >> 4n;
+  var csWord = Number(bits & 0xFn);
+  var eb = new Uint8Array(16);
+  for (var i=15;i>=0;i--) { eb[i]=Number(entropyInt&0xFFn); entropyInt>>=8n; }
+  var hashBuf = await crypto.subtle.digest('SHA-256', eb);
+  var csExpect = (new Uint8Array(hashBuf)[0] >> 4) & 0x0F;
+  if (csWord !== csExpect) return {ok:false, msg:'Invalid checksum — check word order'};
+  return {ok:true, entropy:eb};
+}
+
+/* ============================================================
+   BIP-32 / BIP-44 HD derivation — m/44'/5'/0'/0/0
+   ============================================================ */
+var HARDENED = 0x80000000;
+
+async function deriveChildKey(key32, chain32, index) {
+  var buf;
+  if (index >= HARDENED) {
+    buf = new Uint8Array(37);
+    buf[0] = 0x00;
+    buf.set(key32, 1);
+    var dv = new DataView(buf.buffer); dv.setUint32(33, index);
+  } else {
+    var pub = hexToBytes(pubkeyCompressed(bytesToHex(key32)));
+    buf = new Uint8Array(37);
+    buf.set(pub, 0);
+    var dv = new DataView(buf.buffer); dv.setUint32(33, index);
+  }
+  var I = await hmacSha512(chain32, buf);
+  var il = BigInt('0x' + bytesToHex(I.slice(0,32)));
+  var parent = BigInt('0x' + bytesToHex(key32));
+  var child = ((il + parent) % N + N) % N;
+  var childHex = child.toString(16).padStart(64,'0');
+  return { key: hexToBytes(childHex), chain: I.slice(32) };
+}
+
+async function deriveFromSeed(seed64) {
+  var enc = new TextEncoder();
+  var I = await hmacSha512(enc.encode('Bitcoin seed'), seed64);
+  var key = I.slice(0,32), chain = I.slice(32);
+  // m/44'/5'/0'/0/0
+  var path = [44+HARDENED, 5+HARDENED, 0+HARDENED, 0, 0];
+  for (var idx of path) {
+    var r = await deriveChildKey(key, chain, idx);
+    key = r.key; chain = r.chain;
+  }
+  return key;
+}
+
+/* ============================================================
+   WALLET FROM ENTROPY
+   ============================================================ */
+async function walletFromEntropy(entropy16) {
+  var mnemonic = await bytesToMnemonic(entropy16);
+  var seed64   = await pbkdf2Sha512(mnemonic, 'mnemonic', 2048, 64);
+  var privkey  = await deriveFromSeed(seed64);
+  var privHex  = bytesToHex(privkey);
+  var pubHex   = pubkeyCompressed(privHex);
+  var address  = await pubkeyToAddress(pubHex);
+  var wif      = await privToWIF(privHex);
+  return { mnemonic, privHex, pubHex, address, wif };
+}
+
+/* ============================================================
+   UI — GENERATE
+   ============================================================ */
+var CANDY = ['#ff4f8f','#ff9328','#ffd166','#39d6c3','#51a8ff','#7f7bff','#a3e635'];
+
+async function generateWallet() {
+  var btn = document.getElementById('gen-btn');
+  btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right:8px"></i>Generating…';
+  try {
+    var entropy = crypto.getRandomValues(new Uint8Array(16));
+    var w = await walletFromEntropy(entropy);
+    renderWallet(w);
+  } catch(e) {
+    alert('Error: '+e.message); console.error(e);
+  } finally {
+    btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-bolt" style="margin-right:8px"></i>Generate New Wallet';
+  }
+}
+
+function renderWallet(w) {
+  // Mnemonic grid
+  var grid = document.getElementById('mnemonic-words');
+  grid.innerHTML = '';
+  w.mnemonic.split(' ').forEach(function(word, i) {
+    var dotCol = CANDY[i % CANDY.length];
+    var d = document.createElement('div');
+    d.className = 'mnemonic-word';
+    d.innerHTML =
+      '<span class="wdot" style="background:'+dotCol+'"></span>' +
+      '<span class="wnum">'+(i+1)+'</span>' +
+      word;
+    grid.appendChild(d);
+  });
+
+  // Fields
+  document.getElementById('mnemonic-phrase-display').textContent = w.mnemonic;
+  document.getElementById('address-display').textContent         = w.address;
+  document.getElementById('wif-display').textContent             = w.wif;
+  document.getElementById('seed-display').textContent            = w.privHex;
+  document.getElementById('public-key-display').textContent      = w.pubHex;
+
+  // Checksum badge
+  var vd = document.getElementById('checksum-verify');
+  vd.className    = 'checksum-status cs-ok';
+  vd.textContent  = '✅ BIP-39 valid checksum — 12 words OK';
+  vd.style.display = 'block';
+
+  document.getElementById('generated-wallet').style.display = 'block';
+  revealElement(document.getElementById('generated-wallet'));
+}
+
+/* ============================================================
+   UI — RECOVER
+   ============================================================ */
+async function recoverWallet() {
+  hideErr('recovery-error');
+  document.getElementById('recovered-wallet').style.display = 'none';
+  var raw = document.getElementById('recovery-mnemonic').value;
+  var v   = await validateBip39(raw);
+  if (!v.ok) { showErr('recovery-error', v.msg); return; }
+  try {
+    var w = await walletFromEntropy(v.entropy);
+    document.getElementById('recovery-checksum-status').textContent = '✅ Valid checksum — 12 words BIP-39 OK';
+    document.getElementById('recovered-address').textContent    = w.address;
+    document.getElementById('recovered-wif').textContent        = w.wif;
+    document.getElementById('recovered-seed').textContent       = w.privHex;
+    document.getElementById('recovered-public-key').textContent = w.pubHex;
+    document.getElementById('recovered-wallet').style.display   = 'block';
+    revealElement(document.getElementById('recovered-wallet'));
+  } catch(e) { showErr('recovery-error', e.message); console.error(e); }
+}
+
+/* ============================================================
+   UI — VANITY
+   ============================================================ */
+var vanityRunning=false, vanityStart=0, vanityCount=0;
+
+async function startVanitySearch() {
+  var rawPat   = document.getElementById('vanity-pattern').value.trim();
+  var maxAtt   = parseInt(document.getElementById('max-attempts').value)||100000;
+  var caseSens = document.getElementById('case-sensitive').value==='true';
+  var position = document.getElementById('vanity-position').value;
+
+  if (!rawPat) { alert('Enter pattern!'); return; }
+  var invalidChars = [...rawPat].filter(function(c){return B58C.indexOf(c)<0;});
+  if (invalidChars.length) { alert('Invalid Base58 character: '+[...new Set(invalidChars)].join(', ')); return; }
+
+  var searchPat = caseSens ? rawPat : rawPat.toLowerCase();
+  vanityRunning=true; vanityStart=Date.now(); vanityCount=0;
+
+  document.getElementById('start-vanity-btn').style.display='none';
+  document.getElementById('stop-vanity-btn').style.display='inline-block';
+  document.getElementById('vanity-progress').style.display='block';
+  document.getElementById('vanity-result').style.display='none';
+
+  while (vanityRunning && vanityCount < maxAtt) {
+    for (var b=0; b<10 && vanityRunning && vanityCount<maxAtt; b++) {
+      vanityCount++;
+      try {
+        var entropy = crypto.getRandomValues(new Uint8Array(16));
+        var w = await walletFromEntropy(entropy);
+        var after = w.address.slice(1); // skip leading 'S'
+        var hay   = caseSens ? after : after.toLowerCase();
+        var match = position==='start' ? hay.startsWith(searchPat) : hay.includes(searchPat);
+        if (match) {
+          vanityRunning=false;
+          document.getElementById('vanity-address').textContent   = w.address;
+          document.getElementById('vanity-mnemonic').textContent  = w.mnemonic;
+          document.getElementById('vanity-wif').textContent       = w.wif;
+          document.getElementById('vanity-public-key').textContent= w.pubHex;
+          document.getElementById('vanity-result').style.display  = 'block';
+          stopVanitySearch(); updateVanityStats(maxAtt); return;
+        }
+      } catch(e){ console.error(e); }
+    }
+    updateVanityStats(maxAtt);
+    if (vanityCount%50===0) {
+      try {
+        var e2 = crypto.getRandomValues(new Uint8Array(16));
+        var w2 = await walletFromEntropy(e2);
+        document.getElementById('vanity-current').textContent = 'Check: '+w2.address;
+      } catch(e){}
+    }
+    await new Promise(function(r){setTimeout(r,0);});
+  }
+  if (vanityCount>=maxAtt) { alert('Done: pattern not found in '+maxAtt.toLocaleString()+' trial.'); stopVanitySearch(); }
+}
+
+function stopVanitySearch() {
+  vanityRunning=false;
+  document.getElementById('start-vanity-btn').style.display='inline-block';
+  document.getElementById('stop-vanity-btn').style.display='none';
+}
+function updateVanityStats(maxAtt) {
+  var sec=(Date.now()-vanityStart)/1000;
+  document.getElementById('attempts-count').textContent=vanityCount.toLocaleString();
+  document.getElementById('speed-count').textContent=(sec>0?Math.round(vanityCount/sec):0).toLocaleString();
+  document.getElementById('elapsed-time').textContent=sec.toFixed(1)+'s';
+  document.getElementById('vanity-progress-bar').style.width=Math.min(vanityCount/maxAtt*100,100)+'%';
+}
+
+/* ============================================================
+   UI HELPERS
+   ============================================================ */
+function switchTab(name, btn) {
+  document.querySelectorAll('.smt-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active');});
+  btn.classList.add('active');
+  document.getElementById(name+'-tab').classList.add('active');
+}
+function copyEl(id) {
+  var txt = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(txt).then(function(){
+    document.querySelectorAll('[onclick="copyEl(\''+id+'\')"]').forEach(function(b){
+      var orig=b.innerHTML; b.textContent='✓ Copied!';
+      setTimeout(function(){b.innerHTML=orig;},2000);
+    });
+  });
+}
+function showErr(id,msg){ var el=document.getElementById(id); el.textContent='⚠️ '+msg; el.classList.add('show'); }
+function hideErr(id){ var el=document.getElementById(id); el.textContent=''; el.classList.remove('show'); }
+function revealElement(el){ el.setAttribute('data-reveal',''); setTimeout(function(){el.classList.add('is-visible');},50); }
+
+/* ============================================================
+   SCROLL-REVEAL (mirrors smartiecoin.com data-reveal pattern)
+   ============================================================ */
+var ro = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('is-visible'); });
+},{threshold:0.1});
+document.querySelectorAll('[data-reveal]').forEach(function(el){ ro.observe(el); });
+</script>
+</body>
+</html>
