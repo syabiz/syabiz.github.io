@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smartiecoin (SMT) | Wallet Generator</title>
+  <meta name="description" content="Smartiecoin (SMT) is a secondary coin in the Ethernova ecosystem, focused on CPU mining, privacy through CoinJoin/Tor, and deterministic masternodes, wallet generator, paper wallet phrase mnemonic dan qr-code.">
+  <meta property="og:description" content="A secondary Ethernova ecosystem coin focused on CPU mining, privacy, and masternodes.">
+  <meta property="og:image" content="https://smartiecoin.com/assets/logo-horizontal.png">
+  <meta property="og:url" content="https://smartiecoin.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="https://smartiecoin.com/assets/logo-horizontal.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+:root{--bg:#070a16;--bg-soft:#0f1426;--bg-alt:#131a31;--ink:#f7f9ff;--ink-soft:#aab2d4;--line:#273153;--orange:#ff9328;--orange-deep:#ff6e32;--mint:#39d6c3;--berry:#ff4f8f;--sky:#51a8ff;--violet:#7f7bff;--radius-lg:22px;--radius-md:14px;--shadow:0 16px 42px rgba(2, 5, 14, 0.45);--container:1120px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Manrope",sans-serif;color:var(--ink);background:radial-gradient(circle at 8% -12%,rgb(255 112 51 / .34) 0%,#fff0 40%),radial-gradient(circle at 100% 10%,rgb(81 168 255 / .28) 0%,#fff0 36%),radial-gradient(circle at 70% 90%,rgb(255 79 143 / .2) 0%,#fff0 48%),var(--bg);line-height:1.55}img{max-width:100%;display:block}a{color:inherit;text-decoration:none}.skip-link{position:absolute;left:-9999px;top:0}.skip-link:focus{left:12px;top:12px;z-index:100;background:#fff;color:#0d1020;padding:8px 10px;border-radius:8px}.container{width:min(var(--container), calc(100% - 2rem));margin-inline:auto}.bg-noise{position:fixed;inset:0;z-index:-3;opacity:.06;background-image:radial-gradient(#d7ddff .65px,transparent .65px);background-size:8px 8px;pointer-events:none}.bg-shape{position:fixed;z-index:-2;filter:blur(68px);opacity:.3;pointer-events:none;animation:drift 16s ease-in-out infinite alternate}.bg-shape-a{width:330px;height:330px;top:12%;left:-90px;border-radius:999px;background:var(--orange)}.bg-shape-b{width:420px;height:420px;right:-130px;top:35%;border-radius:999px;background:var(--sky);animation-delay:2s}@keyframes drift{from{transform:translateY(-8px) translateX(-9px)}to{transform:translateY(20px) translateX(14px)}}.site-header{position:sticky;top:0;z-index:50;border-bottom:1px solid rgb(50 64 104 / .7);backdrop-filter:blur(10px);background:rgb(8 12 27 / .76)}.header-row{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.brand{display:inline-flex;align-items:center;gap:.6rem;font-family:"Outfit",sans-serif;font-weight:800;letter-spacing:.02em}.brand-logo{border-radius:10px;box-shadow:0 4px 14px rgb(0 0 0 / .45)}.brand span{color:#f4f7ff}.brand strong{color:#fff;background:linear-gradient(120deg,var(--orange) 0%,var(--berry) 100%);border-radius:999px;padding:.16rem .52rem;font-size:.78rem}.nav-links{display:inline-flex;gap:1rem;align-items:center}.nav-links a{font-size:.94rem;color:#b8c2e9;padding:.38rem .52rem;border-radius:8px;transition:color 0.2s ease,background 0.2s ease}.nav-links a:hover,.nav-links a:focus-visible{color:#fff;background:rgb(114 132 199 / .2)}.menu-toggle{display:none;border:1px solid #3a4670;background:#171f39;color:var(--ink);border-radius:10px;font:inherit;font-weight:700;padding:.42rem .74rem}.hero{padding:4.7rem 0 3.3rem}.hero-grid{display:grid;grid-template-columns:1fr;gap:1.4rem;align-items:stretch}.eyebrow{display:inline-block;margin:0;background:linear-gradient(90deg,rgb(255 147 40 / .28) 0%,rgb(127 123 255 / .28) 100%);border:1px solid rgb(154 129 255 / .5);border-radius:999px;padding:.35rem .8rem;font-size:.82rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#f4eeff}h1,h2,h3{margin:0;font-family:"Outfit",sans-serif;line-height:1.1;letter-spacing:-.015em}h1{margin-top:1rem;font-size:clamp(2rem, 4.6vw, 3.75rem);text-wrap:balance}.hero .lead{margin:1rem 0 1.4rem;max-width:64ch;color:#b4bfdf;font-size:1.04rem}.hero-cta{display:flex;flex-wrap:wrap;gap:.64rem}.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;font-weight:800;letter-spacing:.01em;padding:.72rem 1rem;border:1px solid #fff0;transition:transform 0.18s ease,box-shadow 0.18s ease,background 0.18s ease}.btn:hover,.btn:focus-visible{transform:translateY(-1px)}.btn-primary{background:linear-gradient(132deg,var(--orange) 0%,var(--berry) 100%);color:#fff;box-shadow:0 14px 30px rgb(255 102 74 / .35)}.btn-soft{background:#1a2342;color:#d8e0ff;border-color:#32406d}.hero-card,.card,.status-wrap{border-radius:var(--radius-lg);background:linear-gradient(180deg,rgb(19 28 52 / .95) 0%,rgb(14 20 39 / .95) 100%);border:1px solid var(--line);box-shadow:var(--shadow)}.section{padding:3rem 0}.section-alt{background:linear-gradient(180deg,rgb(10 15 31 / .5) 0%,rgb(8 12 25 / .65) 100%);border-top:1px solid #222f55;border-bottom:1px solid #222f55}.section-head{margin-bottom:1.1rem}.section-head h2{font-size:clamp(1.6rem, 3.1vw, 2.35rem)}.section-head p{margin:.7rem 0 0;color:var(--ink-soft);max-width:64ch}.cards{display:grid;gap:1rem}.cards-3{grid-template-columns:repeat(3,minmax(0,1fr))}.cards-2{grid-template-columns:repeat(2,minmax(0,1fr))}.snapshot-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}.snapshot-grid>.card{flex:0 1 calc((100% - 2rem) / 3)}.card{padding:1rem}.card h3{font-size:1.14rem;margin-bottom:.54rem;color:#f3f7ff}.card p{margin:0;color:#acb8dd}.card.feature{border-top:4px solid #4ec9f7}.stats-grid .stat-card{position:relative;overflow:hidden}.stats-grid .stat-card::before{content:"";position:absolute;inset:0;background:linear-gradient(130deg,rgb(255 147 40 / .12) 0%,rgb(81 168 255 / .08) 55%,rgb(255 79 143 / .12) 100%);pointer-events:none}.stats-grid .stat-card-last-center{grid-column:2 / 3}.stat-card span{position:relative;z-index:1;display:block;color:#9fb0e3;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}.stat-card strong{position:relative;z-index:1;margin-top:.38rem;display:block;font-family:"Outfit",sans-serif;font-size:clamp(1.25rem, 2.2vw, 1.82rem);color:#fff}.stats-note{margin:.9rem 0 0;color:#93a6db;font-size:.92rem}.stats-note a{color:#7ec6ff}.stats-note.is-error{color:#ff9fb0}.tokenomics-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.tokenomics-grid-bottom{margin-top:1rem}.tokenomics-card h3{margin-bottom:.7rem}.tokenomics-list{margin:0;padding-left:1.1rem;color:#d8e4ff}.tokenomics-list li+li{margin-top:.44rem}.tokenomics-list strong{color:#fff}.tokenomics-formula{margin:0;font-family:"Outfit",sans-serif;font-size:clamp(1rem, 2vw, 1.22rem);color:#f7fbff}.tokenomics-formula+.tokenomics-formula{margin-top:.42rem}.tokenomics-note{margin:.72rem 0 0;color:#a7b8e6}.tokenomics-table-card{margin-top:1rem}.tokenomics-table-wrap{margin-top:.6rem;overflow-x:auto}.tokenomics-table{width:100%;min-width:640px;border-collapse:collapse;border-radius:12px;overflow:hidden;border:1px solid #324471}.tokenomics-table th,.tokenomics-table td{text-align:left;padding:.62rem .72rem}.tokenomics-table thead th{background:linear-gradient(135deg,rgb(81 168 255 / .24) 0%,rgb(255 147 40 / .2) 100%);color:#f7fbff;font-family:"Outfit",sans-serif;font-size:.9rem;letter-spacing:.02em}.tokenomics-table tbody tr{border-top:1px solid #2d3f6e}.tokenomics-table tbody tr:nth-child(even){background:rgb(28 40 74 / .45)}.tokenomics-table tbody tr:nth-child(odd){background:rgb(19 29 56 / .45)}.tokenomics-table td{color:#d8e4ff}.tokenomics-source{margin:1rem 0 0;color:#9eb1e5;font-size:.92rem}.tokenomics-source a{color:#86cbff}.status-wrap{padding:1.2rem;display:grid;grid-template-columns:1.15fr 0.85fr;gap:1.1rem;align-items:start}.status-wrap h2{font-size:clamp(1.45rem, 2.6vw, 2rem)}.status-wrap p{margin-top:.7rem;color:var(--ink-soft)}.status-list{margin:0;padding:0;list-style:none;display:grid;gap:.6rem}.status-list li{display:flex;align-items:center;gap:.6rem;font-weight:600;color:#deebff;background:#172240;border:1px solid #334474;border-radius:12px;padding:.58rem .7rem}.status-list .status-dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(180deg,var(--mint),#1fae9d);flex-shrink:0}.status-list .release-inline{font-weight:700;color:#f7fbff}.link-card{transition:transform 0.2s ease,border-color 0.2s ease}.link-card:hover,.link-card:focus-visible{transform:translateY(-2px);border-color:#4862ab}.cards-2 .link-card-last-center{grid-column:1 / -1;justify-self:center;width:min(100%, calc((100% - 1rem) / 2))}.site-footer{padding:1.1rem 0 1.4rem;border-top:1px solid #27335a;background:rgb(8 12 24 / .8)}.footer-row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}.footer-row p{margin:0;color:#98a8da;font-size:.93rem}[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity 0.56s ease,transform 0.56s ease}[data-reveal].is-visible{opacity:1;transform:translateY(0)}@media (max-width:980px){.hero{padding-top:3.7rem}.hero-grid,.tokenomics-grid,.status-wrap,.cards-3,.cards-2{grid-template-columns:1fr}.cards-2 .link-card-last-center{grid-column:auto;justify-self:stretch;width:auto}.snapshot-grid>.card{flex-basis:100%}.stats-grid .stat-card-last-center{grid-column:auto}}@media (max-width:820px){.menu-toggle{display:inline-flex}.nav-links{position:absolute;top:72px;left:0;right:0;display:none;flex-direction:column;align-items:flex-start;padding:.8rem 1rem 1rem;background:#0f1730;border-bottom:1px solid #2a3864}.nav-links.is-open{display:flex}.nav-links a{width:100%}}@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}}.gen-hero{padding:4rem 0 2.4rem}.gen-badge{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(90deg,rgb(255 147 40 / .2) 0%,rgb(127 123 255 / .2) 100%);border:1px solid rgb(154 129 255 / .45);border-radius:999px;padding:.3rem .8rem;font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#f0ecff;margin-bottom:1rem}.gen-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 6px var(--mint);animation:pulse 2s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}.warning-banner{background:linear-gradient(135deg,rgb(255 110 50 / .18) 0%,rgb(255 79 143 / .14) 100%);border:1px solid rgb(255 110 50 / .45);border-radius:var(--radius-md);padding:1rem 1.2rem;display:flex;gap:.85rem;align-items:flex-start;margin-bottom:2rem}.warning-banner .warn-icon{font-size:1.3rem;flex-shrink:0;margin-top:.05rem}.warning-banner p{margin:0;color:#ffd9c6;font-size:.92rem;line-height:1.5}.warning-banner strong{color:#fff}.gen-layout{width:100%}.gen-panel{border-radius:var(--radius-lg);background:linear-gradient(180deg,rgb(19 28 52 / .97) 0%,rgb(14 20 39 / .97) 100%);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}.panel-header{padding:1.1rem 1.3rem .85rem;border-bottom:1px solid rgb(39 49 83 / .8);display:flex;align-items:center;justify-content:space-between;gap:.6rem}.panel-header h2{font-size:1.15rem;color:#f3f7ff}.panel-tag{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.22rem .6rem;border-radius:999px;background:rgb(57 214 195 / .15);border:1px solid rgb(57 214 195 / .35);color:var(--mint)}.panel-tag.orange{background:rgb(255 147 40 / .15);border-color:rgb(255 147 40 / .35);color:var(--orange)}.panel-tag.violet{background:rgb(127 123 255 / .15);border-color:rgb(127 123 255 / .35);color:var(--violet)}.panel-body{padding:1.3rem}.mode-tabs{display:flex;gap:.5rem;background:rgb(10 15 32 / .6);border:1px solid var(--line);border-radius:12px;padding:.32rem;margin-bottom:1.4rem}.mode-tab{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.56rem .7rem;border-radius:9px;border:none;background:#fff0;color:#8898cc;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:all 0.2s ease}.mode-tab.active{background:linear-gradient(135deg,rgb(255 147 40 / .22) 0%,rgb(127 123 255 / .22) 100%);border:1px solid rgb(154 129 255 / .4);color:#f3f7ff}.mode-tab:hover:not(.active){color:#c4cfef;background:rgb(255 255 255 / .05)}.mode-tab .tab-icon{font-size:1rem}.mnemonic-options{display:flex;align-items:center;gap:.6rem;margin-bottom:1.2rem;flex-wrap:wrap}.option-label{font-size:.82rem;font-weight:700;color:#8898cc;text-transform:uppercase;letter-spacing:.05em}.word-count-group{display:flex;gap:.38rem}.word-count-btn{padding:.3rem .7rem;border-radius:8px;border:1px solid var(--line);background:rgb(19 28 52 / .8);color:#8898cc;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer;transition:all 0.2s ease}.word-count-btn.active{background:rgb(57 214 195 / .15);border-color:rgb(57 214 195 / .5);color:var(--mint)}.word-count-btn:hover:not(.active){border-color:#4862ab;color:#cad6ff}.mnemonic-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:1.2rem}.mnemonic-word{display:flex;align-items:center;gap:.38rem;background:rgb(10 15 32 / .7);border:1px solid rgb(39 49 83 / .8);border-radius:9px;padding:.48rem .6rem;transition:border-color 0.2s ease}.mnemonic-word:hover{border-color:#3f5490}.word-num{font-size:.68rem;font-weight:700;color:#5a6c9e;min-width:16px;font-family:"Outfit",sans-serif;letter-spacing:.02em}.word-val{font-size:.88rem;font-weight:600;color:#d8e4ff;font-family:"Outfit",monospace;min-height:1.2em}.word-val.placeholder{color:#3a4870}.seed-input-wrap{position:relative;margin-bottom:1.2rem}.seed-textarea{width:100%;min-height:100px;background:rgb(10 15 32 / .7);border:1px solid var(--line);border-radius:12px;padding:.85rem 1rem;color:#d8e4ff;font:inherit;font-size:.92rem;font-family:"Manrope",monospace;resize:vertical;outline:none;transition:border-color 0.2s ease;box-sizing:border-box}.seed-textarea:focus{border-color:rgb(127 123 255 / .6)}.seed-textarea::placeholder{color:#3a4870}.field-group{margin-bottom:1.1rem}.field-label{display:flex;align-items:center;justify-content:space-between;margin-bottom:.42rem}.field-label span{font-size:.82rem;font-weight:700;color:#8898cc;text-transform:uppercase;letter-spacing:.05em}.field-label .field-hint{font-size:.75rem;color:#5a6c9e;text-transform:none;letter-spacing:0}.field-input-wrap{position:relative}.field-input{width:100%;background:rgb(10 15 32 / .7);border:1px solid var(--line);border-radius:10px;padding:.65rem .9rem;color:#d8e4ff;font:inherit;font-size:.9rem;font-family:"Manrope",monospace;outline:none;transition:border-color 0.2s ease;box-sizing:border-box}.field-input:focus{border-color:rgb(81 168 255 / .5)}.field-input::placeholder{color:#3a4870}.field-copy-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgb(39 49 83 / .8);border:1px solid #3a4e7a;border-radius:7px;padding:.28rem .48rem;color:#8898cc;font-size:.72rem;font:inherit;font-size:.75rem;font-weight:700;cursor:pointer;transition:all 0.2s ease}.field-copy-btn:hover{background:rgb(57 214 195 / .15);border-color:rgb(57 214 195 / .4);color:var(--mint)}.field-copy-btn.copied{background:rgb(57 214 195 / .2);border-color:rgb(57 214 195 / .5);color:var(--mint)}.derivation-row{display:grid;grid-template-columns:1fr 80px;gap:.5rem}.gen-actions{display:flex;flex-direction:column;gap:.6rem;margin-top:1.4rem}.btn-generate{width:100%;padding:.84rem 1rem;background:linear-gradient(132deg,var(--orange) 0%,var(--berry) 100%);color:#fff;border:none;border-radius:12px;font:inherit;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 12px 28px rgb(255 102 74 / .3);transition:transform 0.18s ease,box-shadow 0.18s ease;letter-spacing:.02em}.btn-generate:hover{transform:translateY(-1px);box-shadow:0 16px 36px rgb(255 102 74 / .4)}.btn-generate:active{transform:translateY(0)}.btn-restore{width:100%;padding:.76rem 1rem;background:rgb(127 123 255 / .15);color:#c4c1ff;border:1px solid rgb(127 123 255 / .4);border-radius:12px;font:inherit;font-size:.92rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:all 0.2s ease}.btn-restore:hover{background:rgb(127 123 255 / .25);border-color:rgb(127 123 255 / .6);color:#e0deff;transform:translateY(-1px)}.gen-spinner{display:none;width:16px;height:16px;border:2px solid rgb(255 255 255 / .3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.btn-generate.loading .btn-label{display:none}.btn-generate.loading .gen-spinner{display:block}.field-input.has-value{border-color:rgb(57 214 195 / .3);color:#e8f2ff}.network-badge{display:inline-flex;align-items:center;gap:.38rem;font-size:.78rem;font-weight:700;color:#7ec6ff;background:rgb(81 168 255 / .1);border:1px solid rgb(81 168 255 / .25);border-radius:999px;padding:.22rem .65rem;margin-left:.5rem}.panel-divider{height:1px;background:rgb(39 49 83 / .7);margin:1.1rem 0}.copy-all-row{display:flex;justify-content:flex-end;margin-bottom:.8rem}.btn-copy-all{display:inline-flex;align-items:center;gap:.38rem;background:rgb(39 49 83 / .7);border:1px solid #3a4e7a;border-radius:8px;padding:.35rem .75rem;color:#8898cc;font:inherit;font-size:.78rem;font-weight:700;cursor:pointer;transition:all 0.2s ease}.btn-copy-all:hover{background:rgb(57 214 195 / .12);border-color:rgb(57 214 195 / .38);color:var(--mint)}.entropy-bar-wrap{margin-bottom:1.1rem}.entropy-bar-label{display:flex;justify-content:space-between;font-size:.75rem;font-weight:700;color:#5a6c9e;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.38rem}.entropy-bar-label .entropy-val{color:var(--mint)}.entropy-bar-track{height:5px;background:rgb(39 49 83 / .6);border-radius:999px;overflow:hidden}.entropy-bar-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--orange) 0%,var(--mint) 100%);transition:width 0.6s ease}.tab-content{display:none}.tab-content.active{display:block}.paper-preview-wrap{background:rgb(10 15 32 / .7);border:1px solid var(--line);border-radius:var(--radius-md);padding:1.1rem;margin-bottom:1.2rem}.paper-preview-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#5a6c9e;margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem}.paper-wallet-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgb(0 0 0 / .5);font-family:"Outfit",sans-serif;color:#0d1020;position:relative}.pw-header{background:linear-gradient(132deg,#ff9328 0%,#ff4f8f 100%);padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between}.pw-header-brand{display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:.95rem;color:#fff;letter-spacing:.03em}.pw-header-net{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:rgb(255 255 255 / .85);text-transform:uppercase}.pw-body{display:grid;grid-template-columns:1fr 1fr;gap:0}.pw-section{padding:.85rem 1rem}.pw-section+.pw-section{border-left:2px dashed #e2e8f0}.pw-section-label{font-size:.62rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#8898b8;margin-bottom:.38rem}.pw-qr-placeholder{width:90px;height:90px;border-radius:8px;background:repeating-linear-gradient(45deg,#e2e8f0,#e2e8f0 2px,#f8faff 2px,#f8faff 8px);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#94a3c0;text-align:center;margin:0 auto .38rem;border:2px solid #e2e8f0}.pw-addr-short{font-size:.62rem;font-family:monospace;color:#4a5580;text-align:center;word-break:break-all;line-height:1.4}.pw-privkey-section{background:#fff8f0;border-top:2px dashed #e2e8f0;padding:.7rem 1rem;display:flex;align-items:flex-start;gap:.75rem}.pw-priv-qr{width:64px;height:64px;border-radius:6px;flex-shrink:0;background:repeating-linear-gradient(-45deg,#ffe0c8,#ffe0c8 2px,#fff8f0 2px,#fff8f0 8px);display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:700;color:#c08040;text-align:center;border:2px solid #ffd0a0}.pw-priv-info{flex:1;min-width:0}.pw-priv-label{font-size:.6rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#d4642a;margin-bottom:.28rem;display:flex;align-items:center;gap:.3rem}.pw-priv-key-val{font-size:.6rem;font-family:monospace;color:#5a3010;word-break:break-all;line-height:1.45}.pw-footer{background:#f1f5ff;padding:.45rem 1rem;font-size:.6rem;color:#8898b8;display:flex;justify-content:space-between}.print-options-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.1rem}.print-option{background:rgb(10 15 32 / .6);border:1px solid var(--line);border-radius:10px;padding:.7rem .85rem;display:flex;align-items:center;gap:.5rem;cursor:pointer;transition:border-color 0.2s ease,background 0.2s ease}.print-option:hover{border-color:#4862ab;background:rgb(39 49 83 / .3)}.print-option input[type="checkbox"]{accent-color:var(--mint);width:15px;height:15px;flex-shrink:0}.print-option span{font-size:.84rem;color:#c4cfef;font-weight:600}.vanity-info-row{display:flex;align-items:flex-start;gap:.75rem;background:rgb(81 168 255 / .08);border:1px solid rgb(81 168 255 / .22);border-radius:10px;padding:.8rem .9rem;margin-bottom:1.2rem}.vanity-info-row .vi-icon{font-size:1.1rem;flex-shrink:0}.vanity-info-row p{margin:0;font-size:.84rem;color:#9dbde8;line-height:1.5}.vanity-search-type{display:flex;gap:.5rem;margin-bottom:1.2rem}.search-type-btn{flex:1;padding:.55rem .7rem;border-radius:10px;border:1px solid var(--line);background:rgb(19 28 52 / .8);color:#8898cc;font:inherit;font-size:.84rem;font-weight:700;cursor:pointer;transition:all 0.2s ease;text-align:center}.search-type-btn.active{background:rgb(81 168 255 / .15);border-color:rgb(81 168 255 / .45);color:var(--sky)}.search-type-btn:hover:not(.active){border-color:#4862ab;color:#cad6ff}.vanity-progress-wrap{margin-bottom:1.2rem}.vanity-progress-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}.vanity-status-text{font-size:.82rem;font-weight:700;color:#8898cc}.vanity-stats-row{display:flex;gap:1rem;flex-wrap:wrap}.vanity-stat{font-size:.78rem;color:#6a7caa}.vanity-stat strong{color:#c4d4ff;font-family:"Outfit",sans-serif}.vanity-progress-bar-track{height:6px;background:rgb(39 49 83 / .6);border-radius:999px;overflow:hidden}.vanity-progress-bar-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--sky) 0%,var(--violet) 100%);transition:width 0.3s ease}.vanity-difficulty{display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;background:rgb(10 15 32 / .5);border:1px solid var(--line);border-radius:10px;margin-bottom:1.1rem}.difficulty-label{font-size:.78rem;color:#6a7caa;font-weight:600}.difficulty-dots{display:flex;gap:3px}.difficulty-dot{width:8px;height:8px;border-radius:50%;background:var(--line)}.difficulty-dot.active{background:var(--sky)}.difficulty-dot.hard{background:var(--berry)}.difficulty-est{margin-left:auto;font-size:.78rem;color:#8898cc;font-weight:700}.vanity-result-panel{background:rgb(57 214 195 / .06);border:1px solid rgb(57 214 195 / .2);border-radius:12px;padding:1rem;margin-bottom:1.1rem;display:none}.vanity-result-panel.visible{display:block}.vanity-result-panel h4{font-size:.88rem;color:var(--mint);margin:0 0 .75rem;display:flex;align-items:center;gap:.4rem}.btn-vanity-start{width:100%;padding:.84rem 1rem;background:linear-gradient(132deg,var(--sky) 0%,var(--violet) 100%);color:#fff;border:none;border-radius:12px;font:inherit;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 12px 28px rgb(81 168 255 / .25);transition:transform 0.18s ease,box-shadow 0.18s ease;letter-spacing:.02em}.btn-vanity-start:hover{transform:translateY(-1px);box-shadow:0 16px 36px rgb(81 168 255 / .35)}.btn-vanity-stop{width:100%;padding:.84rem 1rem;background:linear-gradient(132deg,#ff6e32 0%,#ff4f8f 100%);color:#fff;border:none;border-radius:12px;font:inherit;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;box-shadow:0 12px 28px rgb(255 79 143 / .25);transition:transform 0.18s ease;letter-spacing:.02em}.btn-vanity-stop:hover{transform:translateY(-1px)}.addr-highlight mark{background:rgb(57 214 195 / .3);color:var(--mint);border-radius:3px;padding:0 2px;font-weight:800}.case-toggle-row{display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem}.toggle-switch{position:relative;width:36px;height:20px;flex-shrink:0}.toggle-switch input{opacity:0;width:0;height:0}.toggle-track{position:absolute;inset:0;background:rgb(39 49 83 / .8);border:1px solid var(--line);border-radius:999px;cursor:pointer;transition:background 0.2s ease}.toggle-track::after{content:'';position:absolute;width:14px;height:14px;background:#6a7caa;border-radius:50%;top:2px;left:2px;transition:transform 0.2s ease,background 0.2s ease}.toggle-switch input:checked+.toggle-track{background:rgb(57 214 195 / .2);border-color:rgb(57 214 195 / .5)}.toggle-switch input:checked+.toggle-track::after{transform:translateX(16px);background:var(--mint)}.case-toggle-label{font-size:.84rem;color:#8898cc;font-weight:600}@media (max-width:600px){.print-options-grid{grid-template-columns:1fr}.pw-body{grid-template-columns:1fr}.pw-section+.pw-section{border-left:none;border-top:2px dashed #e2e8f0}.vanity-search-type{flex-direction:column}}@media (max-width:980px){.mnemonic-grid{grid-template-columns:repeat(3,1fr)}}@media (max-width:600px){.mnemonic-grid{grid-template-columns:repeat(2,1fr)}.mode-tabs{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <div class="bg-noise" aria-hidden="true"></div>
+  <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
+  <div class="bg-shape bg-shape-b" aria-hidden="true"></div>
+
+  <!-- ── HEADER ── -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="header-row">
+        <a href="https://smartiecoin.com/" class="brand">
+          <img src="https://smartiecoin.com/assets/logo-horizontal.png"
+               alt="Smartiecoin logo"
+               class="brand-logo"
+               width="36"
+               height="36"
+               loading="lazy" />
+          <span>Smartiecoin</span>
+          <strong>SMT</strong>
+        </a>
+        <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+          <a href="https://smartiecoin.com/#snapshot">Snapshot</a>
+          <a href="https://smartiecoin.com/#tokenomics">Tokenomics</a>
+          <a href="https://smartiecoin.com/#live">Live Stats</a>
+          <a href="https://smartiecoin.com/#links">Links</a>
+          <a href="#" aria-current="page" style="color:#fff; background:rgba(255,147,40,0.15); border:1px solid rgba(255,147,40,0.35); border-radius:8px;">Wallet Gen</a>
+        </nav>
+        <button class="menu-toggle" id="menu-toggle" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle navigation">☰ Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <main id="main">
+
+    <!-- ── HERO ── -->
+    <section class="gen-hero section">
+      <div class="container">
+        <div class="gen-badge">
+          <span class="dot"></span>
+          Client-side only — keys never leave your browser
+        </div>
+        <h1>SMT Wallet <span style="background:linear-gradient(120deg,var(--orange),var(--berry)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">Generator</span></h1>
+        <p class="lead" style="margin-top:0.9rem; color:#b4bfdf;">
+          Generate a new Smartiecoin (SMT) wallet address, private key, and BIP39 mnemonic seed phrase — entirely offline in your browser. Nothing is ever transmitted to any server.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── MAIN GENERATOR SECTION ── -->
+    <section class="section" style="padding-top:0;">
+      <div class="container">
+
+        <!-- Security Warning -->
+        <div class="warning-banner" data-reveal>
+          <span class="warn-icon">⚠️</span>
+          <p>
+            <strong>Security Notice:</strong> This tool runs entirely in your browser. For maximum security, disconnect from the internet before generating a wallet, save your keys offline, and <strong>never share your private key or seed phrase</strong> with anyone. Use at your own risk.
+          </p>
+        </div>
+
+        <!-- Two-column layout -->
+        <div class="card tokenomics-card is-visible">
+
+          <!-- ── LEFT: Main Generator Panel ── -->
+          <div>
+
+            <!-- Mode Tabs -->
+            <div class="mode-tabs" role="tablist" aria-label="Generator mode">
+              <button class="mode-tab active" role="tab" aria-selected="true" aria-controls="tab-generate" id="tab-btn-generate">
+                <span class="tab-icon">✨</span> Generate New
+              </button>
+              <button class="mode-tab" role="tab" aria-selected="false" aria-controls="tab-mnemonic" id="tab-btn-mnemonic">
+                <span class="tab-icon">🔤</span> Mnemonic
+              </button>
+              <button class="mode-tab" role="tab" aria-selected="false" aria-controls="tab-privkey" id="tab-btn-privkey">
+                <span class="tab-icon">🔑</span> Private Key
+              </button>
+              <button class="mode-tab" role="tab" aria-selected="false" aria-controls="tab-paper" id="tab-btn-paper">
+                <span class="tab-icon">🖨</span> Paper Wallet
+              </button>
+              <button class="mode-tab" role="tab" aria-selected="false" aria-controls="tab-vanity" id="tab-btn-vanity">
+                <span class="tab-icon">🎯</span> Vanity Address
+              </button>
+            </div>
+
+            <!-- ══ TAB: GENERATE NEW WALLET ══ -->
+            <div id="tab-generate" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-generate">
+
+              <!-- Mnemonic Phrase Panel -->
+              <div class="gen-panel" data-reveal style="margin-bottom:1rem;">
+                <div class="panel-header">
+                  <h2>Mnemonic Seed Phrase <span class="network-badge">BIP39</span></h2>
+                  <span class="panel-tag violet">12 Words</span>
+                </div>
+                <div class="panel-body">
+
+                  <!-- Word Grid (12 words) -->
+                  <div class="mnemonic-grid" id="mnemonic-grid" aria-label="Generated mnemonic words">
+                    <!-- JS will populate; placeholder shown below -->
+                    <div class="mnemonic-word"><span class="word-num">1</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">2</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">3</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">4</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">5</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">6</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">7</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">8</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">9</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">10</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">11</span><span class="word-val placeholder">——</span></div>
+                    <div class="mnemonic-word"><span class="word-num">12</span><span class="word-val placeholder">——</span></div>
+                  </div>
+
+                  <div class="copy-all-row">
+                    <button class="btn-copy-all" id="copy-mnemonic-btn" aria-label="Copy all mnemonic words">
+                      📋 Copy Phrase
+                    </button>
+                  </div>
+
+                  <!-- Optional Passphrase -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>BIP39 Passphrase <em style="font-weight:400;font-style:normal;text-transform:none;letter-spacing:0;color:#5a6c9e;">(optional)</em></span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="password" class="field-input" id="bip39-passphrase"
+                             placeholder="Leave empty for standard derivation" autocomplete="off" />
+                    </div>
+                  </div>
+
+                  <!-- Derivation Path -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Derivation Path</span>
+                      <span class="field-hint">BIP44 standard</span>
+                    </div>
+                    <div class="derivation-row">
+                      <div class="field-input-wrap">
+                        <input type="text" class="field-input" id="derivation-path"
+                               value="m/44'/5'/0'/0/0" autocomplete="off" />
+                      </div>
+                      <div class="field-input-wrap">
+                        <input type="number" class="field-input" id="address-index"
+                               value="0" min="0" placeholder="Index" style="text-align:center;" />
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Wallet Result Panel -->
+              <div class="gen-panel" data-reveal>
+                <div class="panel-header">
+                  <h2>Generated Wallet</h2>
+                  <span class="panel-tag">SMT Mainnet</span>
+                </div>
+                <div class="panel-body">
+
+                  <!-- Public Address -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Public Address</span>
+                      <span class="field-hint">Share to receive SMT</span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="text" class="field-input has-value" id="wallet-address"
+                             value="——" readonly aria-label="Public wallet address" />
+                      <button class="field-copy-btn" data-copy="wallet-address" aria-label="Copy address">Copy</button>
+                    </div>
+                  </div>
+
+                  <!-- Public Key -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Public Key (compressed)</span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="text" class="field-input has-value" id="wallet-pubkey"
+                             value="——" readonly aria-label="Public key" />
+                      <button class="field-copy-btn" data-copy="wallet-pubkey" aria-label="Copy public key">Copy</button>
+                    </div>
+                  </div>
+
+                  <div class="panel-divider"></div>
+
+                  <!-- Private Key WIF -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Private Key <span style="color:#ff9fb0;">(WIF)</span></span>
+                      <span class="field-hint" style="color:#ff9fb0;">⚠ Never share this!</span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="password" class="field-input has-value" id="wallet-privkey"
+                             value="——" readonly aria-label="Private key WIF" />
+                      <button class="field-copy-btn" data-copy="wallet-privkey" aria-label="Copy private key">Copy</button>
+                    </div>
+                  </div>
+
+                  <!-- Private Key HEX -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Private Key <span style="color:#ff9fb0;">(HEX)</span></span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="password" class="field-input has-value" id="wallet-privkey-hex"
+                             value="——" readonly aria-label="Private key hex" />
+                      <button class="field-copy-btn" data-copy="wallet-privkey-hex" aria-label="Copy private key hex">Copy</button>
+                    </div>
+                  </div>
+
+                  <!-- Generate Button -->
+                  <div class="gen-actions">
+                    <button class="btn-generate" id="btn-generate" aria-label="Generate new SMT wallet">
+                      <span class="gen-spinner"></span>
+                      <span class="btn-label">🎲 Generate New Wallet</span>
+                    </button>
+                    <button class="btn-restore" id="btn-export-paper" aria-label="Export paper wallet">
+                      🖨 Export Paper Wallet (PDF)
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- /tab-generate -->
+
+            <!-- ══ TAB: FROM MNEMONIC ══ -->
+            <div id="tab-mnemonic" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-mnemonic">
+              <div class="gen-panel" data-reveal>
+                <div class="panel-header">
+                  <h2>Restore from Mnemonic</h2>
+                  <span class="panel-tag violet">BIP39 / BIP44</span>
+                </div>
+                <div class="panel-body">
+
+                  <div class="field-group">
+                <div class="field-label">
+                  <span>Enter your seed phrase</span>
+                  <span class="field-hint">12 words</span>
+                </div>
+                <div class="seed-input-wrap">
+                  <textarea class="seed-textarea" id="restore-mnemonic" rows="4"
+                            placeholder="word1 word2 word3 ... (12 space-separated words)"
+                            autocomplete="off" autocorrect="off" autocapitalize="off"
+                            spellcheck="false" aria-label="Enter mnemonic seed phrase"></textarea>
+                </div>
+              </div>
+
+                  <!-- Word Validation Indicator -->
+                  <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem; font-size:0.82rem; color:#5a6c9e;" id="mnemonic-validate-row">
+                    <span id="mnemonic-word-count">0 words entered</span>
+                    <span id="mnemonic-valid-badge" style="display:none; padding:0.18rem 0.5rem; border-radius:999px; font-size:0.72rem; font-weight:800;"></span>
+                  </div>
+
+                  <!-- Optional Passphrase -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>BIP39 Passphrase <em style="font-weight:400;font-style:normal;text-transform:none;letter-spacing:0;color:#5a6c9e;">(optional)</em></span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="password" class="field-input" id="restore-passphrase"
+                             placeholder="Leave empty if not used" autocomplete="off" />
+                    </div>
+                  </div>
+
+                  <!-- Derivation Path -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Derivation Path</span>
+                    </div>
+                    <div class="derivation-row">
+                      <div class="field-input-wrap">
+                        <input type="text" class="field-input" id="restore-path"
+                               value="m/44'/5'/0'/0/0" autocomplete="off" />
+                      </div>
+                      <div class="field-input-wrap">
+                        <input type="number" class="field-input" id="restore-index"
+                               value="0" min="0" placeholder="Idx" style="text-align:center;" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel-divider"></div>
+
+                  <!-- Results -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Restored Address</span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="text" class="field-input" id="restore-address"
+                             value="——" readonly />
+                      <button class="field-copy-btn" data-copy="restore-address">Copy</button>
+                    </div>
+                  </div>
+
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Private Key <span style="color:#ff9fb0;">(WIF)</span></span>
+                      <span class="field-hint" style="color:#ff9fb0;">⚠ Never share!</span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="password" class="field-input" id="restore-privkey"
+                             value="——" readonly />
+                      <button class="field-copy-btn" data-copy="restore-privkey">Copy</button>
+                    </div>
+                  </div>
+
+                  <div class="gen-actions">
+                    <button class="btn-generate" id="btn-restore-mnemonic">
+                      <span class="gen-spinner"></span>
+                      <span class="btn-label">🔓 Derive Wallet from Phrase</span>
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div><!-- /tab-mnemonic -->
+
+            <!-- ══ TAB: FROM PRIVATE KEY ══ -->
+            <div id="tab-privkey" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-privkey">
+              <div class="gen-panel" data-reveal>
+                <div class="panel-header">
+                  <h2>Restore from Private Key</h2>
+                  <span class="panel-tag orange">WIF / HEX</span>
+                </div>
+                <div class="panel-body">
+
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Private Key</span>
+                      <span class="field-hint">WIF or HEX format</span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="password" class="field-input" id="privkey-input"
+                             placeholder="Enter WIF or 64-char hex private key"
+                             autocomplete="off" autocorrect="off" autocapitalize="off"
+                             spellcheck="false" />
+                    </div>
+                  </div>
+
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Format auto-detected</span>
+                    </div>
+                    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                      <span style="padding:0.25rem 0.65rem; background:rgba(39,49,83,0.6); border:1px solid var(--line); border-radius:999px; font-size:0.78rem; color:#8898cc;">WIF (starts with 7 or K/L)</span>
+                      <span style="padding:0.25rem 0.65rem; background:rgba(39,49,83,0.6); border:1px solid var(--line); border-radius:999px; font-size:0.78rem; color:#8898cc;">HEX (64 chars)</span>
+                    </div>
+                  </div>
+
+                  <div class="panel-divider"></div>
+
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Derived Address</span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="text" class="field-input" id="privkey-address"
+                             value="——" readonly />
+                      <button class="field-copy-btn" data-copy="privkey-address">Copy</button>
+                    </div>
+                  </div>
+
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Public Key (compressed)</span>
+                    </div>
+                    <div class="field-input-wrap">
+                      <input type="text" class="field-input" id="privkey-pubkey"
+                             value="——" readonly />
+                      <button class="field-copy-btn" data-copy="privkey-pubkey">Copy</button>
+                    </div>
+                  </div>
+
+                  <div class="gen-actions">
+                    <button class="btn-generate" id="btn-derive-privkey">
+                      <span class="gen-spinner"></span>
+                      <span class="btn-label">🔑 Derive Address from Key</span>
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div><!-- /tab-privkey -->
+
+            <!-- ══ TAB: PAPER WALLET ══ -->
+            <div id="tab-paper" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-paper">
+              <div class="gen-panel" data-reveal>
+                <div class="panel-header">
+                  <h2>Paper Wallet Generator</h2>
+                  <span class="panel-tag orange">Print & Store</span>
+                </div>
+                <div class="panel-body">
+
+                  <!-- Print Options -->
+                  <div style="margin-bottom:1.1rem;">
+                    <div class="field-label" style="margin-bottom:0.6rem;">
+                      <span>Print Options</span>
+                    </div>
+                    <div class="print-options-grid">
+                      <label class="print-option">
+                        <input type="checkbox" id="pw-show-mnemonic" checked />
+                        <span>📝 Include Seed Phrase</span>
+                      </label>
+                      <label class="print-option">
+                        <input type="checkbox" id="pw-show-qr" checked />
+                        <span>📷 Show QR Codes</span>
+                      </label>
+                      <label class="print-option">
+                        <input type="checkbox" id="pw-show-privkey" checked />
+                        <span>🔑 Include Private Key</span>
+                      </label>
+                      <label class="print-option">
+                        <input type="checkbox" id="pw-show-instructions" />
+                        <span>📖 Usage Instructions</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Copies count -->
+                  <div class="field-group" style="margin-bottom:1.2rem;">
+                    <div class="field-label">
+                      <span>Number of copies</span>
+                      <span class="field-hint">Printed on one page</span>
+                    </div>
+                    <div style="display:flex; gap:0.4rem;">
+                      <button class="word-count-btn active" data-copies="1">1</button>
+                      <button class="word-count-btn" data-copies="2">2</button>
+                      <button class="word-count-btn" data-copies="3">3</button>
+                    </div>
+                  </div>
+
+                  <!-- Paper Wallet Preview -->
+                  <div class="paper-preview-wrap">
+                    <div class="paper-preview-label">
+                      🖼 Preview — <span style="color:#7ec6ff;">live render will appear after generating</span>
+                    </div>
+
+                    <!-- Paper Wallet Card (mock layout) -->
+                    <div class="paper-wallet-card">
+                      <!-- Header -->
+                      <div class="pw-header">
+                        <div class="pw-header-brand">
+                          ●&nbsp; Smartiecoin (SMT)
+                        </div>
+                        <div class="pw-header-net">Mainnet · Paper Wallet</div>
+                      </div>
+
+                      <!-- Public / Private sections -->
+                      <div class="pw-body">
+                        <!-- Public Address -->
+                        <div class="pw-section">
+                          <div class="pw-section-label">Public Address — Receive SMT here</div>
+                          <div class="pw-qr-placeholder" id="pw-qr-public">
+                            QR<br>Address
+                          </div>
+                          <div class="pw-addr-short" id="pw-addr-preview">
+                            S — — — — — — — — — — — — — — — —
+                          </div>
+                        </div>
+
+                        <!-- Private Key -->
+                        <div class="pw-section">
+                          <div class="pw-section-label" style="color:#d4642a;">Private Key — Keep secret!</div>
+                          <div class="pw-qr-placeholder" id="pw-qr-priv" style="border-color:#ffd0a0; background:repeating-linear-gradient(45deg,#ffe0c8,#ffe0c8 2px,#fff8f0 2px,#fff8f0 8px);">
+                            QR<br>Private
+                          </div>
+                          <div class="pw-addr-short" id="pw-privkey-preview" style="color:#a05020;">
+                            7 — — — — — — — — — — — — — — — —
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Seed Phrase Strip -->
+                      <div class="pw-privkey-section" id="pw-seed-strip">
+                        <div style="flex:1; min-width:0;">
+                          <div class="pw-priv-label">
+                            🌱 BIP39 Seed Phrase (12–24 words) — Store separately in a safe place
+                          </div>
+                          <div class="pw-priv-key-val" id="pw-seed-preview" style="color:#1a3060; font-size:0.7rem; line-height:1.7; letter-spacing:0.01em;">
+                            1. ——— &nbsp; 2. ——— &nbsp; 3. ——— &nbsp; 4. ——— &nbsp; 5. ——— &nbsp; 6. ———<br>
+                            7. ——— &nbsp; 8. ——— &nbsp; 9. ——— &nbsp; 10. ——— &nbsp; 11. ——— &nbsp; 12. ———
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Footer -->
+                      <div class="pw-footer">
+                        <span>Generated by SMT Wallet Generator — client-side only</span>
+                        <span id="pw-date-preview">——</span>
+                      </div>
+                    </div>
+                    <!-- /paper-wallet-card -->
+                  </div>
+
+                  <!-- Source wallet selector -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Wallet source</span>
+                      <span class="field-hint">Use last generated or enter manually</span>
+                    </div>
+                    <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.7rem;">
+                      <button class="word-count-btn active" id="pw-src-last">Use last generated</button>
+                      <button class="word-count-btn" id="pw-src-manual">Enter manually</button>
+                    </div>
+                    <!-- Manual entry (hidden by default) -->
+                    <div id="pw-manual-fields" style="display:none;">
+                      <div class="field-group" style="margin-bottom:0.7rem;">
+                        <div class="field-input-wrap">
+                          <input type="text" class="field-input" id="pw-manual-addr" placeholder="Public address (S...)" autocomplete="off" />
+                        </div>
+                      </div>
+                      <div class="field-group" style="margin-bottom:0;">
+                        <div class="field-input-wrap">
+                          <input type="password" class="field-input" id="pw-manual-privkey" placeholder="Private key (WIF)" autocomplete="off" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Actions -->
+                  <div class="gen-actions">
+                    <button class="btn-generate" id="btn-gen-paper">
+                      <span class="gen-spinner"></span>
+                      <span class="btn-label">🎲 Generate &amp; Preview Paper Wallet</span>
+                    </button>
+                    <button class="btn-restore" id="btn-print-paper" style="background:rgba(81,168,255,0.12); color:#7ec6ff; border-color:rgba(81,168,255,0.35);">
+                      🖨 Print / Save as PDF
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div><!-- /tab-paper -->
+
+            <!-- ══ TAB: VANITY ADDRESS ══ -->
+            <div id="tab-vanity" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-vanity">
+              <div class="gen-panel" data-reveal>
+                <div class="panel-header">
+                  <h2>Vanity Address Generator</h2>
+                  <span class="panel-tag" style="background:rgba(127,123,255,0.15); border-color:rgba(127,123,255,0.35); color:var(--violet);">Custom Prefix</span>
+                </div>
+                <div class="panel-body">
+
+                  <!-- Info -->
+                  <div class="vanity-info-row">
+                    <span class="vi-icon">💡</span>
+                    <p>
+                      Generates keypairs in your browser until one matches your desired prefix or suffix.
+                      SMT addresses always start with <strong style="color:#d8e4ff;">S</strong> — enter characters <em>after</em> that.
+                      Longer patterns take exponentially more time to find.
+                    </p>
+                  </div>
+
+                  <!-- Search type -->
+                  <div class="field-group" style="margin-bottom:0.8rem;">
+                    <div class="field-label"><span>Match type</span></div>
+                    <div class="vanity-search-type">
+                      <button class="search-type-btn active" data-match="prefix" id="vty-prefix-btn">🔼 Prefix (Sxxx…)</button>
+                      <button class="search-type-btn" data-match="suffix" id="vty-suffix-btn">🔽 Suffix (…xxxS)</button>
+                      <button class="search-type-btn" data-match="contains" id="vty-contains-btn">🔍 Contains (…xxx…)</button>
+                    </div>
+                  </div>
+
+                  <!-- Pattern input -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Pattern</span>
+                      <span class="field-hint">Base58 chars: 1-9 A-H J-N P-Z a-k m-z</span>
+                    </div>
+                    <div class="field-input-wrap" style="margin-bottom:0.5rem;">
+                      <input type="text" class="field-input" id="vanity-pattern"
+                             placeholder="e.g. SMT or Lucky" maxlength="10"
+                             autocomplete="off" autocorrect="off" autocapitalize="off"
+                             spellcheck="false" style="font-family:'Outfit',monospace; font-size:1.05rem; font-weight:700; letter-spacing:0.04em;" />
+                    </div>
+                    <!-- Invalid chars indicator -->
+                    <div id="vanity-char-check" style="font-size:0.78rem; color:#5a6c9e; min-height:1.2em;"></div>
+                  </div>
+
+                  <!-- Case sensitivity -->
+                  <div class="case-toggle-row">
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="vanity-case-sensitive" checked />
+                      <span class="toggle-track"></span>
+                    </label>
+                    <span class="case-toggle-label">Case sensitive</span>
+                    <span style="margin-left:auto; font-size:0.78rem; color:#5a6c9e;">Turning off = faster search</span>
+                  </div>
+
+                  <!-- Difficulty estimator -->
+                  <div class="vanity-difficulty" id="vanity-difficulty">
+                    <span class="difficulty-label">Difficulty:</span>
+                    <div class="difficulty-dots">
+                      <div class="difficulty-dot active" id="vdot-1"></div>
+                      <div class="difficulty-dot" id="vdot-2"></div>
+                      <div class="difficulty-dot" id="vdot-3"></div>
+                      <div class="difficulty-dot" id="vdot-4"></div>
+                      <div class="difficulty-dot" id="vdot-5"></div>
+                    </div>
+                    <span class="difficulty-est" id="vanity-difficulty-est">Enter a pattern to estimate</span>
+                  </div>
+
+                  <!-- Worker thread count -->
+                  <div class="field-group">
+                    <div class="field-label">
+                      <span>Worker threads</span>
+                      <span class="field-hint" id="vanity-thread-hint">Uses Web Workers for parallel search</span>
+                    </div>
+                    <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                      <button class="word-count-btn" data-threads="1">1</button>
+                      <button class="word-count-btn active" data-threads="2">2</button>
+                      <button class="word-count-btn" data-threads="4">4</button>
+                      <button class="word-count-btn" data-threads="8">8</button>
+                    </div>
+                  </div>
+
+                  <div class="panel-divider"></div>
+
+                  <!-- Progress -->
+                  <div class="vanity-progress-wrap">
+                    <div class="vanity-progress-top">
+                      <span class="vanity-status-text" id="vanity-status">⏸ Idle — configure a pattern and start</span>
+                    </div>
+                    <div class="vanity-stats-row" style="margin-bottom:0.5rem;">
+                      <div class="vanity-stat">Attempts: <strong id="vanity-attempts">0</strong></div>
+                      <div class="vanity-stat">Speed: <strong id="vanity-speed">— addr/s</strong></div>
+                      <div class="vanity-stat">Elapsed: <strong id="vanity-elapsed">0s</strong></div>
+                    </div>
+                    <div class="vanity-progress-bar-track">
+                      <div class="vanity-progress-bar-fill" id="vanity-bar"></div>
+                    </div>
+                  </div>
+
+                  <!-- Result -->
+                  <div class="vanity-result-panel" id="vanity-result">
+                    <h4>🎉 Vanity Address Found!</h4>
+                    <div class="field-group" style="margin-bottom:0.7rem;">
+                      <div class="field-label"><span>Vanity Address</span></div>
+                      <div class="field-input-wrap">
+                        <input type="text" class="field-input has-value" id="vanity-addr-result"
+                               value="——" readonly style="font-weight:700;" />
+                        <button class="field-copy-btn" data-copy="vanity-addr-result">Copy</button>
+                      </div>
+                      <!-- Highlighted match -->
+                      <div class="addr-highlight" id="vanity-addr-highlight" style="margin-top:0.35rem; font-size:0.78rem; color:#8898cc; font-family:monospace; word-break:break-all;"></div>
+                    </div>
+                    <div class="field-group" style="margin-bottom:0.7rem;">
+                      <div class="field-label">
+                        <span>Private Key <span style="color:#ff9fb0;">(WIF)</span></span>
+                        <span class="field-hint" style="color:#ff9fb0;">⚠ Never share!</span>
+                      </div>
+                      <div class="field-input-wrap">
+                        <input type="password" class="field-input has-value" id="vanity-privkey-result"
+                               value="——" readonly />
+                        <button class="field-copy-btn" data-copy="vanity-privkey-result">Copy</button>
+                      </div>
+                    </div>
+                    <div class="field-group" style="margin-bottom:0;">
+                      <div class="field-label"><span>Mnemonic (if generated)</span></div>
+                      <div class="field-input-wrap">
+                        <input type="text" class="field-input" id="vanity-mnemonic-result"
+                               value="——" readonly />
+                        <button class="field-copy-btn" data-copy="vanity-mnemonic-result">Copy</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Actions -->
+                  <div class="gen-actions">
+                    <button class="btn-vanity-start" id="btn-vanity-start">
+                      <span class="gen-spinner"></span>
+                      <span class="btn-label">🎯 Start Vanity Search</span>
+                    </button>
+                    <button class="btn-vanity-stop" id="btn-vanity-stop" style="display:none;">
+                      ⏹ Stop Search
+                    </button>
+                    <button class="btn-restore" id="btn-vanity-to-paper" style="display:none;">
+                      🖨 Export as Paper Wallet
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div><!-- /tab-vanity -->
+
+        </div><!-- /gen-layout -->
+
+      </div><!-- /container -->
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+<footer class="site-footer">
+    <div class="container footer-row">
+      <p>Smartiecoin (SMT) - Live project status from the official repository.</p>
+      <p><span id="year">2026</span> smartiecoin.com</p>
+    </div>
+</footer>
+
+
+  
+  <!-- CryptoJS RIPEMD160 Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+
+  <!-- QRCode Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- ── SMT WALLET GENERATOR ── -->
+  <script>
+ 'use strict';const SMT_PUBKEY_VERSION=0x3F;const SMT_WIF_VERSION=0x80;const USE_COMPRESSED=!0;const P_CURVE=0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2Fn;const N_CURVE=0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141n;const Gx=0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798n;const Gy=0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8n;function modInv(a,m){let old_r=((a%m)+m)%m,r=m;let old_s=1n,s=0n;while(r!==0n){let q=old_r/r;[old_r,r]=[r,old_r-q*r];[old_s,s]=[s,old_s-q*s]}
+return((old_s%m)+m)%m}
+function ecAdd(p1,p2){if(!p1)return p2;if(!p2)return p1;const[x1,y1]=p1,[x2,y2]=p2;let lam;if(x1===x2){if((y1+y2)%P_CURVE===0n)return null;lam=(3n*x1*x1)*modInv(2n*y1,P_CURVE)%P_CURVE}else{lam=((y2-y1)%P_CURVE+P_CURVE)%P_CURVE*modInv((x2-x1+P_CURVE)%P_CURVE,P_CURVE)%P_CURVE}
+const x3=(lam*lam-x1-x2)%P_CURVE;const y3=(lam*(x1-x3)-y1)%P_CURVE;return[(x3+P_CURVE)%P_CURVE,(y3+P_CURVE)%P_CURVE]}
+function ecMul(k,p){let r=null,add=p;k=((k%N_CURVE)+N_CURVE)%N_CURVE;while(k>0n){if(k&1n)r=ecAdd(r,add);add=ecAdd(add,add);k>>=1n}
+return r}
+function pubkeyCompressed(privHex){const k=BigInt('0x'+privHex);const pt=ecMul(k,[Gx,Gy]);const prefix=(pt[1]%2n===0n)?'02':'03';return prefix+pt[0].toString(16).padStart(64,'0')}
+function pubkeyUncompressed(privHex){const k=BigInt('0x'+privHex);const pt=ecMul(k,[Gx,Gy]);return'04'+pt[0].toString(16).padStart(64,'0')+pt[1].toString(16).padStart(64,'0')}
+async function sha256(dataHex){const bytes=hexToBytes(dataHex);const hash=await crypto.subtle.digest('SHA-256',bytes);return bytesToHex(new Uint8Array(hash))}
+async function dblSha256(dataHex){return sha256(await sha256(dataHex))}
+function ripemd160(msg){const wordArray=CryptoJS.lib.WordArray.create(msg);const hash=CryptoJS.RIPEMD160(wordArray);const result=new Uint8Array(20);for(let i=0;i<20;i++){result[i]=(hash.words[i>>>2]>>>(24-(i%4)*8))&0xff}
+return result}
+const B58C='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';function b58encode(bytes){let n=BigInt('0x'+bytesToHex(bytes));let res='';while(n>0n){const r=n%58n;n/=58n;res=B58C[Number(r)]+res}
+for(let i=0;i<bytes.length&&bytes[i]===0;i++)res='1'+res;return res}
+async function b58checkEncode(payloadHex){const chk=(await dblSha256(payloadHex)).slice(0,8);return b58encode(hexToBytes(payloadHex+chk))}
+async function privToWIF(privHex){const versionHex=SMT_WIF_VERSION.toString(16).padStart(2,'0');const suffix=USE_COMPRESSED?'01':'';return b58checkEncode(versionHex+privHex+suffix)}
+async function pubkeyToAddress(pubHex){const sha=await sha256(pubHex);const ripe=ripemd160(hexToBytes(sha));const ripeHex=bytesToHex(ripe);const versionHex=SMT_PUBKEY_VERSION.toString(16).padStart(2,'0');return b58checkEncode(versionHex+ripeHex)}
+function hexToBytes(hex){const b=new Uint8Array(hex.length/2);for(let i=0;i<hex.length;i+=2)b[i/2]=parseInt(hex.slice(i,i+2),16);return b}
+function bytesToHex(b){return Array.from(b).map(x=>x.toString(16).padStart(2,'0')).join('')}
+async function walletFromEntropy(entropy){const privHex=bytesToHex(entropy);const pubHex=USE_COMPRESSED?pubkeyCompressed(privHex):pubkeyUncompressed(privHex);const address=await pubkeyToAddress(pubHex);const wif=await privToWIF(privHex);return{privHex,pubHex,address,wif}}
+async function walletFromPrivateKey(wifOrHex){if(/^[0-9a-fA-F]{64}$/.test(wifOrHex)){const privHex=wifOrHex.toLowerCase();const pubHex=USE_COMPRESSED?pubkeyCompressed(privHex):pubkeyUncompressed(privHex);const address=await pubkeyToAddress(pubHex);const wif=await privToWIF(privHex);return{privHex,pubHex,address,wif,compressed:!0}}
+const wif=wifOrHex;const bytes=(()=>{let n=0n;for(let c of wif){const idx=B58C.indexOf(c);if(idx===-1)throw new Error('Invalid Base58 character: '+c);n=n*58n+BigInt(idx)}
+const bytes=[];while(n>0n){bytes.unshift(Number(n&0xFFn));n>>=8n}
+return new Uint8Array(bytes)})();let leading=0;while(leading<wif.length&&wif[leading]==='1')leading++;const decoded=(()=>{const result=new Uint8Array(bytes.length+leading);result.set(bytes,leading);return result})();const checksum=decoded.slice(-4);const payload=decoded.slice(0,-4);const chkCalc=(await dblSha256(bytesToHex(payload))).slice(0,8);if(bytesToHex(checksum)!==chkCalc)throw new Error('Invalid WIF checksum');const version=payload[0];if(version!==SMT_WIF_VERSION)throw new Error(`Wrong version byte: expected 0x${SMT_WIF_VERSION.toString(16).toUpperCase()} (SMT), got 0x${version.toString(16).toUpperCase()}`);const privHex=bytesToHex(payload.slice(1,33));const hasCompressed=payload.length===34&&payload[33]===0x01;const pubHex=hasCompressed?pubkeyCompressed(privHex):pubkeyUncompressed(privHex);const address=await pubkeyToAddress(pubHex);const wifCorrected=await privToWIF(privHex);return{privHex,pubHex,address,wif:wifCorrected,compressed:hasCompressed}}
+async function hmacSha512(key,data){let keyBytes;if(typeof key==='string'){if(/^[0-9a-fA-F]+$/.test(key)){keyBytes=hexToBytes(key)}else{keyBytes=new TextEncoder().encode(key)}}else{keyBytes=key}
+const dataBytes=typeof data==='string'?hexToBytes(data):data;const cryptoKey=await crypto.subtle.importKey('raw',keyBytes,{name:'HMAC',hash:'SHA-512'},!1,['sign']);const sig=await crypto.subtle.sign('HMAC',cryptoKey,dataBytes);return new Uint8Array(sig)}
+async function masterKeyFromSeed(seedHex){const seed=hexToBytes(seedHex);const key=new TextEncoder().encode('Bitcoin seed');const I=await hmacSha512(key,seed);const IL=I.slice(0,32);const IR=I.slice(32,64);return{key:bytesToHex(IL),chainCode:bytesToHex(IR)}}
+async function deriveHardenedChild(parentKeyHex,parentChainHex,index){const indexBuf=new Uint8Array(4);indexBuf[0]=(index>>24)&0xff;indexBuf[1]=(index>>16)&0xff;indexBuf[2]=(index>>8)&0xff;indexBuf[3]=index&0xff;const data=new Uint8Array([0x00,...hexToBytes(parentKeyHex),...indexBuf]);const I=await hmacSha512(parentChainHex,data);const IL=I.slice(0,32);const IR=I.slice(32,64);const newKey=(BigInt('0x'+bytesToHex(IL))+BigInt('0x'+parentKeyHex))%N_CURVE;return{key:newKey.toString(16).padStart(64,'0'),chainCode:bytesToHex(IR)}}
+async function deriveNormalChild(parentKeyHex,parentChainHex,index){const pubHex=pubkeyCompressed(parentKeyHex);const indexBuf=new Uint8Array(4);indexBuf[0]=(index>>24)&0xff;indexBuf[1]=(index>>16)&0xff;indexBuf[2]=(index>>8)&0xff;indexBuf[3]=index&0xff;const data=new Uint8Array([...hexToBytes(pubHex),...indexBuf]);const I=await hmacSha512(parentChainHex,data);const IL=I.slice(0,32);const IR=I.slice(32,64);const newKey=(BigInt('0x'+bytesToHex(IL))+BigInt('0x'+parentKeyHex))%N_CURVE;return{key:newKey.toString(16).padStart(64,'0'),chainCode:bytesToHex(IR)}}
+async function deriveBip44Wallet(seedHex,addressIndex){let{key,chainCode}=await masterKeyFromSeed(seedHex);({key,chainCode}=await deriveHardenedChild(key,chainCode,0x80000000|44));({key,chainCode}=await deriveHardenedChild(key,chainCode,0x80000000|5));({key,chainCode}=await deriveHardenedChild(key,chainCode,0x80000000|0));({key,chainCode}=await deriveNormalChild(key,chainCode,0));({key,chainCode}=await deriveNormalChild(key,chainCode,addressIndex));return key}
+const BIP39_WORDS="abandon ability able about above absent absorb abstract absurd abuse access accident account accuse achieve acid acoustic acquire across act action actor actress actual adapt add addict address adjust admit adult advance advice aerobic affair afford afraid again age agent agree ahead aim air airport aisle alarm album alcohol alert alien all alley allow almost alone alpha already also alter always amateur amazing among amount amused analyst anchor ancient anger angle angry animal ankle announce annual another answer antenna antique anxiety any apart apology appear apple approve april arch arctic area arena argue arm armed armor army around arrange arrest arrive arrow art artefact artist artwork ask aspect assault asset assist assume asthma athlete atom attack attend attitude attract auction audit august aunt author auto autumn average avocado avoid awake aware away awesome awful awkward axis baby bachelor bacon badge bag balance balcony ball bamboo banana banner bar barely bargain barrel base basic basket battle beach bean beauty because become beef before begin behave behind believe below belt bench benefit best betray better between beyond bicycle bid bike bind biology bird birth bitter black blade blame blanket blast bleak bless blind blood blossom blouse blue blur blush board boat body boil bomb bone book boost border boring borrow boss bottom bounce box boy bracket brain brand brave breeze brick bridge brief bright bring brisk broccoli broken bronze broom brother brown brush bubble buddy budget buffalo build bulb bulk bullet bundle bunker burden burger burst bus business busy butter buyer buzz cabbage cabin cable cactus cage cake call calm camera camp can canal cancel candy cannon canvas canyon capable capital captain car carbon card cargo carpet carry cart case cash casino castle casual cat catalog catch category cattle caught cause caution cave ceiling celery cement census chair chaos chapter charge chase chat cheap check cheese chef cherry chest chicken chief child chimney choice choose chronic chuckle chunk cinnamon circle citizen city civil claim clap clarify claw clay clean clerk clever click client cliff climb clinic clip clock clog close cloth cloud clown club clump cluster coarse coat coconut code coffee coil coin collect color column combine come comfort comic common company concert conduct confirm congress connect consider control convince cook cool copper copy coral core corn correct cost cotton couch country couple course cousin cover coyote crack cradle craft cram crane crash crater crawl crazy cream credit creek crew cricket crime crisp critic cross crouch crowd cruel crucial cruise crumble crunch crush cry crystal cube culture cup cupboard curious current curtain curve cushion custom cute cycle dad damage damp dance danger daring dash daughter dawn day deal debate debris decade december decide decline decorate decrease deer defense define defy degree delay deliver demand demise denial dentist deny depart depend deposit depth deputy derive describe desert design desk despair destroy detail detect develop device devote diagram dial diamond diary dice diesel diet differ digital dignity dilemma dinner dinosaur direct dirt disagree discover disease dish dismiss disorder display distance divert divide divorce dizzy doctor document dog doll dolphin domain donate donkey donor door dose double dove draft dragon drama drastic draw dream dress drift drill drink drip drive drop drum dry duck dumb dune during dust dutch duty dwarf dynamic eager eagle early earn earth easily east easy echo ecology edge edit educate effort egg eight either elbow elder electric elegant element elephant elevator elite else embark embody embrace emerge emotion employ empower empty enable enact endless endorse enemy engage engine enhance enjoy enroll ensure enter entire entry envelope episode equal equip erase erode erosion error erupt escape essay essence estate eternal ethics evidence evil evoke evolve exact example excess exchange excite exclude exercise exhaust exhibit exile exist exit exotic expand expire explain expose express extend extra eye fable face faculty fade faint faith fall false fame family famous fan fancy fantasy far fashion fat fatal father fatigue fault favorite feature february federal fee feed feel feet fellow felt fence festival fetch fever few fiber fiction field figure file film filter final find fine finger finish fire firm first fiscal fish fit fitness fix flag flame flash flat flavor flee flight flip float flock floor flower fluid flush fly foam focus fog foil follow food foot force forest forget fork fortune forum forward fossil foster found fox fragile frame frequent fresh friend fringe frog front frost frown frozen fruit fuel fun funny furnace fury future gadget gain galaxy gallery game gap garbage garden garlic garment gasp gate gather gauge gaze general genius genre gentle genuine gesture ghost giant gift giggle ginger giraffe girl give glad glance glare glass glide glimpse globe gloom glory glove glow glue goat goddess gold good goose gorilla gospel gossip govern gown grab grace grain grant grape grass gravity great green grid grief grit grocery group grow grunt guard guide guilt guitar gun gym habit hair half hammer hamster hand happy harbor hard harsh harvest hat have hawk hazard head health heart heavy hedgehog height hello helmet help hen hero hidden high hill hint hip hire history hobby hockey hold hole holiday hollow home honey hood hope horn hospital host hour hover hub huge human humble humor hundred hungry hunt hurdle hurry hurt husband hybrid ice icon ignore ill illegal image imitate immense immune impact impose improve impulse inbox income increase index indicate indoor industry infant inflict inform inhale inject injury inmate inner innocent input inquiry insane insect inside inspire install intact interest into invest invite involve iron island isolate issue item ivory jacket jaguar jar jazz jealous jelly jewel job join joke journey joy judge juice jump jungle junior junk just kangaroo keen keep ketchup key kick kid kingdom kiss kit kitchen kite kitten kiwi knee knife knock know lab ladder lady lake lamp language laptop large later laugh laundry lava law lawn lawsuit layer lazy leader learn leave lecture left leg legal legend leisure lemon lend length lens leopard lesson letter level liar liberty library license life lift light like limb limit link lion liquid list little live lizard load loan lobster local lock logic lonely long loop lottery loud loyal lucky luggage lumber lunar lunch luxury lyrics magic magnet maid main major make mammal mango mansion manual maple marble march margin marine market marriage mask master match material math matrix matter maximum maze meadow mean medal media melody melt member memory mention mentor merit merry mesh message metal method middle midnight milk million mimic mind minimum minor minute miracle miss misery miss mitten mix mixture mobile model modify mom monitor monkey monster month moon moral more morning mosquito mother motion mold mountain mouse move movie much muffin mule multiply muscle museum mushroom music must mutual myself mystery naive name napkin narrow nasty natural nature near neck need negative neglect neither nephew nerve nest network neutral never news next nice night noble noise nominee noodle normal north notable note nothing notice novel now nuclear number nurse nut oak obey object oblige obscure obtain ocean october odor off offer often oil okay old olive olympic omit once onion open option orange orbit orchard order ordinary organ orient original orphan ostrich other outdoor outside oval over own oyster ozone paddle page pair palace palm panda panel panic panther paper parade parent park parrot party pass patch path patrol pause pave payment peace peanut peasant pelican pen penalty pencil people pepper perfect permit person pet phone photo phrase physical piano picnic picture piece pig pigeon pill pilot pink pioneer pipe pistol pitch pizza place planet plastic plate play please pledge pluck plug plunge poem poet point polar pole police pond pony popular portion position possible post potato pottery poverty powder power practice praise predict prefer prepare present pretty prevent price pride primary print priority prison private prize problem process produce profit program project promote proof property prosper protect proud provide public pudding pull pulp pulse pumpkin punish pupil puppy purchase purity purpose push put puzzle pyramid quality quantum quarter question quick quit quiz quote rabbit raccoon race rack radar radio rage rail rain ramp ranch random range rapid rare rate rather raven reach ready real reason rebel rebuild recall receive recipe record recycle reduce reflect reform refuse region regret regular reject relax release relief rely remain remember remind remove render renew rent reopen repair repeat replace report require rescue resemble resist resource response result retire retreat return reunion reveal review reward rhythm ribbon rice rich ride rifle right rigid ring riot ripple risk ritual rival river road roast robot robust rocket romance roof rookie rotate rough round route royal rubber rude rug rule run runway rural sad saddle sadness safe sail salad salmon salon salt salute same sample sand satisfy satoshi sauce sausage save say scale scan scare scatter scene scheme school science scissors scorpion scout scrap screen script scrub sea search season seat second secret section security seed seek segment select sell seminar senior sense sentence series service session settle setup seven shadow shaft shallow share shed shell sheriff shield shift shine ship shiver shock shoe shoot shop short shoulder shove shrimp shrug shuffle shy sibling siege sight sign silent silk silly silver similar simple since sing siren sister situate six size sketch skill skin skirt skull slab slam sleep slender slice slide slight slim slogan slot slow slush small smart smile smoke smooth snack snake snap sniff snow soap soccer social sock soda soft solar soldier solid solution solve someone song soon sorry soul sound soup source south space spare spatial spawn speak special speed spell spend sphere spice spider spike spin spirit split spoil sponsor spoon spray spread spring spy square squeeze squirrel stable stadium staff stage stairs stamp stand start state stay steak steel stem step stereo stick still sting stock stomach stone stop story stove strategy street strike strong struggle student stuff stumble style subject submit subway success such sudden suffer sugar suggest suit summer sun sunny sunset super supply supreme sure surface surge surprise sustain swallow swamp swap swear sweet swift swim swing switch sword symbol symptom syrup table tackle tag tail talent tamper tank tape target task tattoo taxi teach team tell ten tenant tennis tent term test text thank that theme then theory there they thing this thought three thrive throw thumb thunder ticket tilt timber time tiny tip tired title toast tobacco today together toilet token tomato tomorrow tone tongue tonight tool tooth top topic topple torch tornado tortoise toss total tourist toward tower town toy track trade traffic tragic train transfer trap trash travel tray treat tree trend trial tribe trick trigger trim trip trophy trouble truck truly trumpet trust truth tube tuition tumble tuna tunnel turkey turn turtle twelve twenty twice twin twist two type typical ugly umbrella unable unaware uncle uncover under undo unfair unfold unhappy uniform unique universe unknown unlock until unusual unveil update upgrade uphold upon upper upset urban usage use used useful useless usual utility vacant vacuum vague valid valley valve van vanish vapor various vast vault vehicle velvet vendor venture venue verb verify version very vessel veteran viable vibrant vicious victory video view village vintage violin virtual virus visa visit visual vital vivid vocal voice void volcano volume vote voyage wage wagon wait walk wall walnut want warfare warm warrior waste water wave way wealth weapon wear weasel web wedding weekend weird welcome west wet whale wheat wheel when where whip whisper wide width wife wild will win window wine wing wink winner winter wire wisdom wise wish witness wolf woman wonder wood wool word world worry worth wrap wreck wrestle wrist write wrong yard year yellow you young youth zebra zero zone zoo".split(' ');async function generateMnemonic(){const entropyBits=128;const entropyBytes=entropyBits/8;const entropy=crypto.getRandomValues(new Uint8Array(entropyBytes));const entropyHex=bytesToHex(entropy);const hashHex=await sha256(entropyHex);const hashBytes=hexToBytes(hashHex);const csBits=entropyBits/32;let bits='';for(const b of entropy)bits+=b.toString(2).padStart(8,'0');for(let i=0;i<csBits;i++){bits+=((hashBytes[0]>>(7-i))&1).toString()}
+const words=[];for(let i=0;i<12;i++){const idx=parseInt(bits.slice(i*11,(i+1)*11),2);words.push(BIP39_WORDS[idx])}
+return{words,entropy}}
+async function validateMnemonic(words){if(words.length!==12)return!1;try{const mnemonic=words.join(' ');const salt='mnemonic';const enc=new TextEncoder();const keyMaterial=await crypto.subtle.importKey('raw',enc.encode(mnemonic),{name:'PBKDF2'},!1,['deriveBits']);const seedBits=await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode(salt),iterations:2048,hash:'SHA-512'},keyMaterial,512);const seedHex=bytesToHex(new Uint8Array(seedBits));await deriveBip44Wallet(seedHex,0);return!0}catch(e){return!1}}
+async function deriveWalletFromMnemonicWords(words,passphrase,derivIndex){const mnemonic=words.join(' ');const salt='mnemonic'+(passphrase||'');const enc=new TextEncoder();const keyMaterial=await crypto.subtle.importKey('raw',enc.encode(mnemonic),{name:'PBKDF2'},!1,['deriveBits']);const seedBits=await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode(salt),iterations:2048,hash:'SHA-512'},keyMaterial,512);const seedHex=bytesToHex(new Uint8Array(seedBits));const privHex=await deriveBip44Wallet(seedHex,derivIndex);return walletFromEntropy(hexToBytes(privHex))}
+function renderQR(containerId,text,size){size=size||160;const el=document.getElementById(containerId);if(!el||!text)return;el.innerHTML='';if(typeof QRCode!=='undefined'){new QRCode(el,{text:text,width:size,height:size,colorDark:'#000000',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}}
+let lastWallet=null;function setField(id,val){const el=document.getElementById(id);if(el)el.value=val}
+function showError(msg,duration){const toast=document.createElement('div');toast.textContent=msg;toast.style.cssText='position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#ff4f4f; color:#fff; padding:0.7rem 1.2rem; border-radius:12px; z-index:10000; font-weight:700; box-shadow:0 4px 12px rgba(0,0,0,0.3);';document.body.appendChild(toast);setTimeout(()=>toast.remove(),duration||3000)}
+function showSuccess(msg){const toast=document.createElement('div');toast.textContent=msg;toast.style.cssText='position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#39d6c3; color:#0d1020; padding:0.7rem 1.2rem; border-radius:12px; z-index:10000; font-weight:700; box-shadow:0 4px 12px rgba(0,0,0,0.3);';document.body.appendChild(toast);setTimeout(()=>toast.remove(),3000)}
+function setLoading(btnId,isLoading){const btn=document.getElementById(btnId);if(!btn)return;if(isLoading){btn.classList.add('loading');btn.disabled=!0}else{btn.classList.remove('loading');btn.disabled=!1}}
+async function doGenerateWallet(){setLoading('btn-generate',!0);try{const passphrase=document.getElementById('bip39-passphrase')?.value||'';const derivIndex=parseInt(document.getElementById('address-index')?.value||'0');const{words}=await generateMnemonic();const grid=document.getElementById('mnemonic-grid');if(grid){grid.innerHTML='';words.forEach((w,i)=>{const div=document.createElement('div');div.className='mnemonic-word';div.innerHTML=`<span class="word-num">${i+1}</span><span class="word-val" id="word-${i+1}">${w}</span>`;grid.appendChild(div)})}
+const wallet=await deriveWalletFromMnemonicWords(words,passphrase,derivIndex);lastWallet={...wallet,words};setField('wallet-address',wallet.address);setField('wallet-pubkey',wallet.pubHex);setField('wallet-privkey',wallet.wif);setField('wallet-privkey-hex',wallet.privHex);showSuccess('New SMT wallet generated!')}catch(e){showError('Generation failed: '+e.message);console.error(e)}finally{setLoading('btn-generate',!1)}}
+async function doRestoreFromMnemonic(){setLoading('btn-restore-mnemonic',!0);try{const phrase=document.getElementById('restore-mnemonic')?.value.trim();const passphrase=document.getElementById('restore-passphrase')?.value||'';const derivIndex=parseInt(document.getElementById('restore-index')?.value||'0');if(!phrase)throw new Error('Please enter a seed phrase');const words=phrase.split(/\s+/).filter(Boolean);if(words.length!==12)throw new Error(`Invalid word count: ${words.length}. Smartiecoin uses exactly 12 words.`);const valid=await validateMnemonic(words);if(!valid)throw new Error('Invalid mnemonic (checksum failed)');const wallet=await deriveWalletFromMnemonicWords(words,passphrase,derivIndex);lastWallet={...wallet,words};setField('restore-address',wallet.address);setField('restore-privkey',wallet.wif);showSuccess('Wallet restored from mnemonic!')}catch(e){showError(e.message)}finally{setLoading('btn-restore-mnemonic',!1)}}
+async function doRestoreFromPrivKey(){setLoading('btn-derive-privkey',!0);try{const key=document.getElementById('privkey-input')?.value.trim();if(!key)throw new Error('Please enter a private key (WIF or hex)');const wallet=await walletFromPrivateKey(key);setField('privkey-address',wallet.address);setField('privkey-pubkey',wallet.pubHex);showSuccess('Address derived from private key!');lastWallet=wallet}catch(e){showError(e.message)}finally{setLoading('btn-derive-privkey',!1)}}
+async function doGenPaperWallet(){setLoading('btn-gen-paper',!0);try{let wallet;const srcLast=document.getElementById('pw-src-last')?.classList.contains('active');if(srcLast&&lastWallet){wallet=lastWallet}else{const manualAddr=document.getElementById('pw-manual-addr')?.value.trim();const manualPriv=document.getElementById('pw-manual-privkey')?.value.trim();if(manualAddr&&manualPriv){wallet={address:manualAddr,wif:manualPriv,words:null}}else{const{words}=await generateMnemonic();wallet=await deriveWalletFromMnemonicWords(words,'',0);wallet.words=words}}
+const addrEl=document.getElementById('pw-addr-preview');const privEl=document.getElementById('pw-privkey-preview');const seedEl=document.getElementById('pw-seed-preview');const dateEl=document.getElementById('pw-date-preview');if(addrEl)addrEl.textContent=wallet.address||'——';if(privEl)privEl.textContent=wallet.wif||'——';if(seedEl&&wallet.words){const showSeed=document.getElementById('pw-show-mnemonic')?.checked;if(showSeed){const rows=[];for(let i=0;i<wallet.words.length;i+=6){rows.push(wallet.words.slice(i,i+6).map((w,j)=>`${i+j+1}. ${w}`).join(' &nbsp; '))}
+seedEl.innerHTML=rows.join('<br>')}else{const seedStrip=document.getElementById('pw-seed-strip');if(seedStrip)seedStrip.style.display='none'}}else if(seedEl){seedEl.textContent='(No seed phrase — imported from private key)'}
+if(dateEl)dateEl.textContent=new Date().toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});const showQR=document.getElementById('pw-show-qr')?.checked;if(showQR){const pubQREl=document.getElementById('pw-qr-public');const prvQREl=document.getElementById('pw-qr-priv');if(pubQREl){pubQREl.innerHTML='';renderQR('pw-qr-public',wallet.address,90)}
+if(prvQREl&&document.getElementById('pw-show-privkey')?.checked){prvQREl.innerHTML='';renderQR('pw-qr-priv',wallet.wif,90)}}
+if(!document.getElementById('pw-show-privkey')?.checked){const section=document.querySelector('.pw-section:last-child');if(section)section.style.display='none'}
+showSuccess('Paper wallet preview ready!')}catch(e){showError('Paper wallet error: '+e.message)}finally{setLoading('btn-gen-paper',!1)}}
+function doPrintPaperWallet(){const card=document.querySelector('.paper-wallet-card');if(!card)return;const addr=document.getElementById('pw-addr-preview')?.textContent;if(!addr||addr==='S — — — — — — — — — — — — — — — —'){showError('Generate a paper wallet preview first!');return}
+const clone=card.cloneNode(!0);const pubQREl=clone.querySelector('#pw-qr-public');const prvQREl=clone.querySelector('#pw-qr-priv');if(pubQREl&&lastWallet&&lastWallet.address){const canvas=document.createElement('canvas');canvas.width=90;canvas.height=90;const qr=new QRCode(canvas,{text:lastWallet.address,width:90,height:90});const img=document.createElement('img');img.src=canvas.toDataURL();pubQREl.innerHTML='';pubQREl.appendChild(img)}
+if(prvQREl&&document.getElementById('pw-show-privkey')?.checked&&lastWallet&&lastWallet.wif){const canvas=document.createElement('canvas');canvas.width=90;canvas.height=90;const qr=new QRCode(canvas,{text:lastWallet.wif,width:90,height:90});const img=document.createElement('img');img.src=canvas.toDataURL();prvQREl.innerHTML='';prvQREl.appendChild(img)}
+const win=window.open('','_blank');win.document.write(`<!DOCTYPE html><html><head>
+    <title>SMT Paper Wallet</title>
+    <link href="//fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body { margin: 0; padding: 20px; background: #fff; font-family: Outfit, sans-serif; }
+      @media print { body { padding: 0; } }
+    </style>
+  </head><body>${clone.outerHTML}</body></html>`);win.document.close();setTimeout(()=>win.print(),500)}
+let vanityStop=!1;let vanityRunning=!1;let vanityStartMs=0;let vanityCount=0;let vanityTimer=null;function updateVanityUI(){if(vanityRunning&&vanityStartMs){const elapsed=(Date.now()-vanityStartMs)/1000;const speed=vanityCount/elapsed;document.getElementById('vanity-speed').innerText=speed.toFixed(0);document.getElementById('vanity-elapsed').innerText=elapsed.toFixed(0);document.getElementById('vanity-attempts').innerText=vanityCount.toLocaleString()}}
+async function doVanitySearch(){if(vanityRunning)return;const pattern=document.getElementById('vanity-pattern')?.value.trim();if(!pattern){showError('Enter a vanity pattern first');return}
+const matchType=document.querySelector('[data-match].active')?.dataset.match||'prefix';const caseSensitive=document.getElementById('vanity-case-sensitive')?.checked!==!1;const searchPat=caseSensitive?pattern:pattern.toLowerCase();const SMT_PREFIX='S';vanityStop=!1;vanityRunning=!0;vanityCount=0;vanityStartMs=Date.now();const startBtn=document.getElementById('btn-vanity-start');const stopBtn=document.getElementById('btn-vanity-stop');if(startBtn)startBtn.style.display='none';if(stopBtn)stopBtn.style.display='flex';const statusEl=document.getElementById('vanity-status');if(statusEl)statusEl.textContent='🔍 Searching...';const barEl=document.getElementById('vanity-bar');const len=pattern.length;const base=caseSensitive?58:36;const expected=Math.pow(base,len);vanityTimer=setInterval(updateVanityUI,250);while(!vanityStop){const entropy=crypto.getRandomValues(new Uint8Array(32));const wallet=await walletFromEntropy(entropy);const addr=wallet.address;const addrCore=addr.startsWith(SMT_PREFIX)?addr.slice(1):addr;const checkAddr=caseSensitive?addrCore:addrCore.toLowerCase();let found=!1;if(matchType==='prefix')found=checkAddr.startsWith(searchPat);else if(matchType==='suffix')found=checkAddr.endsWith(searchPat);else if(matchType==='contains')found=checkAddr.includes(searchPat);if(found){vanityStop=!0;clearInterval(vanityTimer);updateVanityUI();setField('vanity-addr-result',wallet.address);setField('vanity-privkey-result',wallet.wif);setField('vanity-mnemonic-result','(Direct key — no mnemonic)');const highlightEl=document.getElementById('vanity-addr-highlight');if(highlightEl){let highlighted=addr;const matchStart=addr.toLowerCase().indexOf(searchPat.toLowerCase());if(matchStart!==-1){highlighted=addr.slice(0,matchStart)+'<mark>'+addr.slice(matchStart,matchStart+pattern.length)+'</mark>'+addr.slice(matchStart+pattern.length)}
+highlightEl.innerHTML=highlighted}
+const resultPanel=document.getElementById('vanity-result');if(resultPanel){resultPanel.classList.add('visible')}
+const toPaperBtn=document.getElementById('btn-vanity-to-paper');if(toPaperBtn)toPaperBtn.style.display='flex';lastWallet=wallet;if(statusEl)statusEl.textContent='🎉 Found after '+vanityCount.toLocaleString()+' attempts!';if(stopBtn)stopBtn.style.display='none';if(startBtn)startBtn.style.display='flex';vanityRunning=!1;showSuccess('Vanity address found!');break}
+vanityCount++;if(barEl){const pct=Math.min(95,(vanityCount/expected)*100*2);barEl.style.width=pct+'%'}
+await new Promise(r=>setTimeout(r,0))}
+if(!vanityStop){vanityRunning=!1}}
+function doStopVanity(){vanityStop=!0;vanityRunning=!1;clearInterval(vanityTimer);const startBtn=document.getElementById('btn-vanity-start');const stopBtn=document.getElementById('btn-vanity-stop');if(startBtn)startBtn.style.display='flex';if(stopBtn)stopBtn.style.display='none';const statusEl=document.getElementById('vanity-status');if(statusEl)statusEl.textContent='⏸ Stopped at '+vanityCount.toLocaleString()+' attempts'}
+document.addEventListener('DOMContentLoaded',()=>{const tabs=document.querySelectorAll('.mode-tab');const contents=document.querySelectorAll('.tab-content');function activateTab(tabId){contents.forEach(content=>content.classList.remove('active'));document.getElementById(tabId).classList.add('active');tabs.forEach(btn=>btn.classList.remove('active'));const activeBtn=document.querySelector(`.mode-tab[aria-controls="${tabId}"]`);if(activeBtn)activeBtn.classList.add('active');}
+tabs.forEach(btn=>{btn.addEventListener('click',()=>{const targetId=btn.getAttribute('aria-controls');activateTab(targetId)})});const mnemonicGrid=document.getElementById('mnemonic-grid');if(mnemonicGrid){mnemonicGrid.innerHTML='';for(let i=1;i<=12;i++){const div=document.createElement('div');div.className='mnemonic-word';div.innerHTML=`<span class="word-num">${i}</span><span class="word-val placeholder">——</span>`;mnemonicGrid.appendChild(div)}}
+document.querySelectorAll('.field-copy-btn').forEach(btn=>{btn.addEventListener('click',async()=>{const targetId=btn.getAttribute('data-copy');const field=document.getElementById(targetId);if(field&&field.value&&field.value!=='——'){await navigator.clipboard.writeText(field.value);btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied')},2000)}else{showError('Nothing to copy')}})});const copyMnemonic=document.getElementById('copy-mnemonic-btn');if(copyMnemonic){copyMnemonic.addEventListener('click',async()=>{const words=Array.from(document.querySelectorAll('#mnemonic-grid .word-val')).map(el=>el.textContent);if(words.length&&words[0]!=='——'){await navigator.clipboard.writeText(words.join(' '));copyMnemonic.textContent='✓ Copied!';setTimeout(()=>copyMnemonic.textContent='📋 Copy Phrase',2000)}else{showError('Generate a wallet first')}})}
+const srcLast=document.getElementById('pw-src-last');const srcManual=document.getElementById('pw-src-manual');const manualFields=document.getElementById('pw-manual-fields');if(srcLast&&srcManual&&manualFields){srcLast.addEventListener('click',()=>{srcLast.classList.add('active');srcManual.classList.remove('active');manualFields.style.display='none'});srcManual.addEventListener('click',()=>{srcManual.classList.add('active');srcLast.classList.remove('active');manualFields.style.display='block'})}
+const copyBtns=document.querySelectorAll('[data-copies]');copyBtns.forEach(btn=>{btn.addEventListener('click',()=>{copyBtns.forEach(b=>b.classList.remove('active'));btn.classList.add('active')})});const vanityPattern=document.getElementById('vanity-pattern');if(vanityPattern){vanityPattern.addEventListener('input',()=>{const val=vanityPattern.value;const invalid=val.split('').some(c=>!B58C.includes(c));const hint=document.getElementById('vanity-char-check');if(hint){hint.textContent=invalid?'❌ Only Base58 characters allowed':'✓ All characters valid';hint.style.color=invalid?'#ff9fb0':'#7ec6ff'}
+const len=val.length;if(len>0){const base=document.getElementById('vanity-case-sensitive')?.checked?58:36;const expected=Math.pow(base,len);const dots=document.querySelectorAll('.difficulty-dot');dots.forEach((dot,i)=>{if(expected>Math.pow(10,i+1))dot.classList.add('active');else dot.classList.remove('active')});const est=document.getElementById('vanity-difficulty-est');if(est)est.textContent=`~ ${expected.toExponential(2)} attempts (on average)`}else{const dots=document.querySelectorAll('.difficulty-dot');dots.forEach(dot=>dot.classList.remove('active'));const est=document.getElementById('vanity-difficulty-est');if(est)est.textContent='Enter a pattern to estimate'}})}
+const searchTypeBtns=document.querySelectorAll('.search-type-btn');searchTypeBtns.forEach(btn=>{btn.addEventListener('click',()=>{searchTypeBtns.forEach(b=>b.classList.remove('active'));btn.classList.add('active')})});const threadBtns=document.querySelectorAll('[data-threads]');threadBtns.forEach(btn=>{btn.addEventListener('click',()=>{threadBtns.forEach(b=>b.classList.remove('active'));btn.classList.add('active')})});document.getElementById('btn-generate')?.addEventListener('click',doGenerateWallet);document.getElementById('btn-restore-mnemonic')?.addEventListener('click',doRestoreFromMnemonic);document.getElementById('btn-derive-privkey')?.addEventListener('click',doRestoreFromPrivKey);document.getElementById('btn-gen-paper')?.addEventListener('click',doGenPaperWallet);document.getElementById('btn-print-paper')?.addEventListener('click',doPrintPaperWallet);document.getElementById('btn-vanity-start')?.addEventListener('click',doVanitySearch);document.getElementById('btn-vanity-stop')?.addEventListener('click',doStopVanity);document.getElementById('btn-export-paper')?.addEventListener('click',()=>{const tabPaper=document.getElementById('tab-paper');if(tabPaper)activateTab('tab-paper');doGenPaperWallet()});document.getElementById('btn-vanity-to-paper')?.addEventListener('click',()=>{const tabPaper=document.getElementById('tab-paper');if(tabPaper)activateTab('tab-paper');doGenPaperWallet()});const revealEls=document.querySelectorAll('[data-reveal]');if('IntersectionObserver' in window){const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}})},{threshold:0.08});revealEls.forEach(el=>observer.observe(el))}else{revealEls.forEach(el=>el.classList.add('is-visible'))}}) 
+  </script>
+</body>
+</html>
