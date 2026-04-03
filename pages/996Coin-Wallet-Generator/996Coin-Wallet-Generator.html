@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>996 Coin (996) | Secure Wallet Generator</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,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">
+  <meta name="description" content="996 Coin (996) - Open source cryptocurrency wallet generator. Generate secure private keys, public addresses (Legacy + Bech32), and paper wallets. Client-side only, no server communication." />
+  <link rel="icon" type="image/png" href="https://996coin.com/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    :root {
+      --bg-top: #255479;
+      --bg-bottom: #b9dbcb;
+      --card-bg: rgba(8, 25, 40, 0.88);
+      --card-border: rgba(255,255,255,0.08);
+      --text-main: #f5f7fa;
+      --text-muted: #cfd8dc;
+      --accent: #f4d247;
+      --accent-soft: #ffe58a;
+      --accent-dim: rgba(244,210,71,0.13);
+      --danger: #ff8a80;
+      --success: #69f0ae;
+      --input-bg: rgba(10,33,52,0.9);
+      --input-border: rgba(255,255,255,0.14);
+      --divider: rgba(255,255,255,0.07);
+      --inner-bg: rgba(0,0,0,0.28);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 0% 0%, #3a5479 0%, var(--bg-top) 35%),
+        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+    }
+
+    /* ════════════════════════════════
+       HEADER
+    ════════════════════════════════ */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(8,25,40,0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: var(--text-main);
+      flex-shrink: 0;
+    }
+    .logo-coin {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.68rem; color: #1a1a1a;
+      flex-shrink: 0;
+    }
+    .logo em { color: var(--accent); font-style: normal; }
+
+    .site-nav {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+    }
+    .site-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 999px;
+      transition: background 0.16s, color 0.16s;
+      white-space: nowrap;
+    }
+    .site-nav a:hover { color: var(--text-main); background: rgba(255,255,255,0.07); }
+    .site-nav a.active { color: var(--accent); background: var(--accent-dim); }
+
+    /* hamburger — mobile only */
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 7px 9px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: rgba(8,25,40,0.97);
+      border-top: 1px solid var(--divider);
+      padding: 0.5rem 1.25rem 1rem;
+      gap: 2px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 10px 12px;
+      border-radius: 10px;
+      transition: 0.16s;
+    }
+    .mobile-nav a:hover { color: var(--text-main); background: rgba(255,255,255,0.07); }
+    .mobile-nav a.active { color: var(--accent); background: var(--accent-dim); }
+
+    /* ════════════════════════════════
+       SHELL & CARD
+    ════════════════════════════════ */
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.55);
+      padding: 2rem 2rem 2.25rem;
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero { margin-bottom: 1.5rem; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(244,210,71,0.22);
+      border-radius: 999px;
+      padding: 4px 13px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero p { color: var(--text-muted); max-width: 580px; font-size: 0.91rem; }
+
+    /* ════════════════════════════════
+       WARNING BANNER
+    ════════════════════════════════ */
+    .warning-banner {
+      background: rgba(183,28,28,0.14);
+      border: 1px solid rgba(255,138,128,0.3);
+      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.83rem;
+      color: #ffcdd2;
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      line-height: 1.5;
+    }
+    .warning-banner .w-ico { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+    /* ════════════════════════════════
+       TABS — CENTERED
+    ════════════════════════════════ */
+    .tabs-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.75rem;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      background: rgba(0,0,0,0.32);
+      border-radius: 14px;
+      padding: 5px;
+      max-width: 100%;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.84rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: background 0.16s, color 0.16s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .tab-btn.active { background: var(--accent); color: #1a1a1a; font-weight: 700; }
+    .tab-btn:not(.active):hover { background: rgba(255,255,255,0.08); color: var(--text-main); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ════════════════════════════════
+       INNER CARDS / SHARED
+    ════════════════════════════════ */
+    .inner-card {
+      background: var(--inner-bg);
+      border: 1px solid var(--divider);
+      border-radius: 14px;
+      padding: 1.2rem 1.35rem;
+    }
+    .inner-card + .inner-card { }
+    .inner-card-title {
+      font-size: 0.71rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+    .dot-y { background: var(--accent); }
+    .dot-r { background: var(--danger); }
+    .dot-g { background: var(--text-muted); }
+    .dot-p { background: #b39ddb; }
+
+    .section-divider { border: none; border-top: 1px solid var(--divider); margin: 1.5rem 0; }
+
+    /* ════════════════════════════════
+       FIELD / INPUT ROW
+    ════════════════════════════════ */
+    .field-group { margin-bottom: 0.9rem; }
+    .field-group:last-child { margin-bottom: 0; }
+    .field-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .badge-secret {
+      background: rgba(255,138,128,0.14);
+      color: var(--danger);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 0.66rem;
+      font-weight: 600;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .input-row { display: flex; align-items: center; gap: 5px; min-width: 0; }
+    .mono-input {
+      flex: 1;
+      min-width: 0;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 9px;
+      padding: 9px 11px;
+      color: var(--text-main);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.76rem;
+      outline: none;
+      transition: border-color 0.14s, box-shadow 0.14s;
+      width: 100%;
+    }
+    .mono-input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(244,210,71,0.16); }
+    .mono-input::placeholder { color: rgba(207,216,220,0.28); }
+
+    .icon-btn {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 8px 9px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      line-height: 1;
+      transition: 0.14s;
+      flex-shrink: 0;
+    }
+    .icon-btn:hover { background: rgba(255,255,255,0.1); color: var(--text-main); }
+
+    .copy-btn {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 8px 11px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 600;
+      font-family: inherit;
+      transition: 0.14s;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    .copy-btn:hover { background: rgba(244,210,71,0.1); color: var(--accent); border-color: rgba(244,210,71,0.26); }
+    .copy-btn.copied { color: var(--success); border-color: rgba(105,240,174,0.35); background: rgba(105,240,174,0.07); }
+
+    /* ════════════════════════════════
+       BUTTONS
+    ════════════════════════════════ */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #1a1a1a; border: none; border-radius: 11px;
+      padding: 11px 22px;
+      font-family: inherit; font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; transition: 0.18s;
+      box-shadow: 0 6px 20px rgba(244,210,71,0.28);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(244,210,71,0.38); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(244,210,71,0.1); color: var(--accent);
+      border: 1px solid rgba(244,210,71,0.28); border-radius: 10px;
+      padding: 9px 17px; font-family: inherit; font-size: 0.86rem; font-weight: 600;
+      cursor: pointer; transition: 0.14s; white-space: nowrap;
+    }
+    .btn-outline:hover { background: rgba(244,210,71,0.2); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.06); color: var(--text-muted);
+      border: 1px solid var(--input-border); border-radius: 10px;
+      padding: 9px 17px; font-family: inherit; font-size: 0.86rem; font-weight: 600;
+      cursor: pointer; transition: 0.14s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); color: var(--text-main); }
+
+    .btn-danger {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,138,128,0.12); color: var(--danger);
+      border: 1px solid rgba(255,138,128,0.28); border-radius: 10px;
+      padding: 9px 17px; font-family: inherit; font-size: 0.86rem; font-weight: 600;
+      cursor: pointer; transition: 0.14s; white-space: nowrap;
+    }
+    .btn-danger:hover { background: rgba(255,138,128,0.22); }
+
+    /* ════════════════════════════════
+       TAB: GENERATE
+    ════════════════════════════════ */
+    .gen-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.4rem;
+    width: 100%;
+    text-align: center;
+	margin: 2rem 0 1.4rem 0;
+    }
+
+   .gen-cta .hint {
+    font-size: 0.81rem;
+    color: var(--text-muted);
+    display: block;
+    }
+
+    .wallet-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.1rem;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3.5rem 1rem;
+      color: var(--text-muted);
+    }
+    .empty-icon { font-size: 2.6rem; margin-bottom: 0.6rem; opacity: 0.4; }
+    .empty-state strong { display: block; font-size: 0.97rem; margin-bottom: 0.3rem; }
+    .empty-state p { font-size: 0.83rem; opacity: 0.62; }
+
+    .key-warning {
+      margin-top: 0.9rem;
+      padding: 0.7rem 0.85rem;
+      background: rgba(255,138,128,0.07);
+      border: 1px solid rgba(255,138,128,0.18);
+      border-radius: 9px;
+      font-size: 0.76rem;
+      color: var(--danger);
+      line-height: 1.5;
+    }
+
+    /* ════════════════════════════════
+       TAB: IMPORT
+    ════════════════════════════════ */
+    .import-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .import-row .mono-input { flex: 1; min-width: 200px; font-size: 0.79rem; padding: 10px 12px; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.1rem;
+    }
+
+    /* ════════════════════════════════
+       TAB: PAPER WALLET
+    ════════════════════════════════ */
+    .paper-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.3rem; }
+    .paper-empty {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2.8rem 1rem; color: var(--text-muted);
+      opacity: 0.55; font-size: 0.87rem; gap: 0.45rem; text-align: center;
+    }
+    .paper-empty .ico { font-size: 1.9rem; }
+    .manual-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0.9rem; }
+    .manual-row .mono-input { flex: 1; min-width: 150px; }
+
+    /* ════════════════════════════════
+       TAB: VANITY ADDRESS
+    ════════════════════════════════ */
+    .vanity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.1rem;
+      margin-top: 1.1rem;
+    }
+    .vanity-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .vanity-prefix-row {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+    .vanity-prefix-row .mono-input {
+      flex: 1;
+      font-size: 0.88rem;
+      padding: 10px 13px;
+      letter-spacing: 0.05em;
+    }
+    .vanity-type-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .type-btn {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--input-border);
+      border-radius: 9px;
+      padding: 8px 12px;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.14s;
+      text-align: center;
+      min-width: 100px;
+    }
+    .type-btn.active { background: var(--accent-dim); color: var(--accent); border-color: rgba(244,210,71,0.3); font-weight: 700; }
+    .type-btn:not(.active):hover { background: rgba(255,255,255,0.09); color: var(--text-main); }
+
+    .vanity-status {
+      background: var(--inner-bg);
+      border: 1px solid var(--divider);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+    }
+    .vanity-stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0;
+      font-size: 0.82rem;
+      border-bottom: 1px solid var(--divider);
+    }
+    .vanity-stat-row:last-child { border-bottom: none; }
+    .vanity-stat-label { color: var(--text-muted); }
+    .vanity-stat-val { font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: var(--text-main); }
+    .vanity-stat-val.accent { color: var(--accent); }
+    .vanity-stat-val.success { color: var(--success); }
+
+    /* progress bar */
+    .vanity-progress-wrap {
+      height: 4px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 99px;
+      margin-top: 0.8rem;
+      overflow: hidden;
+    }
+    .vanity-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      border-radius: 99px;
+      transition: width 0.4s;
+    }
+
+    .vanity-result {
+      display: none;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .vanity-result.show { display: flex; }
+
+    .vanity-match-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(105,240,174,0.12);
+      border: 1px solid rgba(105,240,174,0.3);
+      border-radius: 999px;
+      padding: 4px 13px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--success);
+      margin-bottom: 0.5rem;
+    }
+
+    .vanity-info-box {
+      background: rgba(179,157,219,0.08);
+      border: 1px solid rgba(179,157,219,0.2);
+      border-radius: 11px;
+      padding: 0.85rem 1rem;
+      font-size: 0.8rem;
+      color: #d7ccf0;
+      line-height: 1.55;
+    }
+    .vanity-info-box strong { color: var(--accent-soft); }
+
+    /* ════════════════════════════════
+       SPINNER
+    ════════════════════════════════ */
+    .spinner {
+      width: 14px; height: 14px;
+      border: 2px solid rgba(26,26,26,0.3);
+      border-top-color: #1a1a1a;
+      border-radius: 50%;
+      animation: spin 0.55s linear infinite;
+      display: none; flex-shrink: 0;
+    }
+    .spinner.on { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .spinner-light {
+      width: 14px; height: 14px;
+      border: 2px solid rgba(244,210,71,0.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.55s linear infinite;
+      display: none;
+    }
+    .spinner-light.on { display: inline-block; }
+
+    /* ════════════════════════════════
+       TOAST
+    ════════════════════════════════ */
+    .toast-wrap {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      max-width: min(300px, calc(100vw - 2.5rem));
+    }
+    .toast {
+      background: rgba(8,25,40,0.97);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(14px);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.83rem;
+      color: var(--text-main);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: slideIn 0.2s ease;
+      word-break: break-word;
+    }
+    .toast.success { border-color: rgba(105,240,174,0.35); }
+    .toast.error   { border-color: rgba(255,138,128,0.35); }
+    @keyframes slideIn { from { transform: translateX(16px); opacity:0; } to { transform: translateX(0); opacity:1; } }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--divider);
+      text-align: center;
+      font-size: 0.77rem;
+      color: var(--text-muted);
+      opacity: 0.7;
+      line-height: 1.9;
+    }
+    footer a { color: var(--accent-soft); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+    @media (max-width: 900px) {
+      .vanity-grid { grid-template-columns: 1fr; }
+    }
+@media (max-width: 720px) {
+    .wallet-grid { grid-template-columns: 1fr; }
+    .result-grid { grid-template-columns: 1fr; }
+    .card { padding: 1.5rem 1.1rem 1.75rem; }
+    
+    .gen-cta { 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center;
+        gap: 0.6rem; 
+        text-align: center;
+		margin: 2rem 0 1.4rem 0;
+    }
+    
+    /* Jika Anda ingin tetap menyembunyikan hint di mobile, biarkan ini */
+    .gen-cta .hint { display: none; }
+}
+    @media (max-width: 600px) {
+      .site-nav { display: none; }
+      .hamburger { display: flex; align-items: center; justify-content: center; }
+      .tab-btn { font-size: 0.78rem; padding: 7px 11px; }
+      .tabs { gap: 3px; padding: 4px; }
+      .import-row { flex-direction: column; align-items: stretch; }
+      .import-row .mono-input { min-width: unset; }
+      .import-row .icon-btn { align-self: flex-end; }
+      .vanity-prefix-row { flex-direction: column; }
+    }
+    @media (max-width: 420px) {
+      .shell { padding: 1rem 0.75rem 3rem; }
+      .card { padding: 1.1rem 0.85rem 1.4rem; border-radius: 16px; }
+      .hero h1 { font-size: 1.4rem; }
+      .tabs { border-radius: 11px; }
+      .tab-btn { font-size: 0.73rem; padding: 6px 9px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ══════════════════════════════════════
+     HEADER
+══════════════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="https://996coin.com" class="logo" target="_blank" rel="noopener">
+	<img class="logo-coin" src="data:image/png;base64,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" alt="Nine Hundred Ninety-six Coin">
+    <em>996</em>COIN
+    </a>
+    <nav class="site-nav">
+      <a href="https://996coin.com" target="_blank" rel="noopener">Home</a>
+	  <a href="#" target="_blank" rel="noopener">About</a>
+	  <a href="https://explorer.996coin.com/" target="_blank" rel="noopener">Explorer</a>
+	  <a href="https://klingex.io/register?ref=B68D1568" target="_blank" rel="noopener">Trade</a>
+      <a href="https://github.com/Hashcash-PoW-Faucet/996-Coin-Whitepaper/blob/main/Whitepaper.md" target="_blank" rel="noopener">WhitePaper</a>
+	  <a href="https://github.com/Imusing/996-Coin" target="_blank" rel="noopener">Github</a>
+	  <a href="https://discord.gg/HcFDqC7Hxg" target="_blank" rel="noopener">Discord</a>
+	  <a href="#" class="active">Wallet Generator</a>
+    </nav>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
+  </div>
+	<nav class="mobile-nav" id="mobileNav">
+      <a href="https://996coin.com" target="_blank" rel="noopener">Home</a>
+	  <a href="#" target="_blank" rel="noopener">About</a>
+	  <a href="https://explorer.996coin.com/" target="_blank" rel="noopener">Explorer</a>	  
+	  <a href="https://klingex.io/register?ref=B68D1568" target="_blank" rel="noopener">Trade</a>
+      <a href="https://github.com/Hashcash-PoW-Faucet/996-Coin-Whitepaper/blob/main/Whitepaper.md" target="_blank" rel="noopener">WhitePaper</a>
+	  <a href="https://github.com/Imusing/996-Coin" target="_blank" rel="noopener">Github</a>
+	  <a href="https://discord.gg/HcFDqC7Hxg" target="_blank" rel="noopener">Discord</a>
+	  <a href="#" class="active">Wallet Generator</a>
+	</nav>
+</header>
+
+<!-- ══════════════════════════════════════
+     MAIN
+══════════════════════════════════════ -->
+<div class="shell">
+  <div class="card">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-eyebrow">Secure · Client-Side Only · Open Source</div>
+      <h1>996 Coin <em>Wallet Generator</em></h1>
+      <p>Generate 996 Coin (996) addresses and private keys entirely in your browser. No mnemonics, no server — your keys never leave your device.</p>
+    </div>
+
+    <!-- WARNING -->
+    <div class="warning-banner">
+      <span class="w-ico">⚠️</span>
+      <div>
+        <strong>Security Notice</strong> — Never share your private key with anyone.
+        For maximum security, disconnect from the internet before generating a wallet.
+        This tool runs entirely in your browser — no data is ever transmitted.
+      </div>
+    </div>
+
+    <!-- TABS — CENTERED -->
+    <div class="tabs-wrap">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="generate">⚡ Generate</button>
+        <button class="tab-btn" data-tab="import">🔐 Import</button>
+        <button class="tab-btn" data-tab="vanity">✨ Vanity</button>
+        <button class="tab-btn" data-tab="paper">🖨️ Paper </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════
+         TAB: GENERATE
+    ══════════════════════════ -->
+    <div class="tab-panel active" id="tab-generate">
+
+      <div class="wallet-grid">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">🔑</div>
+          <strong>No wallet generated yet</strong>
+          <p>Press "Generate New Keypair" above to create your 996 Coin wallet.</p>
+        </div>
+
+        <!-- Left: Addresses -->
+        <div class="inner-card" id="addrCard" style="display:none">
+          <div class="inner-card-title"><span class="dot dot-y"></span>Public Addresses</div>
+
+          <div class="field-group">
+            <div class="field-label">Legacy Address (P2PKH)</div>
+            <div class="input-row">
+              <input type="text" class="mono-input" id="legacy-addr" readonly placeholder="Generate wallet first">
+              <button class="copy-btn" data-target="legacy-addr">Copy</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">Bech32 Address (996…)</div>
+            <div class="input-row">
+              <input type="text" class="mono-input" id="bech32-addr" readonly placeholder="Generate wallet first">
+              <button class="copy-btn" data-target="bech32-addr">Copy</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">Public Key (Compressed)</div>
+            <div class="input-row">
+              <input type="text" class="mono-input" id="pubkey" readonly placeholder="Generate wallet first">
+              <button class="copy-btn" data-target="pubkey">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Private Keys -->
+        <div class="inner-card" id="privCard" style="display:none">
+          <div class="inner-card-title">
+            <span class="dot dot-r"></span>
+            Private Keys
+            <span style="color:var(--danger);font-size:0.67rem;font-weight:400;text-transform:none;letter-spacing:0;margin-left:2px;">— NEVER SHARE !</span>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">
+              Private Key (WIF)
+              <span class="badge-secret">🔒 Secret</span>
+            </div>
+            <div class="input-row">
+              <input type="password" class="mono-input" id="wif-key" readonly placeholder="Generate wallet first">
+              <button class="icon-btn" data-toggle="wif-key" title="Show / Hide">👁</button>
+              <button class="copy-btn" data-target="wif-key">Copy</button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-label">
+              Private Key (HEX)
+              <span class="badge-secret">🔒 Secret</span>
+            </div>
+            <div class="input-row">
+              <input type="password" class="mono-input" id="hex-key" readonly placeholder="Generate wallet first">
+              <button class="icon-btn" data-toggle="hex-key" title="Show / Hide">👁</button>
+              <button class="copy-btn" data-target="hex-key">Copy</button>
+            </div>
+          </div>
+
+          <div class="key-warning">
+            ⚠️ Back up your private key immediately. Anyone who has your private key has full control over your funds. Store it offline in a secure location. All security risks to your wallet are yours alone!
+          </div>
+        </div>
+      </div>
+	  <div class="gen-cta">
+        <button class="btn-primary" id="generateBtn">
+          <span>✨ Generate New Keypair</span>
+          <div class="spinner" id="genSpinner"></div>
+        </button>
+        <span class="hint">Click to create a fresh, cryptographically secure 996 Coin wallet</span>
+      </div>
+    </div><!-- /tab-generate -->
+
+
+    <!-- ══════════════════════════
+         TAB: IMPORT
+    ══════════════════════════ -->
+    <div class="tab-panel" id="tab-import">
+      <p style="font-size:0.87rem;color:var(--text-muted);margin-bottom:1.2rem;">
+        Restore an existing 996 Coin wallet from a WIF or HEX private key.
+      </p>
+
+      <div class="inner-card">
+        <div class="inner-card-title"><span class="dot dot-y"></span>Enter Your Private Key</div>
+        <div class="import-row">
+          <input type="password" class="mono-input" id="importKeyInput" placeholder="WIF key (L1…) or 64-character HEX private key">
+          <button class="icon-btn" data-toggle="importKeyInput" title="Show / Hide">👁</button>
+          <button class="btn-outline" id="importBtn">🔑 Restore Wallet</button>
+        </div>
+      </div>
+
+      <div class="result-grid" id="importResultGrid" style="display:none">
+        <div class="inner-card">
+          <div class="inner-card-title"><span class="dot dot-y"></span>Restored — Legacy Address</div>
+          <div class="input-row">
+            <input type="text" class="mono-input" id="importedAddr" readonly>
+            <button class="copy-btn" data-target="importedAddr">Copy</button>
+          </div>
+        </div>
+        <div class="inner-card">
+          <div class="inner-card-title"><span class="dot dot-y"></span>Restored — Bech32 Address</div>
+          <div class="input-row">
+            <input type="text" class="mono-input" id="importedBech32" readonly>
+            <button class="copy-btn" data-target="importedBech32">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div><!-- /tab-import -->
+
+
+    <!-- ══════════════════════════
+         TAB: VANITY ADDRESS
+    ══════════════════════════ -->
+    <div class="tab-panel" id="tab-vanity">
+      <p style="font-size:0.87rem;color:var(--text-muted);margin-bottom:1.2rem;">
+        Generate a 996 Coin address that starts with a custom prefix of your choice. Longer prefixes take more time to find.
+      </p>
+
+      <div class="vanity-info-box" style="margin-bottom:1.2rem;">
+        <strong>ℹ️ How it works:</strong> The generator brute-forces random private keys until it finds one whose address begins with your chosen prefix. This runs in your browser — no data is sent externally. Prefix search is <strong>case-sensitive</strong> for Bech32 (lowercase only). Each extra character makes it ~58× harder.
+      </div>
+
+      <div class="vanity-grid">
+
+        <!-- LEFT: Controls -->
+        <div class="vanity-controls">
+          <div class="inner-card">
+            <div class="inner-card-title"><span class="dot dot-p"></span>Search Settings</div>
+
+            <div class="field-group">
+              <div class="field-label">Address Type</div>
+              <div class="vanity-type-row">
+                <button class="type-btn active" data-vtype="legacy">Legacy (9…)</button>
+                <button class="type-btn" data-vtype="bech32">Bech32 (996…)</button>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="field-label">
+                Custom Prefix
+                <span id="vanityPrefixHint" style="color:var(--accent);font-size:0.67rem;text-transform:none;letter-spacing:0;font-weight:500;">after "9" — Legacy</span>
+              </div>
+              <div class="vanity-prefix-row">
+                <div class="input-row" style="flex:1;min-width:0;">
+                  <span id="vanityPrefixFixed" style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:0.88rem;font-weight:600;padding:0 4px;flex-shrink:0;">9</span>
+                  <input type="text" class="mono-input" id="vanityPrefix" placeholder="abc" maxlength="6" style="font-size:0.88rem;letter-spacing:0.06em;">
+                </div>
+              </div>
+              <div style="margin-top:6px;font-size:0.74rem;color:var(--text-muted);" id="vanityDifficultyLabel">
+                Estimated attempts: <strong style="color:var(--accent-soft);">—</strong>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn-primary" id="vanityStartBtn" style="flex:1;justify-content:center;">
+                <span id="vanityBtnText">🔍 Start Search</span>
+                <div class="spinner" id="vanitySpinner"></div>
+              </button>
+              <button class="btn-danger" id="vanityStopBtn" style="display:none;">⏹ Stop</button>
+            </div>
+          </div>
+
+          <!-- Status card -->
+          <div class="vanity-status">
+            <div class="vanity-stat-row">
+              <span class="vanity-stat-label">Status</span>
+              <span class="vanity-stat-val" id="vanityStatusVal">Idle</span>
+            </div>
+            <div class="vanity-stat-row">
+              <span class="vanity-stat-label">Attempts</span>
+              <span class="vanity-stat-val accent" id="vanityAttempts">0</span>
+            </div>
+            <div class="vanity-stat-row">
+              <span class="vanity-stat-label">Speed</span>
+              <span class="vanity-stat-val" id="vanitySpeed">— keys/s</span>
+            </div>
+            <div class="vanity-stat-row">
+              <span class="vanity-stat-label">Elapsed</span>
+              <span class="vanity-stat-val" id="vanityElapsed">0s</span>
+            </div>
+            <div class="vanity-progress-wrap">
+              <div class="vanity-progress-bar" id="vanityProgressBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Result -->
+        <div>
+          <div class="inner-card" style="height:100%;">
+            <div class="inner-card-title"><span class="dot dot-y"></span>Vanity Wallet Result</div>
+
+            <div id="vanityEmptyResult" style="text-align:center;padding:2.5rem 1rem;color:var(--text-muted);opacity:0.5;font-size:0.86rem;">
+              <div style="font-size:2rem;margin-bottom:0.5rem;">✨</div>
+              No result yet — configure prefix and start search.
+            </div>
+
+            <div class="vanity-result" id="vanityResult">
+              <div class="vanity-match-badge" id="vanityMatchBadge">✅ Match found!</div>
+
+              <div class="field-group">
+                <div class="field-label">Found Address</div>
+                <div class="input-row">
+                  <input type="text" class="mono-input" id="vanityFoundAddr" readonly>
+                  <button class="copy-btn" data-target="vanityFoundAddr">Copy</button>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <div class="field-label">Bech32 Address</div>
+                <div class="input-row">
+                  <input type="text" class="mono-input" id="vanityFoundBech32" readonly>
+                  <button class="copy-btn" data-target="vanityFoundBech32">Copy</button>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <div class="field-label">
+                  Private Key (WIF)
+                  <span class="badge-secret">🔒 Secret</span>
+                </div>
+                <div class="input-row">
+                  <input type="password" class="mono-input" id="vanityFoundWif" readonly>
+                  <button class="icon-btn" data-toggle="vanityFoundWif" title="Show / Hide">👁</button>
+                  <button class="copy-btn" data-target="vanityFoundWif">Copy</button>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <div class="field-label">
+                  Private Key (HEX)
+                  <span class="badge-secret">🔒 Secret</span>
+                </div>
+                <div class="input-row">
+                  <input type="password" class="mono-input" id="vanityFoundHex" readonly>
+                  <button class="icon-btn" data-toggle="vanityFoundHex" title="Show / Hide">👁</button>
+                  <button class="copy-btn" data-target="vanityFoundHex">Copy</button>
+                </div>
+              </div>
+
+              <button class="btn-outline" id="vanityUseWalletBtn" style="width:100%;justify-content:center;">
+                ↗ Use as Active Wallet
+              </button>
+
+              <div class="key-warning">
+                ⚠️ Back up your private key immediately. Store it offline in a safe location.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /vanity-grid -->
+    </div><!-- /tab-vanity -->
+
+
+    <!-- ══════════════════════════
+         TAB: PAPER WALLET
+    ══════════════════════════ -->
+    <div class="tab-panel" id="tab-paper">
+      <p style="font-size:0.87rem;color:var(--text-muted);margin-bottom:1.2rem;">
+        Create a printable paper wallet from your active generated or imported wallet.
+      </p>
+
+      <div class="paper-actions">
+        <button class="btn-outline" id="refreshPaperBtn">👁 Preview Current Wallet</button>
+        <button class="btn-ghost" id="printPaperBtn">🖨️ Print / Save PDF</button>
+      </div>
+
+      <div class="inner-card" id="paperPreviewArea">
+        <div class="paper-empty">
+          <span class="ico">🖨️</span>
+          <span>Generate or import a wallet first,<br>then click <strong>Preview Current Wallet</strong>.</span>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="inner-card">
+        <div class="inner-card-title"><span class="dot dot-g"></span>Manual Paper Wallet</div>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-bottom:0.8rem;">
+          Manually enter an address + WIF key to build a paper wallet preview.
+        </p>
+        <div class="manual-row">
+          <input type="text" class="mono-input" id="manualAddr" placeholder="Legacy address (starts with 9…)">
+          <input type="password" class="mono-input" id="manualWif" placeholder="Private key (WIF format)">
+          <button class="icon-btn" data-toggle="manualWif" title="Show / Hide">👁</button>
+          <button class="btn-outline" id="manualPreviewBtn">Preview</button>
+        </div>
+      </div>
+    </div><!-- /tab-paper -->
+
+    <!-- FOOTER -->
+    <footer>
+      <p>Wallet generator is open source &amp; client-side only. Use at your own risk.</p>
+      <p><b>© 2026 The <a href="https://996coin.com" target="_blank" rel="noopener">996-Coin</a> Contributors. All rights reserved.</b></p>
+    </footer>
+
+  </div><!-- /card -->
+</div><!-- /shell -->
+
+
+<script>
+// ================================================================
+// 996 COIN CRYPTOGRAPHY
+// secp256k1 · Base58Check · Bech32
+// PUBKEY_ADDRESS = 53 (0x35) · WIF = 0x80 · Bech32 HRP = "996"
+// ================================================================
+
+const P_CURVE = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2Fn;
+const N_CURVE = 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141n;
+const Gx = 0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798n;
+const Gy = 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8n;
+const ADDR_VERSION = 0x35;
+const WIF_VERSION  = 0x80;
+const BECH32_HRP   = "996";
+
+const hexToBytes = hex => { const b=new Uint8Array(hex.length/2); for(let i=0;i<hex.length;i+=2)b[i/2]=parseInt(hex.slice(i,i+2),16); return b; };
+const bytesToHex = bytes => Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join('');
+const sha256 = async h => bytesToHex(new Uint8Array(await crypto.subtle.digest('SHA-256', hexToBytes(h))));
+const dblSha256 = async h => sha256(await sha256(h));
+
+function ripemd160(mb) {
+  const wa=CryptoJS.lib.WordArray.create(mb), h=CryptoJS.RIPEMD160(wa), out=new Uint8Array(20);
+  for(let i=0;i<20;i++) out[i]=(h.words[i>>>2]>>>(24-(i%4)*8))&0xff; return out;
+}
+
+const BASE58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+function b58enc(bytes) {
+  let n=BigInt('0x'+bytesToHex(bytes)), r='';
+  while(n>0n){const m=Number(n%58n);n/=58n;r=BASE58[m]+r;}
+  for(let i=0;i<bytes.length&&bytes[i]===0;i++) r='1'+r;
+  return r;
+}
+async function b58chkEnc(payHex) {
+  const c=(await dblSha256(payHex)).slice(0,8);
+  return b58enc(hexToBytes(payHex+c));
+}
+
+// EC Math
+function modInv(a,m){let or=((a%m)+m)%m,r=m,os=1n,s=0n;while(r!==0n){let q=or/r;[or,r]=[r,or-q*r];[os,s]=[s,os-q*s];}return((os%m)+m)%m;}
+function ecAdd(p1,p2){if(!p1)return p2;if(!p2)return p1;const[x1,y1]=p1,[x2,y2]=p2;let l;if(x1===x2){if((y1+y2)%P_CURVE===0n)return null;l=(3n*x1*x1)*modInv(2n*y1,P_CURVE)%P_CURVE;}else{l=((y2-y1)%P_CURVE+P_CURVE)%P_CURVE*modInv((x2-x1+P_CURVE)%P_CURVE,P_CURVE)%P_CURVE;}const x3=(l*l-x1-x2)%P_CURVE,y3=(l*(x1-x3)-y1)%P_CURVE;return[(x3+P_CURVE)%P_CURVE,(y3+P_CURVE)%P_CURVE];}
+function ecMul(k,p){let r=null,a=p;k=((k%N_CURVE)+N_CURVE)%N_CURVE;while(k>0n){if(k&1n)r=ecAdd(r,a);a=ecAdd(a,a);k>>=1n;}return r;}
+function computePubKey(ph){const pt=ecMul(BigInt('0x'+ph),[Gx,Gy]);return((pt[1]%2n===0n)?'02':'03')+pt[0].toString(16).padStart(64,'0');}
+
+async function privToWif(ph){return b58chkEnc(WIF_VERSION.toString(16).padStart(2,'0')+ph+'01');}
+async function pubToLegacy(pub){const s=await sha256(pub),r=ripemd160(hexToBytes(s));return b58chkEnc(ADDR_VERSION.toString(16).padStart(2,'0')+bytesToHex(r));}
+
+// Bech32
+const B32C = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";
+function b32poly(v){let c=1;for(let x of v){let c0=c>>25;c=((c&0x1ffffff)<<5)^x;if(c0&1)c^=0x3b6a57b2;if(c0&2)c^=0x26508e6d;if(c0&4)c^=0x1ea119fa;if(c0&8)c^=0x3d4233dd;if(c0&16)c^=0x2a1462b3;}return c;}
+function b32hrp(h){let r=[];for(let i=0;i<h.length;i++)r.push(h.charCodeAt(i)>>5);r.push(0);for(let i=0;i<h.length;i++)r.push(h.charCodeAt(i)&31);return r;}
+function b32chk(hrp,data){let v=b32hrp(hrp).concat(data).concat([0,0,0,0,0,0]);let p=b32poly(v)^1;let c=[];for(let i=0;i<6;i++)c.push((p>>(5*(5-i)))&31);return c;}
+function convBits(data,fb,tb,pad=true){let acc=0,bits=0,ret=[],maxv=(1<<tb)-1;for(let v of data){acc=(acc<<fb)|v;bits+=fb;while(bits>=tb){bits-=tb;ret.push((acc>>bits)&maxv);}}if(pad&&bits)ret.push((acc<<(tb-bits))&maxv);return ret;}
+function b32enc(hrp,data){const chk=b32chk(hrp,data);let s=hrp+'1';for(let v of data.concat(chk))s+=B32C[v];return s;}
+async function pubToBech32(pub){const s=await sha256(pub),r=ripemd160(hexToBytes(s));return b32enc(BECH32_HRP,[0].concat(convBits(Array.from(r),8,5,true)));}
+
+function genRandPrivKey(){const b=crypto.getRandomValues(new Uint8Array(32)),h=bytesToHex(b),n=BigInt('0x'+h);if(n===0n||n>=N_CURVE)return genRandPrivKey();return h;}
+
+async function deriveWallet(privHex){
+  if(!/^[0-9a-f]{64}$/i.test(privHex))throw new Error("Invalid HEX private key — must be 64 hex characters");
+  const priv=privHex.toLowerCase(), pub=computePubKey(priv);
+  const[legacy,bech32,wif]=await Promise.all([pubToLegacy(pub),pubToBech32(pub),privToWif(priv)]);
+  return{privHex:priv,pubHex:pub,legacy,bech32,wif};
+}
+
+async function importFromWifOrHex(raw){
+  raw=raw.trim();
+  if(/^[0-9a-fA-F]{64}$/.test(raw)) return deriveWallet(raw.toLowerCase());
+  const bytes=(()=>{
+    let n=0n;
+    for(let c of raw){const i=BASE58.indexOf(c);if(i===-1)throw new Error("Invalid Base58 character");n=n*58n+BigInt(i);}
+    let a=[];while(n>0n){a.unshift(Number(n&0xFFn));n>>=8n;}
+    let l=0;while(l<raw.length&&raw[l]==='1')l++;
+    const r=new Uint8Array(a.length+l);r.set(a,l);return r;
+  })();
+  const checksum=bytes.slice(-4), payload=bytes.slice(0,-4);
+  const calc=(await dblSha256(bytesToHex(payload))).slice(0,8);
+  if(bytesToHex(checksum)!==calc) throw new Error("Invalid WIF checksum — key may be corrupted");
+  if(payload[0]!==WIF_VERSION) throw new Error("Invalid version byte — expected 0x80 for 996Coin");
+  if(!(payload.length===34&&payload[33]===0x01)) throw new Error("Only compressed keys are supported");
+  return deriveWallet(bytesToHex(payload.slice(1,33)));
+}
+
+// ── STATE ──
+let currentWallet = null;
+
+// ── TOAST ──
+function showToast(msg, type='success'){
+  const wrap=document.getElementById('toastWrap');
+  const el=document.createElement('div');
+  el.className=`toast ${type}`;
+  el.innerHTML=`<span>${type==='success'?'✅':'❌'}</span><span>${msg}</span>`;
+  wrap.appendChild(el);
+  setTimeout(()=>el.remove(), 3200);
+}
+
+// ── SHOW WALLET ──
+function showWallet(w){
+  document.getElementById('legacy-addr').value = w.legacy;
+  document.getElementById('bech32-addr').value = w.bech32;
+  document.getElementById('pubkey').value       = w.pubHex;
+  document.getElementById('wif-key').value      = w.wif;
+  document.getElementById('hex-key').value      = w.privHex;
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('addrCard').style.display   = '';
+  document.getElementById('privCard').style.display   = '';
+  currentWallet = w;
+}
+
+// ── GENERATE ──
+document.getElementById('generateBtn').addEventListener('click', async () => {
+  const btn=document.getElementById('generateBtn');
+  const sp=document.getElementById('genSpinner');
+  btn.disabled=true; sp.classList.add('on');
+  try {
+    const w = await deriveWallet(genRandPrivKey());
+    showWallet(w);
+    showToast('New 996 Coin wallet generated!');
+  } catch(e) {
+    showToast('Generation error: '+e.message, 'error');
+  } finally {
+    btn.disabled=false; sp.classList.remove('on');
+  }
+});
+
+// ── IMPORT ──
+document.getElementById('importBtn').addEventListener('click', async () => {
+  const raw=document.getElementById('importKeyInput').value.trim();
+  if(!raw){ showToast('Please enter a WIF or HEX private key.','error'); return; }
+  try {
+    const w=await importFromWifOrHex(raw);
+    document.getElementById('importedAddr').value   = w.legacy;
+    document.getElementById('importedBech32').value = w.bech32;
+    document.getElementById('importResultGrid').style.display='';
+    currentWallet=w;
+    showToast('Wallet restored successfully!');
+  } catch(e){ showToast('Import failed: '+e.message,'error'); }
+});
+
+// ── COPY ──
+document.addEventListener('click', async e => {
+  const btn=e.target.closest('.copy-btn');
+  if(!btn) return;
+  const el=document.getElementById(btn.dataset.target);
+  if(!el||!el.value){ showToast('Nothing to copy.','error'); return; }
+  try {
+    await navigator.clipboard.writeText(el.value);
+    const old=btn.textContent;
+    btn.textContent='✓ Copied'; btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent=old; btn.classList.remove('copied'); }, 1500);
+  } catch { showToast('Copy failed — please copy manually.','error'); }
+});
+
+// ── REVEAL TOGGLE ──
+document.addEventListener('click', e => {
+  const btn=e.target.closest('.icon-btn[data-toggle]');
+  if(!btn) return;
+  const el=document.getElementById(btn.dataset.toggle);
+  if(!el) return;
+  const showing=el.type==='text';
+  el.type=showing?'password':'text';
+  btn.textContent=showing?'👁':'🙈';
+});
+
+// ── TABS ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t=btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+t).classList.add('active');
+  });
+});
+
+// ── HAMBURGER ──
+document.getElementById('hamburgerBtn').addEventListener('click', () => {
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+
+// ── PAPER WALLET ──
+async function renderPaperWallet(walletData){
+  const el=document.getElementById('paperPreviewArea');
+  if(!walletData||!walletData.legacy){
+    el.innerHTML='<div class="paper-empty"><span class="ico">⚠️</span><span>No wallet loaded. Generate or import first.</span></div>';
+    return;
+  }
+  const{legacy:addr,bech32:bech,wif}=walletData;
+  el.innerHTML=`
+    <div style="font-family:'IBM Plex Mono',monospace;background:#060e1a;border-radius:12px;border:1px solid rgba(244,210,71,0.18);overflow:hidden;">
+      <div style="background:linear-gradient(90deg,rgba(244,210,71,0.11),rgba(244,210,71,0.03));padding:0.85rem 1.15rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(244,210,71,0.12);flex-wrap:wrap;gap:8px;">
+        <strong style="font-size:0.88rem;letter-spacing:0.1em;color:#f4d247;">996 COIN — PAPER WALLET</strong>
+        <span style="background:rgba(244,210,71,0.14);color:#f4d247;border-radius:999px;padding:3px 11px;font-size:0.65rem;font-weight:700;font-family:system-ui;letter-spacing:0.06em;">MAINNET</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-bottom:1px solid rgba(255,255,255,0.04);">
+        <div style="padding:1rem 1.15rem;border-right:1px solid rgba(255,255,255,0.04);">
+          <div style="font-size:0.58rem;text-transform:uppercase;letter-spacing:0.09em;color:#8fa8c0;margin-bottom:5px;font-family:system-ui;">Legacy Address (P2PKH)</div>
+          <div style="font-size:0.68rem;word-break:break-all;color:#f5f7fa;line-height:1.6;">${addr}</div>
+          <div id="qrLegacy" style="margin-top:10px;"></div>
+        </div>
+        <div style="padding:1rem 1.15rem;">
+          <div style="font-size:0.58rem;text-transform:uppercase;letter-spacing:0.09em;color:#8fa8c0;margin-bottom:5px;font-family:system-ui;">Bech32 Address (996…)</div>
+          <div style="font-size:0.68rem;word-break:break-all;color:#f5f7fa;line-height:1.6;">${bech}</div>
+          <div id="qrBech32" style="margin-top:10px;"></div>
+        </div>
+      </div>
+      <div style="padding:1rem 1.15rem;background:rgba(255,80,50,0.05);border-top:1px solid rgba(255,138,128,0.12);">
+        <div style="font-size:0.58rem;text-transform:uppercase;letter-spacing:0.09em;color:#ff8a80;margin-bottom:5px;font-family:system-ui;">⚠️ Private Key (WIF) — KEEP SECRET — NEVER SHARE</div>
+        <div style="font-size:0.68rem;word-break:break-all;color:#ffcdd2;line-height:1.6;">${wif}</div>
+        <div id="qrWif" style="margin-top:10px;"></div>
+      </div>
+      <div style="padding:0.5rem 1.15rem;border-top:1px solid rgba(255,255,255,0.03);font-size:0.58rem;color:#3d5570;font-family:system-ui;text-align:center;letter-spacing:0.05em;">
+        Generated client-side · 996 Coin · Store offline in a secure location
+      </div>
+    </div>`;
+  if(typeof QRCode!=='undefined'){
+    setTimeout(()=>{
+      const opts={width:90,height:90,correctLevel:QRCode.CorrectLevel.M};
+      [['qrLegacy',addr],['qrBech32',bech],['qrWif',wif]].forEach(([id,text])=>{
+        const e=document.getElementById(id);if(e)new QRCode(e,{...opts,text});
+      });
+    }, 50);
+  }
+}
+
+document.getElementById('refreshPaperBtn').addEventListener('click',()=>{
+  if(currentWallet) renderPaperWallet(currentWallet);
+  else showToast('No active wallet — generate or import one first.','error');
+});
+document.getElementById('manualPreviewBtn').addEventListener('click', async () => {
+  const addr=document.getElementById('manualAddr').value.trim();
+  const wif=document.getElementById('manualWif').value.trim();
+  if(!addr||!wif){ showToast('Please enter both address and WIF key.','error'); return; }
+  try {
+    const w=await importFromWifOrHex(wif);
+    if(w.legacy!==addr) showToast('Warning: WIF does not match the entered address.','error');
+    renderPaperWallet({legacy:addr,bech32:w.bech32,wif});
+  } catch {
+    renderPaperWallet({legacy:addr,bech32:'(invalid WIF — bech32 unavailable)',wif});
+  }
+});
+document.getElementById('printPaperBtn').addEventListener('click',()=>{
+  const content=document.getElementById('paperPreviewArea').innerHTML;
+  if(!content||content.includes('paper-empty')){ showToast('Generate a preview first.','error'); return; }
+  const win=window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html><head><title>996 Coin Paper Wallet</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>body{font-family:'IBM Plex Mono',monospace;padding:24px;background:#fff;color:#000;}img{max-width:90px;}</style>
+    </head><body>${content}</body></html>`);
+  win.document.close(); win.print();
+});
+
+// ════════════════════════════════════════════
+// VANITY ADDRESS ENGINE
+// ════════════════════════════════════════════
+
+let vanityRunning = false;
+let vanityType    = 'legacy'; // 'legacy' | 'bech32'
+let vanityFound   = null;
+
+// Base58 valid chars for legacy (after leading "9")
+const LEGACY_B58_CHARS  = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
+const BECH32_CHARS      = "qpzry9x8gf2tvdw0s3jn54khce6mua7l";
+
+// Switch type buttons
+document.querySelectorAll('.type-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    vanityType = btn.dataset.vtype;
+    const prefixFixed = document.getElementById('vanityPrefixFixed');
+    const hint        = document.getElementById('vanityPrefixHint');
+    const input       = document.getElementById('vanityPrefix');
+    if(vanityType==='legacy'){
+      prefixFixed.textContent = '9';
+      hint.textContent = 'after "9" — Legacy';
+      input.placeholder = 'abc';
+      input.value = input.value.replace(/[^123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]/g,'');
+    } else {
+      prefixFixed.textContent = '9961';
+      hint.textContent = 'after "9961" — Bech32 (lowercase)';
+      input.placeholder = 'qp2';
+      input.value = input.value.toLowerCase().replace(/[^qpzry9x8gf2tvdw0s3jn54khce6mua7l]/g,'');
+    }
+    updateDifficultyLabel();
+  });
+});
+
+// Prefix input — validate chars live
+document.getElementById('vanityPrefix').addEventListener('input', function(){
+  if(vanityType==='legacy'){
+    this.value = this.value.replace(/[^123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]/g,'');
+  } else {
+    this.value = this.value.toLowerCase().replace(/[^qpzry9x8gf2tvdw0s3jn54khce6mua7l]/g,'');
+  }
+  updateDifficultyLabel();
+});
+
+function updateDifficultyLabel(){
+  const prefix = document.getElementById('vanityPrefix').value;
+  const el     = document.getElementById('vanityDifficultyLabel');
+  if(!prefix){ el.innerHTML='Estimated attempts: <strong style="color:var(--accent-soft);">—</strong>'; return; }
+  const base = vanityType==='legacy' ? 58 : 32;
+  const attempts = Math.pow(base, prefix.length);
+  let label;
+  if(attempts<1000) label=Math.round(attempts).toLocaleString();
+  else if(attempts<1e6) label='~'+Math.round(attempts/1000).toLocaleString()+'K';
+  else if(attempts<1e9) label='~'+Math.round(attempts/1e6).toLocaleString()+'M';
+  else if(attempts<1e12) label='~'+Math.round(attempts/1e9).toLocaleString()+'B';
+  else label='~'+Math.round(attempts/1e12).toLocaleString()+'T';
+  el.innerHTML=`Estimated attempts: <strong style="color:var(--accent-soft);">${label}</strong>`;
+}
+
+// Start / Stop vanity search
+document.getElementById('vanityStartBtn').addEventListener('click', startVanity);
+document.getElementById('vanityStopBtn').addEventListener('click', stopVanity);
+
+function stopVanity(){
+  vanityRunning=false;
+  document.getElementById('vanityStartBtn').style.display='';
+  document.getElementById('vanityStopBtn').style.display='none';
+  document.getElementById('vanitySpinner').classList.remove('on');
+  document.getElementById('vanityBtnText').textContent='🔍 Start Search';
+  document.getElementById('vanityStatusVal').textContent='Stopped';
+}
+
+async function startVanity(){
+  const prefix = document.getElementById('vanityPrefix').value.trim();
+
+  // Validate
+  if(!prefix){ showToast('Please enter a prefix to search for.','error'); return; }
+  if(prefix.length > 5){ showToast('Prefix too long — max 5 characters recommended.','error'); return; }
+  if(vanityType==='bech32'){
+    if(/[^qpzry9x8gf2tvdw0s3jn54khce6mua7l]/.test(prefix)){
+      showToast('Bech32 prefix must use lowercase characters: qpzry9x8gf2tvdw0s3jn54khce6mua7l','error'); return;
+    }
+  }
+
+  // Build full prefix to match
+  const matchPrefix = vanityType==='legacy' ? '9'+prefix : '9961'+prefix;
+
+  // Reset UI
+  vanityRunning=true;
+  vanityFound=null;
+  document.getElementById('vanityResult').classList.remove('show');
+  document.getElementById('vanityEmptyResult').style.display='block';
+  document.getElementById('vanityAttempts').textContent='0';
+  document.getElementById('vanitySpeed').textContent='— keys/s';
+  document.getElementById('vanityElapsed').textContent='0s';
+  document.getElementById('vanityProgressBar').style.width='0%';
+  document.getElementById('vanityStatusVal').textContent='Searching…';
+  document.getElementById('vanityStartBtn').style.display='none';
+  document.getElementById('vanityStopBtn').style.display='';
+  document.getElementById('vanitySpinner').classList.add('on');
+  document.getElementById('vanityBtnText').textContent='Searching…';
+
+  const startTime = Date.now();
+  let attempts=0;
+  const expectedAttempts = Math.pow(vanityType==='legacy'?58:32, prefix.length);
+
+  // Run in async batches to keep UI responsive
+  const BATCH=20;
+  const run = async () => {
+    while(vanityRunning){
+      // Batch of keys
+      for(let i=0;i<BATCH;i++){
+        if(!vanityRunning) break;
+        const privHex=genRandPrivKey();
+        const pub=computePubKey(privHex);
+        let addr;
+        if(vanityType==='legacy'){
+          const s=await sha256(pub), r=ripemd160(hexToBytes(s));
+          addr=await b58chkEnc(ADDR_VERSION.toString(16).padStart(2,'0')+bytesToHex(r));
+        } else {
+          const s=await sha256(pub), r=ripemd160(hexToBytes(s));
+          addr=b32enc(BECH32_HRP,[0].concat(convBits(Array.from(r),8,5,true)));
+        }
+        attempts++;
+
+        if(addr.startsWith(matchPrefix)){
+          vanityRunning=false;
+          // Derive full wallet
+          const w=await deriveWallet(privHex);
+          onVanityFound(w, attempts, startTime);
+          return;
+        }
+      }
+      // Update stats every batch
+      const elapsed=((Date.now()-startTime)/1000);
+      const speed=Math.round(attempts/elapsed);
+      const progress=Math.min(99, (attempts/expectedAttempts)*100);
+      document.getElementById('vanityAttempts').textContent=attempts.toLocaleString();
+      document.getElementById('vanitySpeed').textContent=speed.toLocaleString()+' keys/s';
+      document.getElementById('vanityElapsed').textContent=elapsed.toFixed(1)+'s';
+      document.getElementById('vanityProgressBar').style.width=progress+'%';
+      // Yield to UI
+      await new Promise(r=>setTimeout(r,0));
+    }
+    if(!vanityFound) stopVanity();
+  };
+  run();
+}
+
+function onVanityFound(w, attempts, startTime){
+  vanityFound=w;
+  const elapsed=((Date.now()-startTime)/1000).toFixed(2);
+
+  // Update stats
+  document.getElementById('vanityAttempts').textContent=attempts.toLocaleString();
+  document.getElementById('vanityElapsed').textContent=elapsed+'s';
+  document.getElementById('vanityProgressBar').style.width='100%';
+  document.getElementById('vanityStatusVal').textContent='✅ Found!';
+
+  // Show result
+  document.getElementById('vanityFoundAddr').value   = w.legacy;
+  document.getElementById('vanityFoundBech32').value = w.bech32;
+  document.getElementById('vanityFoundWif').value    = w.wif;
+  document.getElementById('vanityFoundHex').value    = w.privHex;
+  document.getElementById('vanityEmptyResult').style.display='none';
+  document.getElementById('vanityResult').classList.add('show');
+  document.getElementById('vanityMatchBadge').textContent=`✅ Found in ${attempts.toLocaleString()} attempts (${elapsed}s)`;
+
+  // Reset button state
+  document.getElementById('vanityStartBtn').style.display='';
+  document.getElementById('vanityStopBtn').style.display='none';
+  document.getElementById('vanitySpinner').classList.remove('on');
+  document.getElementById('vanityBtnText').textContent='🔍 Start New Search';
+
+  showToast('Vanity address found! 🎉');
+}
+
+// Use vanity wallet as active wallet
+document.getElementById('vanityUseWalletBtn').addEventListener('click', () => {
+  if(!vanityFound){ showToast('No vanity wallet found yet.','error'); return; }
+  showWallet(vanityFound);
+  // Switch to generate tab
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector('[data-tab="generate"]').classList.add('active');
+  document.getElementById('tab-generate').classList.add('active');
+  showToast('Vanity wallet set as active wallet!');
+});
+
+// ── No auto-generate on load — user must press the button ──
+</script>
+</body>
+</html>
