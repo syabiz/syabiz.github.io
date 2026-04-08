@@ -2,242 +2,99 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>996-Coin Web Wallet</title>
-    <!-- Library dari CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/bip39@3.1.0/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bitcoinjs-lib@6.1.5/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bs58check@3.0.1/index.min.js"></script>
-    <!-- CryptoJS untuk enkripsi sederhana (opsional) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>996-Coin Web Wallet (Fixed)</title>
+    <script src="https://cdn.jsdelivr.net/npm/bip39@3.0.4/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bitcoinjs-lib@5.2.0/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs58check@2.1.2/index.min.js"></script>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: system-ui, 'Segoe UI', monospace;
-        }
-        body {
-            background: #1a1e2c;
-            color: #eee;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background: #0f1222;
-            border-radius: 32px;
-            padding: 24px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-        }
-        h1 {
-            font-size: 1.8rem;
-            margin-top: 0;
-            text-align: center;
-            color: #ffd966;
-        }
-        .sub {
-            text-align: center;
-            font-size: 0.8rem;
-            margin-bottom: 24px;
-            color: #aaa;
-        }
-        .card {
-            background: #1e2338;
-            border-radius: 24px;
-            padding: 20px;
-            margin-bottom: 24px;
-        }
-        .card h3 {
-            margin-top: 0;
-            color: #ffd966;
-        }
-        button, .btn {
-            background: #2a3f6e;
-            border: none;
-            color: white;
-            padding: 10px 16px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-            margin-right: 8px;
-            margin-bottom: 8px;
-        }
-        button:hover {
-            background: #3e5a8f;
-        }
-        button.danger {
-            background: #8b3c3c;
-        }
-        button.danger:hover {
-            background: #b14545;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0 16px;
-            background: #0b0e1a;
-            border: 1px solid #2e3a5c;
-            color: white;
-            border-radius: 20px;
-            font-family: monospace;
-        }
-        .address-box {
-            background: #0a0c16;
-            padding: 12px;
-            border-radius: 20px;
-            word-break: break-all;
-            font-family: monospace;
-            margin: 12px 0;
-        }
-        .balance {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #6fcf97;
-        }
-        .utxo-item {
-            background: #0f1222;
-            padding: 10px;
-            margin: 6px 0;
-            border-radius: 16px;
-            font-size: 0.8rem;
-        }
-        .flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-        hr {
-            border-color: #2e3a5c;
-        }
-        .warning {
-            color: #ffaa66;
-            font-size: 0.8rem;
-        }
-        footer {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #5a6e8a;
-            margin-top: 20px;
-        }
+        * { box-sizing: border-box; font-family: system-ui; }
+        body { background: #1e1f2c; color: #eee; padding: 20px; display: flex; justify-content: center; }
+        .container { max-width: 800px; width: 100%; background: #0f1222; border-radius: 24px; padding: 24px; }
+        button, .btn { background: #2a3f6e; border: none; color: white; padding: 8px 16px; border-radius: 40px; cursor: pointer; margin: 4px; }
+        button.danger { background: #8b3c3c; }
+        input, textarea { width: 100%; padding: 10px; margin: 8px 0; background: #0b0e1a; border: 1px solid #2e3a5c; color: white; border-radius: 20px; }
+        .address-box { background: #0a0c16; padding: 12px; border-radius: 20px; word-break: break-all; margin: 12px 0; }
+        .balance { font-size: 2rem; color: #6fcf97; }
+        .error { color: #ff8888; background: #3a1a1a; padding: 8px; border-radius: 16px; margin-top: 8px; }
+        .success { color: #88ff88; }
+        hr { border-color: #2e3a5c; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>⛏️ 996-Coin Web Wallet</h1>
-    <div class="sub">Pure client-side · Tidak simpan private key ke server</div>
-
-    <!-- Bagian Wallet -->
+    <h2>⛏️ 996-Coin Web Wallet (Fixed)</h2>
     <div class="card">
-        <h3>📌 Wallet Aktif</h3>
-        <div id="walletStatus" class="address-box">Belum ada wallet. Generate atau import.</div>
-        <div class="flex">
-            <button id="generateBtn">✨ Generate Wallet Baru</button>
-            <button id="importMnemonicBtn">🔑 Import Mnemonic</button>
-            <button id="importPrivateBtn">🔐 Import Private Key (WIF)</button>
-            <button id="lockBtn" class="danger">🔒 Lock / Clear</button>
-        </div>
+        <button id="generateBtn">✨ Generate Wallet</button>
+        <button id="importMnemonicBtn">🔑 Import Mnemonic</button>
+        <button id="importPrivateBtn">🔐 Import WIF</button>
+        <button id="lockBtn" class="danger">Lock</button>
         <div id="importArea" style="display:none; margin-top:12px;">
-            <textarea id="importInput" rows="2" placeholder="Masukkan 12 kata mnemonic atau private key WIF..."></textarea>
-            <button id="confirmImport">Konfirmasi Import</button>
+            <textarea id="importInput" rows="2" placeholder="Mnemonic atau WIF..."></textarea>
+            <button id="confirmImport">Import</button>
         </div>
+        <div id="walletInfo" class="address-box">Belum ada wallet</div>
     </div>
-
-    <!-- Info & Saldo -->
     <div class="card">
-        <h3>💰 Saldo & UTXO</h3>
-        <div id="addressDisplay" class="address-box"></div>
-        <div><span class="balance" id="balanceValue">0</span> <span style="font-size:0.9rem;">996 (satoshi)</span></div>
-        <button id="refreshBalanceBtn">🔄 Refresh Saldo</button>
-        <button id="showUtxosBtn">📦 Tampilkan UTXO</button>
-        <div id="utxoList" style="margin-top:12px; max-height:200px; overflow:auto;"></div>
+        <h3>💰 Saldo</h3>
+        <div id="addressDisplay"></div>
+        <div><span class="balance" id="balanceValue">0</span> satoshi</div>
+        <button id="refreshBtn">Refresh Saldo</button>
+        <button id="utxoBtn">Lihat UTXO</button>
+        <div id="utxoList" style="font-size:0.8rem; max-height:150px; overflow:auto;"></div>
     </div>
-
-    <!-- Kirim transaksi -->
     <div class="card">
-        <h3>✉️ Kirim 996</h3>
-        <input type="text" id="toAddress" placeholder="Alamat tujuan (mulai dengan N...)" autocomplete="off">
-        <input type="number" id="sendAmount" placeholder="Jumlah (dalam satoshi, misal 1000000 = 0.01 996)" autocomplete="off">
-        <div class="flex">
-            <button id="sendBtn">🚀 Kirim Transaksi</button>
-            <button id="sendMaxBtn">📤 Kirim Maksimal</button>
-        </div>
-        <div id="txResult" style="margin-top:12px; font-size:0.8rem; color:#ddd;"></div>
+        <h3>✉️ Kirim</h3>
+        <input type="text" id="toAddress" placeholder="Alamat tujuan (N...)" autocomplete="off">
+        <input type="number" id="sendAmount" placeholder="Jumlah (satoshi)">
+        <button id="sendBtn">Kirim</button>
+        <button id="sendMaxBtn">Kirim Maksimal</button>
+        <div id="txResult"></div>
     </div>
-
-    <footer>
-        ⚠️ Private key TIDAK PERNAH keluar dari browser.<br>
-        API explorer: explorer.996coin.com | Network: 996-Coin (N address)
-    </footer>
+    <div class="error" id="globalError" style="display:none;"></div>
 </div>
-
 <script>
-    // #################### KONFIGURASI NETWORK 996-COIN ####################
-    // Berdasarkan petunjuk developer: pubKeyHash = 0x53 (83) -> address mulai 'N'
-    const coin996Network = {
+    // ==================== KONFIGURASI ====================
+    const NETWORK = {
         messagePrefix: '\x18NNS Signed Message:\n',
         bech32: 'nn',
-        bip32: {
-            public: 0x0488b21e,   // xpub
-            private: 0x0488ade4,  // xprv
-        },
-        pubKeyHash: 0x53,      // 83 -> N...
-        scriptHash: 0x7a,      // 122 -> untuk multisig (tidak dipakai di wallet sederhana)
-        wif: 0x80              // WIF prefix (sama seperti Bitcoin mainnet)
+        bip32: { public: 0x0488b21e, private: 0x0488ade4 },
+        pubKeyHash: 0x53,
+        scriptHash: 0x7a,
+        wif: 0x80
     };
-
-    // Base URL API explorer
     const API_BASE = 'https://explorer.996coin.com/api';
+    const FEE_SAT = 10000; // 10k sat fee
 
-    // Variabel global wallet
-    let currentWallet = {
-        mnemonic: null,
-        privateKeyWIF: null,
-        publicKeyHex: null,
-        address: null,
-        keyPair: null   // ECPair object
-    };
+    let currentWallet = null; // { address, wif, keyPair, mnemonic? }
 
-    // Helper: fetch JSON
-    async function fetchAPI(endpoint) {
+    // Helper fetch dengan error handling
+    async function apiGet(endpoint) {
         const url = `${API_BASE}${endpoint}`;
         const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return await res.json();
-    }
-
-    // Get balance
-    async function getBalance(address) {
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
+        const text = await res.text();
         try {
-            const data = await fetchAPI(`/getbalance/${address}`);
-            // response mungkin { balance: 123456 } atau langsung angka
-            if (typeof data === 'object' && data.balance !== undefined) return Number(data.balance);
-            if (typeof data === 'number') return data;
-            return 0;
+            return JSON.parse(text);
         } catch(e) {
-            console.error(e);
-            return 0;
+            throw new Error(`Invalid JSON from ${url}: ${text.substring(0,100)}`);
         }
     }
 
-    // Get UTXOs
-    async function getUtxos(address) {
-        try {
-            const data = await fetchAPI(`/utxos/${address}`);
-            // Data bisa array of { txid, vout, amount, scriptPubKey, ... }
-            if (Array.isArray(data)) return data;
-            return [];
-        } catch(e) {
-            console.error(e);
-            return [];
-        }
+    async function getBalance(addr) {
+        const data = await apiGet(`/getbalance/${addr}`);
+        if (typeof data === 'object' && data.balance !== undefined) return Number(data.balance);
+        if (typeof data === 'number') return data;
+        return 0;
     }
 
-    // Broadcast raw tx
-    async function sendRawTransaction(rawHex) {
+    async function getUtxos(addr) {
+        const data = await apiGet(`/utxos/${addr}`);
+        if (Array.isArray(data)) return data;
+        return [];
+    }
+
+    async function broadcastTx(rawHex) {
         const url = `${API_BASE}/sendrawtransaction/${rawHex}`;
         const res = await fetch(url, { method: 'POST' });
         const text = await res.text();
@@ -248,104 +105,73 @@
         }
     }
 
-    // ---------- Fungsi Kriptografi ----------
-    // Generate wallet dari mnemonic (BIP39)
-    async function generateWalletFromMnemonic(mnemonic) {
-        // Validasi mnemonic
-        if (!bip39.validateMnemonic(mnemonic)) throw new Error('Mnemonic tidak valid');
+    // ==================== Wallet Functions ====================
+    async function generateFromMnemonic(mnemonic = null) {
+        if (!mnemonic) mnemonic = bip39.generateMnemonic(128);
+        if (!bip39.validateMnemonic(mnemonic)) throw new Error('Mnemonic invalid');
         const seed = await bip39.mnemonicToSeed(mnemonic);
-        const root = bitcoin.bip32.fromSeed(seed, coin996Network);
-        // Derive path m/44'/996'/0'/0/0 (mengikuti standar, tapi untuk Bitcoin bisa pakai m/44'/0'/0'/0/0)
-        // Karena 996-Coin mirip Bitcoin, kita gunakan path umum: m/44'/0'/0'/0/0 (0' untuk mainnet)
-        // Tapi coin index 996' mungkin tidak standar, kita gunakan m/44'/0'/0'/0/0 untuk kompatibilitas address.
+        const root = bitcoin.bip32.fromSeed(seed, NETWORK);
+        // path m/44'/0'/0'/0/0 (Bitcoin standard)
         const child = root.derivePath("m/44'/0'/0'/0/0");
         const keyPair = child.keyPair;
-        const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey, network: coin996Network });
-        const privateKeyWIF = keyPair.toWIF();
-        const publicKeyHex = keyPair.publicKey.toString('hex');
-        return {
-            mnemonic,
-            privateKeyWIF,
-            publicKeyHex,
-            address,
-            keyPair
-        };
+        const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey, network: NETWORK });
+        const wif = keyPair.toWIF();
+        return { address, wif, keyPair, mnemonic };
     }
 
-    // Import dari private key WIF
     function importFromWIF(wif) {
-        const keyPair = bitcoin.ECPair.fromWIF(wif, coin996Network);
-        const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey, network: coin996Network });
-        const publicKeyHex = keyPair.publicKey.toString('hex');
-        return {
-            mnemonic: null,
-            privateKeyWIF: wif,
-            publicKeyHex,
-            address,
-            keyPair
-        };
+        const keyPair = bitcoin.ECPair.fromWIF(wif, NETWORK);
+        const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey, network: NETWORK });
+        return { address, wif, keyPair, mnemonic: null };
     }
 
-    // Build dan sign transaksi dari UTXO list
-    async function buildAndSignTransaction(utxos, fromAddress, toAddress, amountSatoshi, keyPair, feeSatoshi = 10000) {
-        // amountSatoshi = jumlah yang ingin dikirim (tanpa fee)
-        // fee default 10000 satoshi (bisa disesuaikan)
+    // ==================== Build & Sign Transaction ====================
+    async function buildAndSignTx(toAddress, amountSatoshi, useMax = false) {
+        if (!currentWallet) throw new Error('Wallet not loaded');
+        const utxos = await getUtxos(currentWallet.address);
+        if (!utxos.length) throw new Error('No UTXOs available');
+        
         let totalInput = 0;
-        const inputs = [];
+        let selectedUtxos = [];
         for (const utxo of utxos) {
             totalInput += utxo.amount;
-            inputs.push({
-                txid: utxo.txid,
-                vout: utxo.vout,
-                amount: utxo.amount,
-                scriptPubKey: utxo.scriptPubKey
-            });
-            if (totalInput >= amountSatoshi + feeSatoshi) break;
+            selectedUtxos.push(utxo);
+            if (totalInput >= amountSatoshi + FEE_SAT) break;
         }
-        if (totalInput < amountSatoshi + feeSatoshi) {
-            throw new Error(`Saldo tidak cukup. Butuh ${amountSatoshi+feeSatoshi} satoshi, punya ${totalInput}`);
+        if (useMax) {
+            if (totalInput <= FEE_SAT) throw new Error('Insufficient funds for fee');
+            amountSatoshi = totalInput - FEE_SAT;
         }
-
-        const psbt = new bitcoin.Psbt({ network: coin996Network });
-        // Tambahkan inputs
-        for (const inp of inputs) {
+        if (totalInput < amountSatoshi + FEE_SAT) {
+            throw new Error(`Insufficient balance: need ${amountSatoshi+FEE_SAT}, have ${totalInput}`);
+        }
+        
+        const psbt = new bitcoin.Psbt({ network: NETWORK });
+        // Add inputs
+        for (const u of selectedUtxos) {
+            // Kita butuh scriptPubKey sebagai Buffer. API mengembalikan scriptPubKey dalam hex?
+            if (!u.scriptPubKey) throw new Error(`UTXO missing scriptPubKey: ${JSON.stringify(u)}`);
+            const scriptBuf = Buffer.from(u.scriptPubKey, 'hex');
             psbt.addInput({
-                hash: inp.txid,
-                index: inp.vout,
-                nonWitnessUtxo: undefined, // untuk p2pkh cukup dengan witnessUtxo?
-                // Untuk segwit? 996-Coin legacy, gunakan scriptPubKey
-                // Kita butuh redeem script? Tidak, cukup dengan nonWitnessUtxo atau witnessUtxo? Karena legacy, kita gunakan nonWitnessUtxo
-                // TAPI kita tidak punya raw transaksi. Solusi: gunakan mode dengan input scriptPubKey dan sign dengan keyPair.
-                // Alternatif: tambahkan dengan witnessUtxo? Tidak perlu, cukup pakai properti 'witnessUtxo' untuk p2pkh?
-                // Untuk p2pkh, kita perlu menyertakan scriptPubKey dan amount. Gunakan 'witnessUtxo' meskipun bukan segwit.
-                // Atau kita bisa gunakan 'nonWitnessUtxo' jika punya full tx, tapi tidak punya.
-                // Banyak wallet client-side menggunakan pola: 
-                psbt.addInput({
-                    hash: inp.txid,
-                    index: inp.vout,
-                    witnessUtxo: {
-                        script: Buffer.from(inp.scriptPubKey, 'hex'),
-                        value: inp.amount
-                    }
-                });
+                hash: u.txid,
+                index: u.vout,
+                witnessUtxo: {
+                    script: scriptBuf,
+                    value: u.amount
+                },
+                // nonWitnessUtxo tidak tersedia, gunakan witnessUtxo untuk p2pkh (didukung)
             });
         }
-        // Output utama ke tujuan
-        psbt.addOutput({
-            address: toAddress,
-            value: amountSatoshi
-        });
-        // Sisa (change) ke alamat pengirim
-        const changeAmount = totalInput - amountSatoshi - feeSatoshi;
-        if (changeAmount > 0) {
-            psbt.addOutput({
-                address: fromAddress,
-                value: changeAmount
-            });
+        // Output to recipient
+        psbt.addOutput({ address: toAddress, value: amountSatoshi });
+        // Change output
+        const change = totalInput - amountSatoshi - FEE_SAT;
+        if (change > 0) {
+            psbt.addOutput({ address: currentWallet.address, value: change });
         }
-        // Sign semua input
-        for (let i = 0; i < inputs.length; i++) {
-            psbt.signInput(i, keyPair);
+        // Sign all inputs
+        for (let i = 0; i < selectedUtxos.length; i++) {
+            psbt.signInput(i, currentWallet.keyPair);
             psbt.validateSignaturesOfInput(i);
             psbt.finalizeInput(i);
         }
@@ -353,172 +179,132 @@
         return tx.toHex();
     }
 
-    // Update UI wallet
+    // ==================== UI ====================
     function updateUI() {
-        if (currentWallet.address) {
-            document.getElementById('walletStatus').innerHTML = `✅ Wallet aktif: <strong>${currentWallet.address}</strong>`;
-            document.getElementById('addressDisplay').innerHTML = `📭 Address: ${currentWallet.address}<br>🔑 Private Key (WIF): ${currentWallet.privateKeyWIF.substring(0,10)}... (tersimpan di memory)`;
-            document.getElementById('refreshBalanceBtn').disabled = false;
-            document.getElementById('showUtxosBtn').disabled = false;
+        if (currentWallet && currentWallet.address) {
+            document.getElementById('walletInfo').innerHTML = `✅ Address: ${currentWallet.address}<br>🔑 WIF: ${currentWallet.wif.substring(0,10)}...`;
+            document.getElementById('addressDisplay').innerHTML = `Address: ${currentWallet.address}`;
+            document.getElementById('refreshBtn').disabled = false;
+            document.getElementById('utxoBtn').disabled = false;
             document.getElementById('sendBtn').disabled = false;
             document.getElementById('sendMaxBtn').disabled = false;
         } else {
-            document.getElementById('walletStatus').innerHTML = '❌ Belum ada wallet. Generate atau import.';
+            document.getElementById('walletInfo').innerHTML = '❌ No wallet';
             document.getElementById('addressDisplay').innerHTML = '';
             document.getElementById('balanceValue').innerText = '0';
-            document.getElementById('utxoList').innerHTML = '';
-            document.getElementById('refreshBalanceBtn').disabled = true;
-            document.getElementById('showUtxosBtn').disabled = true;
+            document.getElementById('refreshBtn').disabled = true;
+            document.getElementById('utxoBtn').disabled = true;
             document.getElementById('sendBtn').disabled = true;
             document.getElementById('sendMaxBtn').disabled = true;
         }
     }
 
-    // Refresh saldo
     async function refreshBalance() {
-        if (!currentWallet.address) return;
+        if (!currentWallet) return;
         try {
             const bal = await getBalance(currentWallet.address);
             document.getElementById('balanceValue').innerText = bal.toLocaleString();
-        } catch(e) {
-            alert('Gagal ambil saldo: ' + e.message);
+        } catch (err) {
+            showError('Refresh balance: ' + err.message);
         }
     }
 
-    // Tampilkan UTXO
-    async function displayUtxos() {
-        if (!currentWallet.address) return;
-        const utxos = await getUtxos(currentWallet.address);
-        const container = document.getElementById('utxoList');
-        if (utxos.length === 0) {
-            container.innerHTML = '<div class="utxo-item">Tidak ada UTXO (saldo 0 atau belum terkumpul)</div>';
-            return;
-        }
-        let html = '';
-        for (const u of utxos) {
-            html += `<div class="utxo-item">txid: ${u.txid.substring(0,16)}... vout:${u.vout} amount: ${u.amount} sat</div>`;
-        }
-        container.innerHTML = html;
-    }
-
-    // Kirim transaksi (manual jumlah)
-    async function sendTransaction(useMax = false) {
-        if (!currentWallet.address) {
-            alert('Wallet belum aktif');
-            return;
-        }
-        const toAddr = document.getElementById('toAddress').value.trim();
-        if (!toAddr || !toAddr.startsWith('N')) {
-            alert('Alamat tujuan harus dimulai dengan N (format 996-Coin)');
-            return;
-        }
-        let amount = parseInt(document.getElementById('sendAmount').value);
-        if (isNaN(amount) || amount <= 0) {
-            if (!useMax) {
-                alert('Masukkan jumlah yang valid (dalam satoshi)');
-                return;
-            }
-        }
-
+    async function showUtxos() {
+        if (!currentWallet) return;
         try {
-            document.getElementById('txResult').innerHTML = '⏳ Mengambil UTXO...';
             const utxos = await getUtxos(currentWallet.address);
-            if (utxos.length === 0) throw new Error('Tidak ada UTXO untuk dikirim');
-            let totalInput = utxos.reduce((s, u) => s + u.amount, 0);
-            let sendAmount = amount;
-            if (useMax) {
-                // Kirim maksimal kurangi fee default 10000
-                const fee = 10000;
-                if (totalInput <= fee) throw new Error('Saldo tidak cukup untuk fee');
-                sendAmount = totalInput - fee;
+            const container = document.getElementById('utxoList');
+            if (!utxos.length) { container.innerHTML = '<i>Tidak ada UTXO</i>'; return; }
+            let html = '';
+            for (const u of utxos) {
+                html += `<div>📦 ${u.txid.substring(0,16)}... vout:${u.vout} amount:${u.amount} sat</div>`;
             }
-            if (sendAmount <= 0) throw new Error('Jumlah kirim terlalu kecil (setelah fee)');
-            document.getElementById('txResult').innerHTML = '✍️ Membangun dan menandatangani transaksi...';
-            const rawTx = await buildAndSignTransaction(utxos, currentWallet.address, toAddr, sendAmount, currentWallet.keyPair, 10000);
-            document.getElementById('txResult').innerHTML = '📡 Broadcast ke jaringan...';
-            const result = await sendRawTransaction(rawTx);
-            if (result.error) {
-                throw new Error(result.error);
-            }
-            document.getElementById('txResult').innerHTML = `✅ Transaksi berhasil! TXID: ${result.txid || result}`;
+            container.innerHTML = html;
+        } catch (err) {
+            showError('UTXO: ' + err.message);
+        }
+    }
+
+    async function send(useMax = false) {
+        const to = document.getElementById('toAddress').value.trim();
+        if (!to || !to.startsWith('N')) { showError('Alamat tujuan harus dimulai dengan N'); return; }
+        let amount = parseInt(document.getElementById('sendAmount').value);
+        if (!useMax && (isNaN(amount) || amount <= 0)) { showError('Jumlah tidak valid'); return; }
+        const resultDiv = document.getElementById('txResult');
+        resultDiv.innerHTML = '⏳ Membangun transaksi...';
+        try {
+            const rawTx = await buildAndSignTx(to, amount, useMax);
+            resultDiv.innerHTML = '📡 Broadcast...';
+            const response = await broadcastTx(rawTx);
+            if (response.error) throw new Error(response.error);
+            resultDiv.innerHTML = `<span class="success">✅ Sukses! TXID: ${response.txid || response}</span>`;
             await refreshBalance();
-            displayUtxos();
+            showUtxos();
             document.getElementById('sendAmount').value = '';
         } catch (err) {
-            document.getElementById('txResult').innerHTML = `❌ Gagal: ${err.message}`;
+            resultDiv.innerHTML = `<span class="error">❌ ${err.message}</span>`;
             console.error(err);
         }
     }
 
+    function showError(msg) {
+        const errDiv = document.getElementById('globalError');
+        errDiv.innerText = msg;
+        errDiv.style.display = 'block';
+        setTimeout(() => errDiv.style.display = 'none', 5000);
+    }
+
     // Event handlers
     document.getElementById('generateBtn').onclick = async () => {
-        const mnemonic = bip39.generateMnemonic(128); // 12 words
         try {
-            const wallet = await generateWalletFromMnemonic(mnemonic);
+            const wallet = await generateFromMnemonic();
             currentWallet = wallet;
             updateUI();
             await refreshBalance();
-            alert(`Wallet baru dibuat!\nMnemonic: ${mnemonic}\nSimpan baik-baik.`);
-        } catch(e) {
-            alert('Error: ' + e.message);
-        }
+            alert(`Wallet baru dibuat!\nMnemonic: ${wallet.mnemonic}\nSimpan baik-baik.`);
+        } catch(e) { showError(e.message); }
     };
-
     document.getElementById('importMnemonicBtn').onclick = () => {
-        const area = document.getElementById('importArea');
-        area.style.display = 'block';
-        document.getElementById('importInput').placeholder = 'Masukkan 12 kata mnemonic...';
+        document.getElementById('importArea').style.display = 'block';
+        document.getElementById('importInput').placeholder = '12 kata mnemonic...';
         document.getElementById('confirmImport').onclick = async () => {
             const mnemonic = document.getElementById('importInput').value.trim();
-            if (!mnemonic) return;
             try {
-                const wallet = await generateWalletFromMnemonic(mnemonic);
+                const wallet = await generateFromMnemonic(mnemonic);
                 currentWallet = wallet;
                 updateUI();
                 await refreshBalance();
-                alert('Import berhasil!');
                 document.getElementById('importArea').style.display = 'none';
-                document.getElementById('importInput').value = '';
-            } catch(e) {
-                alert('Mnemonic tidak valid: ' + e.message);
-            }
+                alert('Import mnemonic sukses');
+            } catch(e) { showError(e.message); }
         };
     };
-
     document.getElementById('importPrivateBtn').onclick = () => {
-        const area = document.getElementById('importArea');
-        area.style.display = 'block';
-        document.getElementById('importInput').placeholder = 'Masukkan private key (WIF), contoh: L... atau K...';
+        document.getElementById('importArea').style.display = 'block';
+        document.getElementById('importInput').placeholder = 'Private Key WIF...';
         document.getElementById('confirmImport').onclick = () => {
             const wif = document.getElementById('importInput').value.trim();
-            if (!wif) return;
             try {
                 const wallet = importFromWIF(wif);
                 currentWallet = wallet;
                 updateUI();
                 refreshBalance();
-                alert('Import private key berhasil!');
                 document.getElementById('importArea').style.display = 'none';
-                document.getElementById('importInput').value = '';
-            } catch(e) {
-                alert('Private key tidak valid: ' + e.message);
-            }
+                alert('Import WIF sukses');
+            } catch(e) { showError(e.message); }
         };
     };
-
     document.getElementById('lockBtn').onclick = () => {
-        currentWallet = {};
+        currentWallet = null;
         updateUI();
         document.getElementById('utxoList').innerHTML = '';
         document.getElementById('balanceValue').innerText = '0';
         document.getElementById('txResult').innerHTML = '';
-        alert('Wallet telah dikosongkan dari memory.');
     };
-
-    document.getElementById('refreshBalanceBtn').onclick = refreshBalance;
-    document.getElementById('showUtxosBtn').onclick = displayUtxos;
-    document.getElementById('sendBtn').onclick = () => sendTransaction(false);
-    document.getElementById('sendMaxBtn').onclick = () => sendTransaction(true);
+    document.getElementById('refreshBtn').onclick = refreshBalance;
+    document.getElementById('utxoBtn').onclick = showUtxos;
+    document.getElementById('sendBtn').onclick = () => send(false);
+    document.getElementById('sendMaxBtn').onclick = () => send(true);
 
     updateUI();
 </script>
