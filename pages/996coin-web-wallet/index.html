@@ -3,28 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>996-Coin Web Wallet (Fixed)</title>
+    <title>996-Coin Web Wallet - Final</title>
     <script src="https://cdn.jsdelivr.net/npm/bip39@3.0.4/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bitcoinjs-lib@5.2.0/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bs58check@2.1.2/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bitcoinjs-lib@5.2.0/dist/bitcoinjs-lib.js"></script>
     <style>
         * { box-sizing: border-box; font-family: system-ui; }
         body { background: #1e1f2c; color: #eee; padding: 20px; display: flex; justify-content: center; }
         .container { max-width: 800px; width: 100%; background: #0f1222; border-radius: 24px; padding: 24px; }
-        button, .btn { background: #2a3f6e; border: none; color: white; padding: 8px 16px; border-radius: 40px; cursor: pointer; margin: 4px; }
+        button { background: #2a3f6e; border: none; color: white; padding: 8px 16px; border-radius: 40px; cursor: pointer; margin: 4px; }
         button.danger { background: #8b3c3c; }
         input, textarea { width: 100%; padding: 10px; margin: 8px 0; background: #0b0e1a; border: 1px solid #2e3a5c; color: white; border-radius: 20px; }
         .address-box { background: #0a0c16; padding: 12px; border-radius: 20px; word-break: break-all; margin: 12px 0; }
         .balance { font-size: 2rem; color: #6fcf97; }
         .error { color: #ff8888; background: #3a1a1a; padding: 8px; border-radius: 16px; margin-top: 8px; }
         .success { color: #88ff88; }
-        hr { border-color: #2e3a5c; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>⛏️ 996-Coin Web Wallet (Fixed)</h2>
-    <div class="card">
+    <h2>⛏️ 996-Coin Web Wallet (Final)</h2>
+    <div>
         <button id="generateBtn">✨ Generate Wallet</button>
         <button id="importMnemonicBtn">🔑 Import Mnemonic</button>
         <button id="importPrivateBtn">🔐 Import WIF</button>
@@ -35,7 +33,7 @@
         </div>
         <div id="walletInfo" class="address-box">Belum ada wallet</div>
     </div>
-    <div class="card">
+    <div>
         <h3>💰 Saldo</h3>
         <div id="addressDisplay"></div>
         <div><span class="balance" id="balanceValue">0</span> satoshi</div>
@@ -43,7 +41,7 @@
         <button id="utxoBtn">Lihat UTXO</button>
         <div id="utxoList" style="font-size:0.8rem; max-height:150px; overflow:auto;"></div>
     </div>
-    <div class="card">
+    <div>
         <h3>✉️ Kirim</h3>
         <input type="text" id="toAddress" placeholder="Alamat tujuan (N...)" autocomplete="off">
         <input type="number" id="sendAmount" placeholder="Jumlah (satoshi)">
@@ -64,20 +62,19 @@
         wif: 0x80
     };
     const API_BASE = 'https://explorer.996coin.com/api';
-    const FEE_SAT = 10000; // 10k sat fee
+    const FEE_SAT = 10000;
 
-    let currentWallet = null; // { address, wif, keyPair, mnemonic? }
+    let currentWallet = null;
 
-    // Helper fetch dengan error handling
     async function apiGet(endpoint) {
         const url = `${API_BASE}${endpoint}`;
         const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}: ${url}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const text = await res.text();
         try {
             return JSON.parse(text);
         } catch(e) {
-            throw new Error(`Invalid JSON from ${url}: ${text.substring(0,100)}`);
+            throw new Error(`Invalid JSON: ${text.substring(0,100)}`);
         }
     }
 
@@ -105,13 +102,11 @@
         }
     }
 
-    // ==================== Wallet Functions ====================
     async function generateFromMnemonic(mnemonic = null) {
         if (!mnemonic) mnemonic = bip39.generateMnemonic(128);
         if (!bip39.validateMnemonic(mnemonic)) throw new Error('Mnemonic invalid');
         const seed = await bip39.mnemonicToSeed(mnemonic);
         const root = bitcoin.bip32.fromSeed(seed, NETWORK);
-        // path m/44'/0'/0'/0/0 (Bitcoin standard)
         const child = root.derivePath("m/44'/0'/0'/0/0");
         const keyPair = child.keyPair;
         const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey, network: NETWORK });
@@ -125,32 +120,29 @@
         return { address, wif, keyPair, mnemonic: null };
     }
 
-    // ==================== Build & Sign Transaction ====================
     async function buildAndSignTx(toAddress, amountSatoshi, useMax = false) {
         if (!currentWallet) throw new Error('Wallet not loaded');
         const utxos = await getUtxos(currentWallet.address);
-        if (!utxos.length) throw new Error('No UTXOs available');
+        if (!utxos.length) throw new Error('No UTXOs');
         
         let totalInput = 0;
-        let selectedUtxos = [];
-        for (const utxo of utxos) {
-            totalInput += utxo.amount;
-            selectedUtxos.push(utxo);
+        let selected = [];
+        for (const u of utxos) {
+            totalInput += u.amount;
+            selected.push(u);
             if (totalInput >= amountSatoshi + FEE_SAT) break;
         }
         if (useMax) {
-            if (totalInput <= FEE_SAT) throw new Error('Insufficient funds for fee');
+            if (totalInput <= FEE_SAT) throw new Error('Insufficient for fee');
             amountSatoshi = totalInput - FEE_SAT;
         }
         if (totalInput < amountSatoshi + FEE_SAT) {
-            throw new Error(`Insufficient balance: need ${amountSatoshi+FEE_SAT}, have ${totalInput}`);
+            throw new Error(`Need ${amountSatoshi+FEE_SAT}, have ${totalInput}`);
         }
         
         const psbt = new bitcoin.Psbt({ network: NETWORK });
-        // Add inputs
-        for (const u of selectedUtxos) {
-            // Kita butuh scriptPubKey sebagai Buffer. API mengembalikan scriptPubKey dalam hex?
-            if (!u.scriptPubKey) throw new Error(`UTXO missing scriptPubKey: ${JSON.stringify(u)}`);
+        for (const u of selected) {
+            if (!u.scriptPubKey) throw new Error('UTXO missing scriptPubKey');
             const scriptBuf = Buffer.from(u.scriptPubKey, 'hex');
             psbt.addInput({
                 hash: u.txid,
@@ -158,19 +150,15 @@
                 witnessUtxo: {
                     script: scriptBuf,
                     value: u.amount
-                },
-                // nonWitnessUtxo tidak tersedia, gunakan witnessUtxo untuk p2pkh (didukung)
+                }
             });
         }
-        // Output to recipient
         psbt.addOutput({ address: toAddress, value: amountSatoshi });
-        // Change output
         const change = totalInput - amountSatoshi - FEE_SAT;
         if (change > 0) {
             psbt.addOutput({ address: currentWallet.address, value: change });
         }
-        // Sign all inputs
-        for (let i = 0; i < selectedUtxos.length; i++) {
+        for (let i = 0; i < selected.length; i++) {
             psbt.signInput(i, currentWallet.keyPair);
             psbt.validateSignaturesOfInput(i);
             psbt.finalizeInput(i);
@@ -179,7 +167,6 @@
         return tx.toHex();
     }
 
-    // ==================== UI ====================
     function updateUI() {
         if (currentWallet && currentWallet.address) {
             document.getElementById('walletInfo').innerHTML = `✅ Address: ${currentWallet.address}<br>🔑 WIF: ${currentWallet.wif.substring(0,10)}...`;
@@ -205,7 +192,7 @@
             const bal = await getBalance(currentWallet.address);
             document.getElementById('balanceValue').innerText = bal.toLocaleString();
         } catch (err) {
-            showError('Refresh balance: ' + err.message);
+            showError('Refresh: ' + err.message);
         }
     }
 
@@ -254,7 +241,6 @@
         setTimeout(() => errDiv.style.display = 'none', 5000);
     }
 
-    // Event handlers
     document.getElementById('generateBtn').onclick = async () => {
         try {
             const wallet = await generateFromMnemonic();
