@@ -1877,7 +1877,7 @@ libs.bitcoin.networks.argoneum = {
   wif: 0xbf
 };
 
-// ── Dorkcoin (mainnet) ────────────────────────────────────────────────────────
+// ── Dorkcoin (bitcoinjs-extensions.js ──────────────────────────────────────────────── ────────────────────────────────────────────────────────
 libs.bitcoin.networks.dorkcoin = {
     messagePrefix: '\x18Dorkcoin Signed Message:\n',
     bip32: {
@@ -1885,7 +1885,7 @@ libs.bitcoin.networks.dorkcoin = {
         private: 0x0488ade4
     },
     pubKeyHash: 0x1e,
-    scriptHash: 0x5a,
+    scriptHash: 0x08,
     wif: 0x9c
 };
 
@@ -1896,6 +1896,6 @@ libs.bitcoin.networks.dorkcointestnet = {
         private: 0x04358394
     },
     pubKeyHash: 0x1e,
-    scriptHash: 0x5a,
+    scriptHash: 0x08,
     wif: 0xef
 };

@@ -765,7 +765,7 @@ libs.bitcoin.networks.sugarchaintestnet.p2wpkhInP2sh = {
 	wif: 0xef
 };
 
-// ── Dorkcoin SegWit Parameters ────────────────────────────────────────────────
+// ── Dorkcoin SegWit Parameters (segwit-parameters.js ────────────────────────────────────────────────
 
 // BIP49 — P2SH-P2WPKH mainnet (scriptHash 0x5a → prefix 4...)
 libs.bitcoin.networks.dorkcoin.p2wpkhInP2sh = {
@@ -777,7 +777,7 @@ libs.bitcoin.networks.dorkcoin.p2wpkhInP2sh = {
         private: 0x049d7878   // yprv
     },
     pubKeyHash: 0x1e,
-    scriptHash: 0x5a,
+    scriptHash: 0x08,
     wif:        0x9c
 };
 
