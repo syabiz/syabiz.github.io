@@ -2250,7 +2250,7 @@
     }
 
     var networks = [
-        {
+		{
             name: "AC - Asiacoin",
             onSelect: function() {
                 network = libs.bitcoin.networks.asiacoin;
@@ -3132,6 +3132,13 @@
             onSelect: function() {
                 network = libs.bitcoin.networks.namecoin;
                 setHdCoin(7);
+            },
+        },
+        {
+            name: "NNS - 996coin",
+            onSelect: function() {
+                network = libs.bitcoin.networks.coin996;
+                setHdCoin(996);
             },
         },
         {
