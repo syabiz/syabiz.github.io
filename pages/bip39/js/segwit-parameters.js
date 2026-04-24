@@ -778,7 +778,7 @@ libs.bitcoin.networks.dorkcoin.p2wpkhInP2sh = {
     },
     pubKeyHash: 0x1e,
     scriptHash: 0x08,
-    wif:        0x9c
+    wif:        0x9e
 };
 
 // BIP84 — Native SegWit P2WPKH mainnet (HRP "dork" → prefix dork1q...)
@@ -792,7 +792,7 @@ libs.bitcoin.networks.dorkcoin.p2wpkh = {
     },
     pubKeyHash: 0x1e,
     scriptHash: 0x5a,
-    wif:        0x9c
+    wif:        0x9e
 };
 
 // BIP86 — Taproot P2TR mainnet (HRP "dorkcoin" → prefix dorkcoin1p...)
@@ -806,7 +806,7 @@ libs.bitcoin.networks.dorkcoin.p2tr = {
     },
     pubKeyHash: 0x1e,
     scriptHash: 0x5a,
-    wif:        0x9c
+    wif:        0x9e
 };
 
 // BIP84 — Native SegWit P2WPKH testnet (HRP "dorktest" → prefix dorktest1q...)

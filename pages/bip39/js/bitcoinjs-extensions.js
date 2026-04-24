@@ -1886,7 +1886,7 @@ libs.bitcoin.networks.dorkcoin = {
     },
     pubKeyHash: 0x1e,
     scriptHash: 0x08,
-    wif: 0x9c
+    wif: 0x9e
 };
 
 libs.bitcoin.networks.dorkcointestnet = {
