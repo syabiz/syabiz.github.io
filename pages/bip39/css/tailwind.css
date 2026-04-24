@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  code {
+    @apply px-1 text-green-800 rounded bg-green-50 -mx-0.5 py-0.5 -my-0.5;
+  }
+
+  tbody {
+    @apply bg-white divide-y divide-gray-200;
+  }
+
+  td {
+    @apply px-6 py-3 text-sm text-gray-700 whitespace-nowrap;
+  }
+}
+
+@layer utilities {
+  .visual-privacy .private-data,
+  .addresses .invisible {
+    @apply pointer-events-none filter blur-sm;
+  }
+
+  .ok-textarea:read-only,
+  .ok-input:read-only {
+    @apply text-gray-500 bg-gray-200;
+  }
+
+  .qr-image canvas {
+    @apply max-w-[120px] max-h-[120px];
+  }
+
+  .anchor-link-active {
+    @apply text-gray-900 bg-gray-100 hover:bg-gray-100 !important;
+  }
+
+  .anchor-link-active svg {
+    @apply text-gray-500;
+  }
+
+  .entropy-container.hidden + *,
+  .generate-container.hidden + * {
+    @apply mt-0 !important;
+  }
+}
+
+@layer components {
+  .ok-container {
+    @apply max-w-5xl px-4 py-4 pb-8 mx-auto md:py-8 md:px-6 lg:px-8 md:pb-16;
+  }
+
+  .ok-header {
+    @apply flex justify-between mb-8 md:mb-12;
+  }
+
+  .ok-textarea {
+    @apply block w-full placeholder-gray-400 border border-gray-300 rounded-md shadow-sm sm:text-sm focus:ring-green-500 focus:border-green-500;
+  }
+
+  .ok-input {
+    @apply block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm;
+  }
+
+  .ok-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  .ok-select {
+    @apply block py-2 pl-3 pr-10 text-base border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm;
+  }
+
+  .ok-checkbox {
+    @apply w-4 h-4 mr-2 text-green-600 border-gray-300 rounded shadow-sm focus:ring-green-500;
+  }
+
+  .ok-radio {
+    @apply w-4 h-4 text-green-600 border-gray-300 shadow-sm focus:ring-green-500;
+  }
+
+  .ok-notification {
+    @apply max-w-full p-4 text-gray-900 bg-white rounded-lg shadow-lg pointer-events-auto w-72 ring-1 ring-black ring-opacity-5;
+  }
+
+  .ok-card {
+    @apply bg-white shadow md:border md:border-gray-200 md:rounded-lg;
+  }
+
+  .ok-card__header {
+    @apply flex justify-between px-4 py-5 md:px-6;
+  }
+
+  .ok-card__body {
+    @apply px-4 py-5 space-y-6 border-t border-gray-200 md:px-6;
+  }
+
+  .ok-card__header-title {
+    @apply text-lg font-medium leading-6 text-gray-900;
+  }
+
+  .ok-helper-text {
+    @apply mt-2 text-sm text-gray-500;
+  }
+
+  .ok-helper-text--danger {
+    @apply text-red-600;
+  }
+
+  .ok-tab {
+    @apply block px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:border-gray-300 whitespace-nowrap;
+  }
+
+  .active .ok-tab {
+    @apply text-green-600 border-green-500;
+  }
+
+  .tab-pane {
+    @apply hidden;
+  }
+
+  .tab-pane.active {
+    @apply block;
+  }
+
+  .insert-card {
+    @apply p-3 space-y-6 border border-gray-200 rounded-lg sm:p-6 bg-gray-50;
+  }
+
+  .dropdown {
+    @apply relative self-start;
+  }
+
+  .dropdown__menu {
+    @apply absolute p-1 transition origin-top-right transform scale-95 bg-white border border-gray-300 rounded-lg shadow-lg opacity-0 pointer-events-none -right-2 top-full;
+  }
+
+  .dropdown__menu--active {
+    @apply scale-100 translate-y-2 opacity-100 pointer-events-auto;
+  }
+}
