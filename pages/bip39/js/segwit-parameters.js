@@ -769,7 +769,7 @@ libs.bitcoin.networks.sugarchaintestnet.p2wpkhInP2sh = {
 // BIP49 — Nested SegWit P2WPKHINP2SH mainnet
 libs.bitcoin.networks.dorkcoin.p2wpkhInP2sh = {
     baseNetwork: "dorkcoin",
-    messagePrefix: '\x19Dorkcoin Signed Message:\n',
+    messagePrefix: '\x18Dorkcoin Signed Message:\n',
     bech32: 'dork',
     bip32: {
         public:  0x049d7cb2,
@@ -783,7 +783,7 @@ libs.bitcoin.networks.dorkcoin.p2wpkhInP2sh = {
 // BIP84 — Native SegWit P2WPKH mainnet
 libs.bitcoin.networks.dorkcoin.p2wpkh = {
     baseNetwork: "dorkcoin",
-    messagePrefix: '\x19Dorkcoin Signed Message:\n',
+    messagePrefix: '\x18Dorkcoin Signed Message:\n',
     bech32: 'dork',
     bip32: {
         public:  0x04b24746,
@@ -797,7 +797,7 @@ libs.bitcoin.networks.dorkcoin.p2wpkh = {
 // BIP86 — Taproot P2TR mainnet
 libs.bitcoin.networks.dorkcoin.p2tr = {
     baseNetwork: "dorkcoin",
-    messagePrefix: '\x19Dorkcoin Signed Message:\n',
+    messagePrefix: '\x18Dorkcoin Signed Message:\n',
     bech32: 'dorkcoin',
     bip32: {
         public:  0x0488b21e,
@@ -811,7 +811,7 @@ libs.bitcoin.networks.dorkcoin.p2tr = {
 // BIP84 — Native SegWit P2WPKH testnet
 libs.bitcoin.networks.dorkcointestnet.p2wpkh = {
     baseNetwork: "dorkcointestnet",
-    messagePrefix: '\x19Dorkcoin Signed Message:\n',
+    messagePrefix: '\x18Dorkcoin Signed Message:\n',
     bech32: 'dorktest',
     bip32: {
         public:  0x045f1cf6,
@@ -826,7 +826,7 @@ libs.bitcoin.networks.dorkcointestnet.p2wpkh = {
 // BIP49 — Nested SegWit P2WPKHINP2SH mainnet
 libs.bitcoin.networks.coin996.p2wpkhInP2sh = {
     baseNetwork: "coin996",
-    messagePrefix: '\x19996coin Signed Message:\n',
+    messagePrefix: '\x18996coin Signed Message:\n',
     bech32: '8',
     bip32: {
         public:  0x049d7cb2,
@@ -840,7 +840,7 @@ libs.bitcoin.networks.coin996.p2wpkhInP2sh = {
 // BIP84 — Native SegWit P2WPKH mainnet
 libs.bitcoin.networks.coin996.p2wpkh = {
     baseNetwork: "coin996",
-    messagePrefix: '\x19996coin Signed Message:\n',
+    messagePrefix: '\x18996coin Signed Message:\n',
     bech32: '996',
     bip32: {
         public: 0x04b24746,
